@@ -1,0 +1,15 @@
+.DS_Store
+.env
+/node_modules/
+
+# React Router
+/.react-router/
+/build/
+
+# Local Netlify folder
+.netlify
+.netlify/state.json
+.netlify/*
+
+#VSCode settings
+frontend-web.code-workspace

@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-primary: #aecf98;
+  --color-primary-dark: #9cba89;
+  --text-color-primary: #262424;
+  --input-border-color: #294a2b;
+  /* Fonts */
+  --font-title: "Russo One", sans-serif;
+  --font-raleway: "Raleway", "sans-serif";
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Button utilities using the theme variables */
+.btn-primary {
+  background-color: #aecf98;
+  color: var(--text-color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.95);
+}
+
+html,
+body {
+  @apply bg-white dark:bg-gray-950;
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+  }
+}
+
+.menu-item {
+  @apply border-b border-black px-4 py-3 flex items-center gap-2 cursor-pointer hover:bg-[#A4C894];
+}
+.settings-item {
+  @apply border-t border-b border-black w-full pl-10 flex justify-between items-center max-h-[80px] h-full transition-all duration-300;
+}
