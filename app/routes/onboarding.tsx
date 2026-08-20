@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import type { ChatItem, Message } from "~/types/Types";
+import type { ChatItem, Message } from "~/types";
 import { useNavigate } from "react-router";
 
 export default function LelekaChat() {
