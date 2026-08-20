@@ -1,8 +1,8 @@
 import { Link } from "react-router";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
 import { useState } from "react";
-import type { Stage2 } from "../types/Types";
+import type { Stage2 } from "../../types";
 import { useNavigate } from "react-router";
 
 export default function Stage2ChangeEmail() {
