@@ -58,7 +58,7 @@ function LoginPage() {
         } else {
           setError("Вхід успішний!");
           setUser(data.user);
-          navigate("/onboarding");
+          navigate("/");
         }
       }
     } catch (err: any) {
