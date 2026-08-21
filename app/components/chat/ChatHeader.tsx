@@ -22,37 +22,39 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
   onToggleMenu,
 }) => {
   return (
-    <header className="h-[80px] w-full px-12 flex items-center justify-between bg-white border-b border-gray-200 z-10 shrink-0">
-      <div className="flex items-center gap-3">
+    <header className="h-[120px] w-full px-8 flex items-center justify-between bg-white border-b border-gray-100 z-10 shrink-0">
+      <div className="flex items-center gap-4">
         {selected ? (
           <>
-            <button onClick={onBack} className="p-2 hover:bg-gray-200 rounded-xl transition">
-              <ArrowLeft className="w-5 h-5 text-gray-700" />
+            <button onClick={onBack} className="p-2 hover:bg-gray-100 rounded-xl transition">
+              <ArrowLeft className="w-6 h-6 text-gray-700" />
             </button>
             <div onClick={onOpenProfile} className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
-              <div className="w-10 h-10 rounded-full bg-[#E8EDE0] flex items-center justify-center font-bold text-[#3A4D28]">
+              <div className="w-12 h-12 rounded-full bg-[#E8EDE0] flex items-center justify-center font-bold text-[#3A4D28]">
                 {selected.name[0]}
               </div>
               <div>
-                <h2 className="font-bold text-gray-900 leading-tight">{selected.name}</h2>
+                <h2 className="font-bold text-gray-900 text-lg leading-tight">{selected.name}</h2>
                 <span className="text-xs text-green-600 font-medium">{selected.status}</span>
               </div>
             </div>
           </>
         ) : (
-          <h1 className="text-[28px] font-bold text-black tracking-tight">Чати</h1>
+          <h1 className="text-[32px] font-semibold text-black tracking-tight">Чати</h1>
         )}
       </div>
 
       {!selected && (
-        <div className="relative w-full max-w-[480px]">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+        <div className="relative w-[505px] h-[58px]">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 w-[30px] h-[30px] flex items-center justify-center pointer-events-none">
+            <Search className="w-[30px] h-[30px] text-gray-700" />
+          </div>
           <input
             type="text"
             placeholder="Пошук контактів..."
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-md text-sm outline-none placeholder:text-gray-400 focus:border-[#425235] transition"
+            className="w-full h-full pl-[58px] pr-4 bg-white border-[1.5px] border-[#D9D9D9] rounded-[10px] text-[18px] text-black outline-none placeholder:text-[#999994] focus:border-[#425731] transition"
           />
         </div>
       )}
@@ -61,17 +63,17 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
         {!selected ? (
           <button
             onClick={onNavigateContacts}
-            className="flex items-center gap-2.5 px-6 py-2.5 bg-[#425235] text-white rounded-xl text-sm font-medium hover:bg-[#344229] transition shadow-sm"
+            className="h-[58px] px-6 flex items-center gap-2.5 bg-[#425731] text-white rounded-[10px] text-base font-medium hover:bg-[#344229] transition shadow-sm"
           >
             <span>Додати контакт</span>
-            <Plus className="w-4 h-4" />
+            <Plus className="w-5 h-5" />
           </button>
         ) : (
           <button
             onClick={onToggleMenu}
-            className="p-2.5 border border-purple-200 rounded-xl text-purple-600 hover:bg-purple-50 transition"
+            className="p-3 border border-[#425731] rounded-xl text-[#425731] hover:bg-[#ECF1DE]/40 transition"
           >
-            <SlidersHorizontal className="w-5 h-5" />
+            <SlidersHorizontal className="w-6 h-6" />
           </button>
         )}
       </div>

@@ -1,3 +1,4 @@
+import { Check, CheckCheck } from "lucide-react";
 import React from "react";
 import type { ChatItem, ExtendedMessage } from "~/types";
 
@@ -14,44 +15,56 @@ export const ChatList: React.FC<ChatListProps> = ({ items, messages, onSelectCha
   };
 
   return (
-    <div className="w-full h-full overflow-y-auto p-6 bg-[#F8F9FA]">
-      <div className="max-w-4xl mx-auto space-y-2">
+    <div className="w-full h-full overflow-y-auto px-[60px] py-[30px] bg-[#FCFBFA]">
+      <div className="flex flex-col gap-[20px]">
         {items.map((it) => {
           const lastMsg = getLastMessage(it.id);
+          const isOnline = it.status === "В мережі";
+
           return (
             <div
               key={it.id}
               onClick={() => onSelectChat(it)}
-              className="flex items-center justify-between p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition cursor-pointer border border-gray-100"
+              className="w-full h-[100px] px-6 bg-[#FCFBFA] rounded-[20px] shadow-sm hover:shadow-md transition cursor-pointer flex items-center justify-between border border-gray-100/50"
             >
-              <div className="flex items-center gap-4 flex-1 mr-4">
+              <div className="flex items-center gap-5 flex-1 min-w-0 mr-4">
                 <div className="relative shrink-0">
-                  <div className="w-14 h-14 rounded-full bg-[#E8EDE0] flex items-center justify-center font-bold text-xl text-[#3A4D28]">
+                  <div className="w-[65px] h-[65px] rounded-full bg-[#ECF1DE] flex items-center justify-center font-bold text-2xl text-[#294A2B]">
                     {it.name[0]}
                   </div>
-                  {it.status === "В мережі" && (
-                    <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white" />
+                  {isOnline && (
+                    <span className="absolute bottom-1 right-0 w-3 h-3 bg-[#477628] rounded-full ring-2 ring-[#FCFBFA]" />
                   )}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-bold text-gray-900 text-base">{it.name}</p>
+
+                <div className="flex flex-col gap-1 min-w-0">
+                  <h3 className="text-[22px] font-bold text-[#294A2B] leading-tight truncate">
+                    {it.name}
+                  </h3>
+
                   {lastMsg ? (
-                    <div className="flex items-center gap-1.5 text-sm text-gray-500 truncate mt-0.5">
+                    <div className="flex items-center gap-1.5 text-[18px] text-gray-500 truncate">
                       {lastMsg.fromMe && (
-                        <span className={`text-xs font-semibold ${lastMsg.read ? "text-[#3A4D28]" : "text-gray-400"}`}>
-                          {lastMsg.read ? "✓✓" : "✓"}
+                        <span className={`text-sm font-semibold ${lastMsg.read ? "text-[#477628]" : "text-gray-400"}`}>
+                          {lastMsg.read ? `${<CheckCheck />}` : `${<Check />}`}
                         </span>
                       )}
                       <span className="truncate">{lastMsg.text}</span>
                     </div>
                   ) : (
-                    <p className="text-sm text-gray-400 italic">Немає повідомлень</p>
+                    <p className="text-[18px] text-gray-400 italic">Немає повідомлень</p>
                   )}
                 </div>
               </div>
-              <span className="text-xs text-gray-400 font-medium shrink-0">
-                {lastMsg ? lastMsg.time : it.date}
-              </span>
+              <div className="shrink-0 text-right">
+                {isOnline ? (
+                  <span className="text-[18px] font-medium text-[#477628]">В мережі</span>
+                ) : (
+                  <span className={`text-sm font-semibold ${lastMsg.read ? "text-[#477628]" : "text-gray-400"}`}>
+                    {lastMsg.read ? <CheckCheck size={16} /> : <Check size={16} />}
+                  </span>
+                )}
+              </div>
             </div>
           );
         })}

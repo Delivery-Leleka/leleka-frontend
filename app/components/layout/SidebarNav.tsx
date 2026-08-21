@@ -16,43 +16,55 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
   onNavigate,
 }) => {
   return (
-    <nav className="w-[80px] h-full bg-[#ECF1DE] flex flex-col justify-between items-center py-6 shrink-0 z-20 border-r border-gray-200 relative">
+    <nav className="w-[100px] h-full bg-[#ECF1DE] flex flex-col justify-between items-center pt-[34px] pb-8 shrink-0 z-20 relative">
       <img
         src="/logo.svg"
         alt="Logo"
-        className="w-[50px] h-auto cursor-pointer"
+        className="w-[89px] h-[59px] cursor-pointer object-contain"
         onClick={onSelectHome}
       />
-
-      <div className="flex flex-col items-center gap-8">
-        <button onClick={onSelectHome} className="text-[#3F4935] hover:text-[#2E3E1F] transition" title="Чати">
-          <ChatIcon className="w-6 h-6" />
+      <div className="flex flex-col items-center gap-[55px]">
+        <button 
+          onClick={onSelectHome} 
+          className="text-[#425731] hover:opacity-80 transition flex items-center justify-center w-10 h-10" 
+          title="Чати"
+        >
+          <ChatIcon className="w-10 h-10" />
         </button>
-        <button onClick={() => onNavigate("/contacts")} className="text-[#8B9380] hover:text-[#3F4935] transition" title="Контакти">
-          <User className="w-6 h-6" />
+        <button 
+          onClick={() => onNavigate("/contacts")} 
+          className="text-[#425731] hover:opacity-80 transition flex items-center justify-center w-10 h-10" 
+          title="Контакти"
+        >
+          <User className="w-10 h-10" />
         </button>
-        <button onClick={() => onNavigate("/privateFolder")} className="text-[#8B9380] hover:text-[#3F4935] transition" title="Приватна папка">
-          <Folders className="w-6 h-6" />
+        <button 
+          onClick={() => onNavigate("/privateFolder")} 
+          className="text-[#425731] hover:opacity-80 transition flex items-center justify-center w-10 h-10" 
+          title="Приватна папка"
+        >
+          <Folders className="w-10 h-10" />
         </button>
       </div>
-
-      <div className="flex flex-col items-center gap-6 relative">
-        <button onClick={() => onNavigate("/settings")} className="text-[#8B9380] hover:text-[#3F4935] transition" title="Налаштування">
-          <SettingsIcon className="w-6 h-6" />
+      <div className="flex flex-col items-center gap-[35px] relative">
+        <button 
+          onClick={() => onNavigate("/settings")} 
+          className="text-[#425731] hover:opacity-80 transition flex items-center justify-center w-10 h-10" 
+          title="Налаштування"
+        >
+          <SettingsIcon className="w-10 h-10" />
         </button>
-
         <button
           onClick={() => setMyProfilePop(!myProfilePop)}
-          className="w-10 h-10 rounded-full bg-[#3A4D28] text-white font-bold flex items-center justify-center border-2 border-white shadow-md hover:scale-105 transition"
+          className="w-12 h-12 rounded-full bg-white text-[#425731] font-bold flex items-center justify-center shadow-sm hover:scale-105 transition border border-gray-100"
           title="Мій профіль"
         >
           {MY_PROFILE.avatar}
         </button>
-
         {myProfilePop && (
           <>
             <div className="fixed inset-0 z-30" onClick={() => setMyProfilePop(false)} />
-            <div className="absolute bottom-0 left-16 w-72 bg-white border border-gray-200 rounded-2xl shadow-xl z-40 p-4">
+            <div className="absolute bottom-0 left-[110px] w-72 bg-white border border-gray-200 rounded-2xl shadow-xl z-40 p-4">
               <div className="flex items-center gap-3 pb-3 border-b border-gray-100">
                 <div className="w-12 h-12 rounded-full bg-[#3A4D28] text-white font-bold text-lg flex items-center justify-center shrink-0">
                   {MY_PROFILE.avatar}
