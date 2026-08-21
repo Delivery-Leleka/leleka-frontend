@@ -80,14 +80,14 @@ export default function ProfilePage() {
             Налаштування
           </h2>
 
-          <Link to="/changePass">
+          <Link to="/change-password">
             <div className="settings-item pr-20 hover:bg-[#F2EFE6]">
               <h3 className="text-[#262424] font-semibold">Змінити пароль</h3>
               <img src="/icons/lapa1.png" alt="" />
             </div>
           </Link>
 
-          <Link to="/emailChange1">
+          <Link to="/change-email">
             <div className="settings-item pr-6 hover:bg-[#F2EFE6]">
               <h3 className="text-[#262424] font-semibold">Змінити пошту</h3>
               <img src="/icons/lapa5.png" alt="" />
