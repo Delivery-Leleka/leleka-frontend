@@ -14,13 +14,13 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({ onClose, onDelete }) =
         <div className="flex gap-4 w-full">
           <button
             onClick={onClose}
-            className="flex-1 py-2 border border-[#8BAA70] text-[#5C7843] rounded-lg font-medium hover:bg-green-50 transition"
+            className="flex-1 py-2 border border-[var(--color-brand-500)] text-[var(--color-brand-700)] rounded-lg font-medium hover:bg-green-50 transition"
           >
             Назад
           </button>
           <button
             onClick={onDelete}
-            className="flex-1 py-2 bg-[#C83727] text-white rounded-lg font-medium hover:bg-[#A82B1D] transition"
+            className="flex-1 py-2 bg-[var(--color-danger-primary)] text-white rounded-lg font-medium hover:bg-[var(--color-danger-hover)] transition"
           >
             Видалити
           </button>

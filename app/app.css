@@ -53,3 +53,29 @@ body {
 .settings-item {
   @apply border-t border-b border-black w-full pl-10 flex justify-between items-center max-h-[80px] h-full transition-all duration-300;
 }
+
+
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #ECF1DE;   
+  --color-brand-100: #E8EDE0;  
+  --color-brand-500: #8BAA70;  
+  --color-brand-600: #477628;  
+  --color-brand-700: #5C7843;  
+  --color-brand-800: #425731;  
+  --color-brand-850: #3A4D28;  
+  --color-brand-900: #344229;  
+  --color-brand-950: #2E3E1F;  
+  --color-brand-deep: #294A2B; 
+
+  --color-app-bg: #FCFBFA;   
+  --color-app-bg-alt: #F8F9FA;
+  --color-chat-bg: #F7F5E9;    
+  
+  --color-border-input: #D9D9D9;
+  --color-placeholder: #999994;  
+
+  --color-danger-primary: #C83727; 
+  --color-danger-hover: #A82B1D;  
+}

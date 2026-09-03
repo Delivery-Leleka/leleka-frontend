@@ -18,7 +18,7 @@ export const UserProfileDrawer: React.FC<UserProfileDrawerProps> = ({ isOpen, se
       <button onClick={onClose} className="self-end text-gray-400 hover:text-gray-700 font-bold p-1">
         <X className="w-5 h-5" />
       </button>
-      <div className="w-32 h-32 rounded-full bg-[#E8EDE0] my-4 flex items-center justify-center text-4xl font-bold text-[#3A4D28]">
+      <div className="w-32 h-32 rounded-full bg-[var(--color-brand-100)] my-4 flex items-center justify-center text-4xl font-bold text-[var(--color-brand-850)]">
         {selectedUser?.name[0] || "U"}
       </div>
       <h2 className="text-xl font-bold text-gray-900">{selectedUser?.name}</h2>
@@ -28,7 +28,7 @@ export const UserProfileDrawer: React.FC<UserProfileDrawerProps> = ({ isOpen, se
       </p>
       <button
         onClick={onClose}
-        className="mt-auto w-full py-2.5 bg-[#3A4D28] text-white rounded-xl font-medium hover:bg-[#2E3E1F] transition"
+        className="mt-auto w-full py-2.5 bg-[var(--color-brand-850)] text-white rounded-xl font-medium hover:bg-[var(--color-brand-950)] transition"
       >
         Написати
       </button>
