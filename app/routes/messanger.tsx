@@ -16,7 +16,7 @@ export default function MessangerPage() {
   const chat = useMessenger();
 
   return (
-    <div className="flex h-screen w-full bg-[#F8F9FA] overflow-hidden relative">
+    <div className="flex h-screen w-full bg-app-bg-alt overflow-hidden relative">
       <SidebarNav
         onSelectHome={() => chat.setSelected(null)}
         myProfilePop={chat.myProfilePop}
@@ -46,7 +46,7 @@ export default function MessangerPage() {
               }}
             />
           ) : (
-            <div className="flex-1 flex flex-col bg-[#F7F5E9] h-full">
+            <div className="flex-1 flex flex-col bg-[var(--color-chat-bg)] h-full">
               <div className="flex-1 p-6 overflow-y-auto flex flex-col gap-3 max-w-4xl w-full mx-auto">
                 {chat.messages[chat.selected.id]?.map((m) => (
                   <MessageBubble key={m.id} msg={m} />

@@ -9,15 +9,11 @@ export interface User {
 //Поки тут замокані данні та можна самотно поставити, авторизований юзер чи ні. Коли буде готова авторизація на юекенді - сюди треба буде підключити
 
 export const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true); // щоб зробити юзера автризваним, треба зробити значення true
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false); // щоб зробити юзера автризваним, треба зробити значення true
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [user, setUser] = useState<User | null>(
-    {
-      id: '1',
-      email: 'user@leleka.com',
-      name: "Користувач"
-    }
+    null
   );
   // треба додати юзера. Наприклад:
   /*

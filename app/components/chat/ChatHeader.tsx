@@ -26,11 +26,11 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
       <div className="flex items-center gap-4">
         {selected ? (
           <>
-            <button onClick={onBack} className="p-2 hover:bg-gray-100 rounded-xl transition">
+            <button onClick={onBack} className="p-2 hover:bg-gray-100 rounded-xl transition cursor-pointer">
               <ArrowLeft className="w-6 h-6 text-gray-700" />
             </button>
             <div onClick={onOpenProfile} className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
-              <div className="w-12 h-12 rounded-full bg-[#E8EDE0] flex items-center justify-center font-bold text-[#3A4D28]">
+              <div className="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center font-bold text-brand-850">
                 {selected.name[0]}
               </div>
               <div>
@@ -40,7 +40,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
             </div>
           </>
         ) : (
-          <h1 className="text-[32px] font-semibold text-black tracking-tight">Чати</h1>
+          <h1 className="text-[32px] font-semibold text-black tracking-tight font-title">Чати</h1>
         )}
       </div>
 
@@ -54,7 +54,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
             placeholder="Пошук контактів..."
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
-            className="w-full h-full pl-[58px] pr-4 bg-white border-[1.5px] border-[#D9D9D9] rounded-[10px] text-[18px] text-black outline-none placeholder:text-[#999994] focus:border-[#425731] transition"
+            className="w-full h-full pl-[58px] pr-4 bg-white border-[1.5px] border-border-input rounded-[10px] text-[18px] text-black outline-none placeholder:text-placeholder focus:border-brand-800 transition"
           />
         </div>
       )}
@@ -63,7 +63,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
         {!selected ? (
           <button
             onClick={onNavigateContacts}
-            className="h-[58px] px-6 flex items-center gap-2.5 bg-[#425731] text-white rounded-[10px] text-base font-medium hover:bg-[#344229] transition shadow-sm"
+            className="h-[58px] px-6 flex items-center gap-2.5 bg-brand-800 text-white rounded-[10px] text-base font-medium hover:bg-brand-900 transition shadow-sm cursor-pointer"
           >
             <span>Додати контакт</span>
             <Plus className="w-5 h-5" />
@@ -71,7 +71,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
         ) : (
           <button
             onClick={onToggleMenu}
-            className="p-3 border border-[#425731] rounded-xl text-[#425731] hover:bg-[#ECF1DE]/40 transition"
+            className="p-3 border border-brand-800 rounded-xl text-brand-800 hover:bg-brand-50 transition cursor-pointer"
           >
             <SlidersHorizontal className="w-6 h-6" />
           </button>
