@@ -18,13 +18,18 @@ export default function MessangerPage() {
   return (
     <div className="flex h-screen w-full bg-app-bg-alt overflow-hidden relative">
       <SidebarNav
-        onSelectHome={() => chat.setSelected(null)}
+        isOpen={chat.isSidebarOpen}
+        onClose={() => chat.setIsSidebarOpen(false)}
+        onSelectHome={() => {
+          chat.setSelected(null);
+          chat.setIsSidebarOpen(false);
+        }}
         myProfilePop={chat.myProfilePop}
         setMyProfilePop={chat.setMyProfilePop}
         onNavigate={navigate}
       />
 
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
+      <div className="flex-1 flex flex-col h-full overflow-hidden w-full">
         <ChatHeader
           selected={chat.selected}
           query={chat.query}
@@ -32,11 +37,17 @@ export default function MessangerPage() {
           onBack={() => chat.setSelected(null)}
           onOpenProfile={() => chat.setProfileOpen(true)}
           onNavigateContacts={() => navigate("/contacts")}
-          onToggleMenu={() => chat.setDotsOpen(!chat.dotsOpen)}
+          onToggleMenu={() => {
+            if (chat.selected) {
+              chat.setDotsOpen(!chat.dotsOpen);
+            } else {
+              chat.setIsSidebarOpen(true);
+            }
+          }}
         />
 
         <div className="flex-1 flex overflow-hidden relative">
-          {!chat.selected ? (
+          <div className={`${chat.selected ? "hidden md:flex" : "flex"} w-full md:w-auto h-full`}>
             <ChatList
               items={chat.items}
               messages={chat.messages}
@@ -45,9 +56,11 @@ export default function MessangerPage() {
                 chat.setDotsOpen(false);
               }}
             />
-          ) : (
-            <div className="flex-1 flex flex-col bg-[var(--color-chat-bg)] h-full">
-              <div className="flex-1 p-6 overflow-y-auto flex flex-col gap-3 max-w-4xl w-full mx-auto">
+          </div>
+
+          {chat.selected && (
+            <div className="flex-1 flex flex-col bg-[var(--color-chat-bg)] h-full w-full">
+              <div className="flex-1 p-4 md:p-6 overflow-y-auto flex flex-col gap-3 max-w-4xl w-full mx-auto">
                 {chat.messages[chat.selected.id]?.map((m) => (
                   <MessageBubble key={m.id} msg={m} />
                 ))}
