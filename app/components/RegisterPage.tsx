@@ -1,41 +1,71 @@
-import React, { useEffect, useMemo, useState } from "react";
-import type { Register } from "../types/Types";
-import axiosBackend from "app/axios";
-import { Turnstile } from "@marsidev/react-turnstile";
-import { useNavigate } from "react-router";
+import React, { useEffect, useState } from 'react';
+import type { Register } from '../types/Types';
+import axiosBackend from 'app/axios';
+import { Turnstile } from '@marsidev/react-turnstile';
+import { useNavigate } from 'react-router';
 
 export default function RegisterPage() {
-  const [username, setUsername] = useState<Register["name"]>("");
-  const [email, setEmail] = useState<Register["email"]>("");
-  const [password, setPassword] = useState<Register["password"]>("");
-  const [confirm, setConfirm] = useState<Register["confirmedPass"]>("");
+  const [username, setUsername] = useState<Register['name']>('');
+  const [email, setEmail] = useState<Register['email']>('');
+  const [password, setPassword] = useState<Register['password']>('');
+  const [confirm, setConfirm] = useState<Register['confirmedPass']>('');
   const navigate = useNavigate();
 
-  const [fieldPasswordError, setFieldPasswordError] = useState<{ msg: string; icon: string } | null>(null);
-  const [fieldConfirmError, setFieldConfirmError] = useState("");
-  const [popupMessage, setPopupMessage] = useState<{ msg: string; icon: string } | null>(null);
+  const [fieldPasswordError, setFieldPasswordError] = useState<{
+    msg: string;
+    icon: string;
+  } | null>(null);
+  const [fieldConfirmError, setFieldConfirmError] = useState('');
+  const [popupMessage, setPopupMessage] = useState<{
+    msg: string;
+    icon: string;
+  } | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [capthaOK, setCapthaOK] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
 
-
   const validatePasswordDetailed = (v: string) => {
     if (!v) return null;
     if (/\s/.test(v) || /[%=+\\/]/.test(v))
-      return { msg: "Один із символів не є доступним", icon: "/icons/Vector.png" };
-    if (/[^\u0000-\u007F]/.test(v))
-      return { msg: "Пароль має містити латинські літери", icon: "/icons/Auto-line-height.png" };
-    const allowed = /^[A-Za-z0-9!@#$^&*()_\-{}\[\]|:;"'<>,.?~]+$/;
-    if (!allowed.test(v)) return { msg: "Використовуйте лише латинські літери", icon: "/icons/Auto-line-height.png" };
-    if (v.length < 8) return { msg: "Занадто короткий пароль", icon: "/icons/Auto-width.png" };
-    if (!/[A-Za-z]/.test(v)) return { msg: "Пароль має містити латинські літери", icon: "/icons/Auto-line-height.png" };
-    if (!/[0-9!@#$^&*()_\-{}\[\]|:;"'<>,.?~]/.test(v))
-      return { msg: "Додайте цифри та/або спец. символи", icon: "/icons/Plus-cross.png" };
-    if (/^[A-Za-z0-9]+$/.test(v)) return { msg: "Додайте цифри та/або спец. символи", icon: "/icons/error2.png" };
-    if (!capthaOK && process.env.NODE_ENV !== "development")
-      return { msg: "Будь ласка, підтвердіть, що ви не робот", icon: "/icons/error2.png" };
+      return {
+        msg: 'Один із символів не є доступним',
+        icon: '/icons/Vector.png',
+      };
+    if (/[^\x20-\x7E\s]/.test(v))
+      return {
+        msg: 'Пароль має містити латинські літери',
+        icon: '/icons/Auto-line-height.png',
+      };
+    const allowed = /^[A-Za-z0-9!@#$^&*()_\-{}[]|:;"'<>,.?~]+$/;
+    if (!allowed.test(v))
+      return {
+        msg: 'Використовуйте лише латинські літери',
+        icon: '/icons/Auto-line-height.png',
+      };
+    if (v.length < 8)
+      return { msg: 'Занадто короткий пароль', icon: '/icons/Auto-width.png' };
+    if (!/[A-Za-z]/.test(v))
+      return {
+        msg: 'Пароль має містити латинські літери',
+        icon: '/icons/Auto-line-height.png',
+      };
+    if (!/[0-9!@#$^&*()_\-{}[]|:;"'<>,.?~]/.test(v))
+      return {
+        msg: 'Додайте цифри та/або спец. символи',
+        icon: '/icons/Plus-cross.png',
+      };
+    if (/^[A-Za-z0-9]+$/.test(v))
+      return {
+        msg: 'Додайте цифри та/або спец. символи',
+        icon: '/icons/error2.png',
+      };
+    if (!capthaOK && process.env.NODE_ENV !== 'development')
+      return {
+        msg: 'Будь ласка, підтвердіть, що ви не робот',
+        icon: '/icons/error2.png',
+      };
     return null;
   };
 
@@ -45,10 +75,13 @@ export default function RegisterPage() {
     setFieldPasswordError(obj);
 
     if (confirm && v !== confirm) {
-      setFieldConfirmError("Паролі не співпадають");
-      setPopupMessage({ msg: "Паролі не співпадають", icon: "/icons/error.png" });
+      setFieldConfirmError('Паролі не співпадають');
+      setPopupMessage({
+        msg: 'Паролі не співпадають',
+        icon: '/icons/error.png',
+      });
     } else {
-      setFieldConfirmError("");
+      setFieldConfirmError('');
       setPopupMessage(obj);
     }
   };
@@ -56,27 +89,31 @@ export default function RegisterPage() {
   const handleConfirmChange = (v: string) => {
     setConfirm(v);
     if (password && v !== password) {
-      setFieldConfirmError("Паролі не співпадають");
-      setPopupMessage({ msg: "Паролі не співпадають", icon: "/icons/error.png" });
+      setFieldConfirmError('Паролі не співпадають');
+      setPopupMessage({
+        msg: 'Паролі не співпадають',
+        icon: '/icons/error.png',
+      });
     } else {
-      setFieldConfirmError("");
+      setFieldConfirmError('');
       setPopupMessage(validatePasswordDetailed(password));
     }
   };
+
   const allowedDomains = [
-    "gmail.com",
-    "ukr.net",
-    "i.ua",
-    "meta.ua",
-    "icloud.com",
-    "outlook.com",
-    "hotmail.com",
-    "yahoo.com",
-    "proton.me",
+    'gmail.com',
+    'ukr.net',
+    'i.ua',
+    'meta.ua',
+    'icloud.com',
+    'outlook.com',
+    'hotmail.com',
+    'yahoo.com',
+    'proton.me',
   ];
 
   const validateEmailDomain = (email: string) => {
-    const domain = email.split("@")[1]?.toLowerCase();
+    const domain = email.split('@')[1]?.toLowerCase();
     return allowedDomains.includes(domain);
   };
 
@@ -84,8 +121,9 @@ export default function RegisterPage() {
     setEmail(v);
     setIsEmailValid(validateEmailDomain(v));
   };
+
   useEffect(() => {
-    if (popupMessage?.icon === "/icons/sucess-icons8.png") {
+    if (popupMessage?.icon === '/icons/sucess-icons8.png') {
       const t = setTimeout(() => setPopupMessage(null), 5000);
       return () => clearTimeout(t);
     }
@@ -93,7 +131,10 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     if (!validateEmailDomain(email)) {
-      setPopupMessage({ msg: "Некоректна або непідтримувана пошта", icon: "/icons/error.png" });
+      setPopupMessage({
+        msg: 'Некоректна або непідтримувана пошта',
+        icon: '/icons/error.png',
+      });
       return;
     }
 
@@ -101,13 +142,13 @@ export default function RegisterPage() {
     if (submitting) return;
 
     const pwdMsg = validatePasswordDetailed(password);
-    const confMsg = password !== confirm ? "Паролі не співпадають" : "";
+    const confMsg = password !== confirm ? 'Паролі не співпадають' : '';
 
     setFieldPasswordError(pwdMsg);
     setFieldConfirmError(confMsg);
 
     if (pwdMsg || confMsg) {
-      setPopupMessage(pwdMsg || { msg: confMsg, icon: "/icons/error.png" });
+      setPopupMessage(pwdMsg || { msg: confMsg, icon: '/icons/error.png' });
       return;
     }
 
@@ -115,23 +156,40 @@ export default function RegisterPage() {
     setSubmitting(true);
 
     try {
-      const res = await axiosBackend.post("/auth/register", JSON.stringify({ username, password, email }));
+      const res = await axiosBackend.post(
+        '/auth/register',
+        JSON.stringify({ username, password, email })
+      );
       const resJson = await res.data;
 
       if (resJson.success) {
-        setPopupMessage({ msg: "Реєстрація успішна! Вітаємо в Поштову Лелеку!", icon: "/icons/sucess-icons8.png" });
-      } else if (resJson.message === "Користувач із таким логіном або email уже існує") {
-        setPopupMessage({ msg: "Аккаунт уже існує", icon: "/icons/error.png" });
-        setTimeout(() => navigate("/login"), 2000);
+        setPopupMessage({
+          msg: 'Реєстрація успішна! Вітаємо в Поштову Лелеку!',
+          icon: '/icons/sucess-icons8.png',
+        });
+      } else if (
+        resJson.message === 'Користувач із таким логіном або email уже існує'
+      ) {
+        setPopupMessage({ msg: 'Аккаунт уже існує', icon: '/icons/error.png' });
+        setTimeout(() => navigate('/login'), 2000);
       } else {
         console.error(`Помилка: ${resJson.message}`);
-        setPopupMessage({ msg: "Помилка реєстрації! Повна помилка в консолі.", icon: "/icons/error.png" });
+        setPopupMessage({
+          msg: 'Помилка реєстрації! Повна помилка в консолі.',
+          icon: '/icons/error.png',
+        });
       }
 
-      setUsername(""); setEmail(""); setPassword(""); setConfirm("");
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setConfirm('');
     } catch (err) {
       console.error(`Помилка: ${err}`);
-      setPopupMessage({ msg: "Помилка зʼєдання з сервером! Повний лог в консолі.", icon: "/icons/error.png" });
+      setPopupMessage({
+        msg: 'Помилка зʼєдання з сервером! Повний лог в консолі.',
+        icon: '/icons/error.png',
+      });
     } finally {
       setSubmitting(false);
     }
@@ -153,17 +211,28 @@ export default function RegisterPage() {
       )}
 
       <main className="grow w-full flex justify-center items-center py-8">
-        <form onSubmit={handleSubmit} className="relative overflow-hidden bg-primary rounded-xl w-[95%] md:w-[85%] lg:w-[900px] shadow-lg animate-fadeIn">
+        <form
+          onSubmit={handleSubmit}
+          className="relative overflow-hidden bg-primary rounded-xl w-[95%] md:w-[85%] lg:w-[900px] shadow-lg animate-fadeIn"
+        >
           <div className="absolute bottom-0 left-0 right-0 overflow-hidden rounded-b-xl pointer-events-none">
-            <img src="/icons/waves.png" alt="Waves" className="w-full object-cover opacity-90" />
+            <img
+              src="/icons/waves.png"
+              alt="Waves"
+              className="w-full object-cover opacity-90"
+            />
           </div>
 
           <div className="relative z-10 p-8 space-y-6 w-full">
-            <h2 className="font-raleway font-bold text-2xl text-primary text-center mb-4">Створити акаунт</h2>
+            <h2 className="font-raleway font-bold text-2xl text-primary text-center mb-4">
+              Створити акаунт
+            </h2>
 
             {/* ім'я */}
             <div>
-              <label className="font-raleway font-semibold text-primary text-lg">Введіть ім'я</label>
+              <label className="font-raleway font-semibold text-primary text-lg">
+                Введіть ім'я
+              </label>
               <input
                 type="text"
                 value={username}
@@ -173,9 +242,10 @@ export default function RegisterPage() {
               />
             </div>
 
-            {/* пошта */}
             <div>
-              <label className="font-raleway font-semibold text-primary text-lg">Введіть пошту</label>
+              <label className="font-raleway font-semibold text-primary text-lg">
+                Введіть пошту
+              </label>
               <input
                 type="email"
                 value={email}
@@ -185,20 +255,26 @@ export default function RegisterPage() {
               />
             </div>
 
-            {/* пароль */}
             <div>
-              <label className="font-raleway font-semibold text-primary text-lg">Введіть пароль</label>
+              <label className="font-raleway font-semibold text-primary text-lg">
+                Введіть пароль
+              </label>
               <div className="relative mt-2">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => handlePasswordChange(e.target.value)}
                   autoComplete="new-password"
-                  style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
-                  className={`w-full h-10 px-4 pr-12 rounded-md transition duration-200 focus:outline-none border-2 ${fieldPasswordError
-                    ? "bg-[#efadad] border-red-500"
-                    : "bg-white border-[--input-border-color] text-primary focus:scale-[1.02]"
-                    }`}
+                  style={{
+                    WebkitAppearance: 'none',
+                    MozAppearance: 'none',
+                    appearance: 'none',
+                  }}
+                  className={`w-full h-10 px-4 pr-12 rounded-md transition duration-200 focus:outline-none border-2 ${
+                    fieldPasswordError
+                      ? 'bg-[#efadad] border-red-500'
+                      : 'bg-white border-[--input-border-color] text-primary focus:scale-[1.02]'
+                  }`}
                 />
                 <button
                   type="button"
@@ -206,29 +282,42 @@ export default function RegisterPage() {
                   className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center focus:outline-none"
                 >
                   <img
-                    src={showPassword ? "/icons/Preview-close.png" : "/icons/Preview-open.png"}
+                    src={
+                      showPassword
+                        ? '/icons/Preview-close.png'
+                        : '/icons/Preview-open.png'
+                    }
                     alt="toggle password"
                     className="w-5 h-5 select-none"
                   />
                 </button>
               </div>
-              <span className="text-xs text-[#477628]">Пароль повинен містити понад 8 символів, зокрема літери, цифри та спецсимволи</span>
+              <span className="text-xs text-[#477628]">
+                Пароль повинен містити понад 8 символів, зокрема літери, цифри
+                та спецсимволи
+              </span>
             </div>
 
-            {/* підтвердження */}
             <div>
-              <label className="font-raleway font-semibold text-primary text-lg">Введіть пароль ще раз</label>
+              <label className="font-raleway font-semibold text-primary text-lg">
+                Введіть пароль ще раз
+              </label>
               <div className="relative mt-2">
                 <input
-                  type={showConfirm ? "text" : "password"}
+                  type={showConfirm ? 'text' : 'password'}
                   value={confirm}
                   onChange={(e) => handleConfirmChange(e.target.value)}
                   autoComplete="off"
-                  style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
-                  className={`w-full h-10 px-4 pr-12 rounded-md transition duration-200 focus:outline-none border-2 ${fieldConfirmError
-                    ? "bg-red-100 border-red-500"
-                    : "bg-white border-[--input-border-color] text-primary focus:scale-[1.02]"
-                    }`}
+                  style={{
+                    WebkitAppearance: 'none',
+                    MozAppearance: 'none',
+                    appearance: 'none',
+                  }}
+                  className={`w-full h-10 px-4 pr-12 rounded-md transition duration-200 focus:outline-none border-2 ${
+                    fieldConfirmError
+                      ? 'bg-red-100 border-red-500'
+                      : 'bg-white border-[--input-border-color] text-primary focus:scale-[1.02]'
+                  }`}
                 />
                 <button
                   type="button"
@@ -236,7 +325,11 @@ export default function RegisterPage() {
                   className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center focus:outline-none"
                 >
                   <img
-                    src={showConfirm ? "/icons/Preview-close.png" : "/icons/Preview-open.png"}
+                    src={
+                      showConfirm
+                        ? '/icons/Preview-close.png'
+                        : '/icons/Preview-open.png'
+                    }
                     alt="toggle confirm password"
                     className="w-5 h-5 select-none"
                   />
@@ -250,21 +343,22 @@ export default function RegisterPage() {
                   siteKey="0x4AAAAAAB9zgN9DPpLoR9NG"
                   onSuccess={handlerSetCapthaOK}
                   options={{
-                    theme: "light",
-                    size: "flexible",
+                    theme: 'light',
+                    size: 'flexible',
                   }}
                   style={{
-                    transform: "scale(0.7) translateX(-6%)",
-                    transformOrigin: "top center",
+                    transform: 'scale(0.7) translateX(-6%)',
+                    transformOrigin: 'top center',
                   }}
                 />
               </div>
             </div>
 
-
-            {/* кнопки */}
             <div className="flex flex-wrap justify-between items-center gap-4 mt-6">
-              <button type="button" className="flex items-center justify-center bg-[#9cc68a] hover:bg-[#88b274] text-[#2f2f2f] px-4 py-2 rounded-md font-semibold border border-[#294a2b] transition-all duration-200 active:scale-95 gap-2">
+              <button
+                type="button"
+                className="flex items-center justify-center bg-[#9cc68a] hover:bg-[#88b274] text-[#2f2f2f] px-4 py-2 rounded-md font-semibold border border-[#294a2b] transition-all duration-200 active:scale-95 gap-2"
+              >
                 <span>Зареєструватися через Google</span>
                 <img src="/icons/google.png" className="w-6 h-6" />
               </button>
@@ -272,23 +366,27 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={submitting || !isEmailValid}
-                className={`px-6 py-2 rounded-md font-semibold shadow-md transition-all duration-200 ${submitting || !isEmailValid
-                    ? "bg-gray-400 text-white cursor-not-allowed"
-                    : "bg-[#4b6b3d] hover:bg-[#3d5832] text-white"
-                  }`}
+                className={`px-6 py-2 rounded-md font-semibold shadow-md transition-all duration-200 ${
+                  submitting || !isEmailValid
+                    ? 'bg-gray-400 text-white cursor-not-allowed'
+                    : 'bg-[#4b6b3d] hover:bg-[#3d5832] text-white'
+                }`}
               >
-                {submitting ? "Завантаження..." : "Створити"}
+                {submitting ? 'Завантаження...' : 'Створити'}
               </button>
-
             </div>
 
-            <a href="/login" className="block text-center mt-4 text-gray-800 hover:underline">Вже є акаунт?</a>
+            <a
+              href="/login"
+              className="block text-center mt-4 text-gray-800 hover:underline"
+            >
+              Вже є акаунт?
+            </a>
           </div>
         </form>
       </main>
 
-      <footer className="w-full bg-primary py-6 text-center">
-      </footer>
+      <footer className="w-full bg-primary py-6 text-center"></footer>
 
       <style>{`
         @keyframes slideDown {0% {opacity:0; transform:translateY(-10px);}100% {opacity:1; transform:translateY(0);}}

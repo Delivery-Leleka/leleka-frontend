@@ -1,7 +1,7 @@
-import { Link } from "react-router";
-import Header from "./Header";
-import Footer from "./Footer";
-import { useState, useEffect } from "react";
+import { Link } from 'react-router';
+import Header from './Header';
+import Footer from './Footer';
+import { useState, useEffect } from 'react';
 
 export default function Stage3() {
   const [active, setActive] = useState(false);
@@ -61,7 +61,7 @@ export default function Stage3() {
                 onChange={(e: any) => {
                   // keep only digits
                   if (!/^\d$/.test(e.target.value)) {
-                    e.target.value = "";
+                    e.target.value = '';
                     return;
                   }
                   // auto tab to next input
@@ -70,7 +70,7 @@ export default function Stage3() {
                 }}
                 onKeyDown={(e: any) => {
                   // backspace → go to previous input
-                  if (e.key === "Backspace" && !e.target.value) {
+                  if (e.key === 'Backspace' && !e.target.value) {
                     const prev = e.target.previousElementSibling;
                     if (prev) prev.focus();
                   }
@@ -90,13 +90,13 @@ export default function Stage3() {
               onClick={handleClick}
               disabled={active}
               className={`w-64 sm:w-64 md:w-80 lg:w-[500px] py-3 text-white font-semibold rounded-lg shadow-md transition 
-                         ${active ? "bg-green-700 cursor-not-allowed" : "bg-[#72A850] hover:bg-green-700 cursor-pointer"}`}
+                         ${active ? 'bg-green-700 cursor-not-allowed' : 'bg-[#72A850] hover:bg-green-700 cursor-pointer'}`}
             >
               {active ? (
                 `Надіслати код повторно через ${timer} с`
               ) : (
                 <>
-                  Надіслати код повторно{" "}
+                  Надіслати код повторно{' '}
                   <img
                     src="/icons/redo.png"
                     alt="redo"

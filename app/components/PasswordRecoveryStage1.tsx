@@ -1,13 +1,13 @@
-import { Link } from "react-router";
-import Header from "./Header";
-import Footer from "./Footer";
-import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router';
+import Header from './Header';
+import Footer from './Footer';
+import { useNavigate } from 'react-router-dom';
 
 export default function Stage1() {
   const navigate = useNavigate();
 
   const stage2 = () => {
-    navigate("/passRecover2");
+    navigate('/passRecover2');
   };
   return (
     <div className="min-h-screen bg-green-50 flex flex-col items-center justify-center font-sans md:bg-[url('/icons/bg-desktop.png')] bg-[url('/icons/bg-mobile.png')] bg-cover bg-center">

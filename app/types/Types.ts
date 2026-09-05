@@ -28,5 +28,5 @@ export interface Message {
   id: string;
   text: string;
   fromMe: boolean;
-  time?: string;  
+  time?: string;
 }

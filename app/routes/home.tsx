@@ -1,7 +1,7 @@
-import RegisterPage from "../components/RegisterPage";
+import RegisterPage from '../components/RegisterPage';
 
 export function meta() {
-  return [{ title: "Поштовий Лелека - Реєстрація" }];
+  return [{ title: 'Поштовий Лелека - Реєстрація' }];
 }
 
 export default function Index() {

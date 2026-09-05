@@ -1,52 +1,52 @@
-import Header from "./Header";
-import type { NewPass } from "~/types/Types";
-import { useState, useEffect } from "react";
-import Footer from "./Footer";
-import axiosBackend from "app/axios";
-import { useNavigate } from "react-router-dom";
+import Header from './Header';
+import type { NewPass } from '~/types/Types';
+import { useState, useEffect } from 'react';
+import Footer from './Footer';
+import axiosBackend from 'app/axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewPass() {
-  const [newPass, setPass] = useState<NewPass["newPassword"]>("");
-  const [conPass, setCon] = useState<NewPass["confirmedPass"]>("");
+  const [newPass, setPass] = useState<NewPass['newPassword']>('');
+  const [conPass, setCon] = useState<NewPass['confirmedPass']>('');
   const [showNewPass, setShowNewPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (newPass.trim().length < 8) {
-      setError("Пароль має містити щонайменше 8 символів");
+      setError('Пароль має містити щонайменше 8 символів');
       return;
     }
 
     if (!/[A-Z]/.test(newPass) || !/[0-9]/.test(newPass)) {
-      setError("Цей пароль не виглядає надійним");
+      setError('Цей пароль не виглядає надійним');
       return;
     }
 
     if (newPass !== conPass) {
-      setError("Паролі не співпадають");
+      setError('Паролі не співпадають');
       return;
     }
 
-    setError("");
+    setError('');
     // логіка беку
     try {
-      const response = await axiosBackend.post("/newPass", {
+      const response = await axiosBackend.post('/newPass', {
         password: encodeURIComponent(newPass),
       });
-      navigate("/login");
+      navigate('/login');
     } catch (err) {
       console.error(err);
-      setError("Помилка реєстрації");
+      setError('Помилка реєстрації');
     }
   };
 
   useEffect(() => {
     if (error) {
-      const timer = setTimeout(() => setError(""), 3000);
+      const timer = setTimeout(() => setError(''), 3000);
       return () => clearTimeout(timer);
     }
   }, [error]);
@@ -79,10 +79,10 @@ export default function NewPass() {
                   className={`border-2 rounded-lg w-full h-10 px-4 pr-12 bg-white text-[#2f2f2f] 
                         focus:outline-none transition-all duration-300 focus:scale-[1.02] ${
                           error && newPass.trim().length < 8
-                            ? "border-red-500 bg-red-100 animate-shake"
-                            : "border-[#557B4E]"
+                            ? 'border-red-500 bg-red-100 animate-shake'
+                            : 'border-[#557B4E]'
                         }`}
-                  type={showNewPass ? "text" : "password"}
+                  type={showNewPass ? 'text' : 'password'}
                   value={newPass}
                   onChange={(e) => setPass(e.target.value)}
                 />
@@ -95,8 +95,8 @@ export default function NewPass() {
                   <img
                     src={
                       showNewPass
-                        ? "/icons/Preview-close.png"
-                        : "/icons/Preview-open.png"
+                        ? '/icons/Preview-close.png'
+                        : '/icons/Preview-open.png'
                     }
                     alt="toggle password"
                     className="w-5 h-5 select-none"
@@ -115,10 +115,10 @@ export default function NewPass() {
                   className={`border-2 rounded-lg w-full h-10 px-4 pr-12 bg-white text-[#2f2f2f]
                     focus:outline-none transition-all duration-300 focus:scale-[1.02] ${
                       error && newPass !== conPass
-                        ? "border-red-500 bg-red-100 animate-shake"
-                        : "border-[#557B4E]"
+                        ? 'border-red-500 bg-red-100 animate-shake'
+                        : 'border-[#557B4E]'
                     }`}
-                  type={showConfirmPass ? "text" : "password"}
+                  type={showConfirmPass ? 'text' : 'password'}
                   value={conPass}
                   onChange={(e) => setCon(e.target.value)}
                 />
@@ -131,8 +131,8 @@ export default function NewPass() {
                   <img
                     src={
                       showConfirmPass
-                        ? "/icons/Preview-close.png"
-                        : "/icons/Preview-open.png"
+                        ? '/icons/Preview-close.png'
+                        : '/icons/Preview-open.png'
                     }
                     alt="toggle password"
                     className="w-5 h-5 select-none"

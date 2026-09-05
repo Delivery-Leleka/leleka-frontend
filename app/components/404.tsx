@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Four04 = () => {
   const navigate = useNavigate();
@@ -31,7 +31,12 @@ const Four04 = () => {
           </span>
         </div>
         <div className="flex justify-center mt-25">
-          <button className="bg-[#477628] w-140 h-12 rounded-lg text-xl font-semibold" onClick={() => navigate('/onboarding')}>Повернутись до чатів</button>
+          <button
+            className="bg-[#477628] w-140 h-12 rounded-lg text-xl font-semibold"
+            onClick={() => navigate('/onboarding')}
+          >
+            Повернутись до чатів
+          </button>
         </div>
       </main>
       <footer className="w-full h-24 bg-[#C7E2AE]"></footer>

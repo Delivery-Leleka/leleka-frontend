@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router";
-import Header from "./Header";
-import Footer from "./Footer";
-import { useState } from "react";
-import type { Stage2 } from "../types/Types";
+import { Link, useNavigate } from 'react-router';
+import Header from './Header';
+import Footer from './Footer';
+import { useState } from 'react';
+import type { Stage2 } from '../types/Types';
 
 export default function Stage2Recover() {
-  const [email, setEmail] = useState<Stage2["email"]>("");
+  const [email, setEmail] = useState<Stage2['email']>('');
   const navigate = useNavigate();
 
   return (
@@ -70,7 +70,7 @@ export default function Stage2Recover() {
               py-3 px-4 rounded-md 
               transition flex items-center justify-center gap-2 cursor-pointer
             "
-            onClick={() => navigate("/passRecover3")}
+            onClick={() => navigate('/passRecover3')}
           >
             Надіслати код
             <img src="/icons/email.png" alt="Email" className="w-5 h-5" />
