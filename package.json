@@ -35,10 +35,5 @@
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4"
   },
-  "allowScripts": {
-    "@parcel/watcher@2.5.1": true,
-    "protobufjs@7.5.4": true,
-    "sharp@0.34.5": true,
-    "esbuild@0.28.1": true
-  }
+  "packageManager": "yarn@4.18.0"
 }
