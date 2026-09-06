@@ -1,8 +1,12 @@
 import { Link, useNavigate } from "react-router";
 import { useState } from "react";
-import Footer from "./Footer";
+import Footer from "../layout/Footer";
 
-export default function ChangePass() {
+interface Props {
+  onNext: () => void;
+}
+
+export default function Stage1ChangePassword({ onNext }: Props) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [logoutModal, setLogoutModal] = useState(false);
     const navigate = useNavigate();
@@ -119,7 +123,7 @@ export default function ChangePass() {
                     </button>
 
                     <button
-                        onClick={() => goTo("/changePass2")}
+                        onClick={onNext}
                         className="
                             absolute bottom-4 right-4
                             bg-[#3F6D2F] hover:bg-[#355C27]
