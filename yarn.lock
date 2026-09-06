@@ -2867,7 +2867,8 @@ __metadata:
   languageName: node
   linkType: hard
 
-"baseline-browser-mapping@npm:^2.11.20":
+
+"baseline-browser-mapping@npm:^2.11.20, baseline-browser-mapping@npm:^2.11.21":
   version: 2.11.21
   resolution: "baseline-browser-mapping@npm:2.11.21"
   bin:
@@ -3621,7 +3622,9 @@ __metadata:
     "@types/react-dom": "npm:^19.1.9"
     "@types/react-router-dom": "npm:^5.3.3"
     axios: "npm:^1.13.2"
+    baseline-browser-mapping: "npm:^2.11.21"
     isbot: "npm:^5.1.31"
+    lucide-react: "npm:^1.41.0"
     prettier: "npm:3.6.2"
     react: "npm:^19.1.1"
     react-dom: "npm:^19.1.1"
@@ -5905,6 +5908,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+
+"lucide-react@npm:^1.41.0":
+  version: 1.41.0
+  resolution: "lucide-react@npm:1.41.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/28e1ac1087c153e7adfa007daa39d738e23372eb35d78cf93c4f91bfe44457a3d1b3e9e2a83ad62f9552206a37fbdf36a3255459bfb06ef2b1e7746c3ef65868
+  languageName: node
+  linkType: hard
 "luxon@npm:^3.2.1":
   version: 3.7.2
   resolution: "luxon@npm:3.7.2"

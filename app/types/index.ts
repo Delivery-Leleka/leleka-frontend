@@ -30,3 +30,15 @@ export interface Message {
   fromMe: boolean;
   time?: string;  
 }
+
+
+export interface ExtendedMessage extends Message {
+  read?: boolean;
+}
+
+export interface UserProfile {
+  name: string;
+  username: string;
+  bio: string;
+  avatar: string;
+}

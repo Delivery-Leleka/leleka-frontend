@@ -3,18 +3,43 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
-  --color-primary: #aecf98;
-  --color-primary-dark: #9cba89;
-  --text-color-primary: #262424;
-  --input-border-color: #294a2b;
   /* Fonts */
   --font-title: "Russo One", sans-serif;
   --font-raleway: "Raleway", "sans-serif";
   --font-sans:
     "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Legacy Colors */
+  --color-primary: #aecf98;
+  --color-primary-dark: #9cba89;
+  --text-color-primary: #262424;
+  --input-border-color: #294a2b;
+
+  /* Brand Theme Colors */
+  --color-brand-50: #ECF1DE;   
+  --color-brand-100: #E8EDE0;  
+  --color-brand-500: #8BAA70;  
+  --color-brand-600: #477628;  
+  --color-brand-700: #5C7843;  
+  --color-brand-800: #425731;  
+  --color-brand-850: #3A4D28;  
+  --color-brand-900: #344229;  
+  --color-brand-950: #2E3E1F;  
+  --color-brand-deep: #294A2B; 
+
+  --color-app-bg: #FCFBFA;   
+  --color-app-bg-alt: #F8F9FA;
+  --color-chat-bg: #F7F5E9;    
+  
+  --color-border-input: #D9D9D9;
+  --color-placeholder: #999994;  
+
+  --color-danger-primary: #C83727; 
+  --color-danger-hover: #A82B1D;  
 }
+
+/* Hide Spin Buttons for Number Inputs */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -26,10 +51,10 @@ input[type="number"] {
   appearance: textfield;
 }
 
-/* Button utilities using the theme variables */
+/* Button utilities */
 .btn-primary {
-  background-color: #aecf98;
-  color: var(--text-color-primary);
+  background-color: var(--color-primary, #aecf98);
+  color: var(--text-color-primary, #262424);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -50,12 +75,12 @@ body {
 .menu-item {
   @apply border-b border-black px-4 py-3 flex items-center gap-2 cursor-pointer hover:bg-[#A4C894];
 }
+
 .settings-item {
   @apply border-t border-b border-black w-full pl-10 flex justify-between items-center max-h-[80px] h-full transition-all duration-300;
 }
-<<<<<<< HEAD
-=======
 
+/* Keyframes & Animation Utilities */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -100,4 +125,3 @@ body {
 .animate-slideInRight {
   animation: slideInRight 0.3s ease-out forwards;
 }
->>>>>>> 7af0ee6 (re-onboarding adaptiv)
