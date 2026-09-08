@@ -36,6 +36,7 @@
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4"
   },
+  "packageManager": "yarn@4.5.0",
   "allowScripts": {
     "@parcel/watcher@2.5.1": true,
     "protobufjs@7.5.4": true,

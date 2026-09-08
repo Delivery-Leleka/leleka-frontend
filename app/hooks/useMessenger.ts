@@ -13,6 +13,7 @@ export function useMessenger() {
   const [deleteModal, setDeleteModal] = useState(false);
   const [myProfilePop, setMyProfilePop] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const chatBottomRef = useRef<HTMLDivElement | null>(null);
 
@@ -68,6 +69,8 @@ export function useMessenger() {
     setMyProfilePop,
     profileOpen,
     setProfileOpen,
+    isSidebarOpen,
+    setIsSidebarOpen,
     chatBottomRef,
     handleSendMessage,
     handleDeleteChat,
