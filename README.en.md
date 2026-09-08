@@ -33,7 +33,7 @@ A brief overview of the main directories and files:
 ├── .eslintrc.json                 # ESLint configuration
 ├── .prettierrc                    # Prettier configuration
 ├── CONTRIBUTING.md                # Rules and guidelines for contributors
-├── package.json                   # Dependencies and npm scripts
+├── package.json                   # Dependencies and yarn scripts
 └── README.md                      # Main project documentation
 ```
 
@@ -45,9 +45,9 @@ A brief overview of the main directories and files:
 
 Before getting started, make sure you have the following installed:
 
-* **Node.js** — version `18.x` or higher;
+- **Node.js** — version `18.x` or higher;
 
-* **npm** — or an alternative package manager such as `pnpm` / `yarn`.
+- **yarn** — or an alternative package manager such as `pyarn` / `yarn`.
 
 ### 1. Clone the Repository
 
@@ -60,7 +60,7 @@ cd <project-folder-name>
 ### 2. Install Dependencies
 
 ```bash
-npm install
+yarn install
 ```
 
 After installing the dependencies, fill in the required environment variables and keys if they are needed for the project to work.
@@ -70,7 +70,7 @@ After installing the dependencies, fill in the required environment variables an
 To start the local development server, run:
 
 ```bash
-npm run dev
+yarn run dev
 ```
 
 After starting, the application will be available at:
@@ -83,16 +83,16 @@ After starting, the application will be available at:
 
 ## 🛠️ Useful Commands
 
-All main project scripts are executed using `npm run <command>`.
+All main project scripts are executed using `yarn run <command>`.
 
-| Command            | Description                                     |
-| ------------------ | ----------------------------------------------- |
-| `npm run dev`      | Starts the project in development mode with HMR |
-| `npm run build`    | Builds the project for production               |
-| `npm run preview`  | Previews the production build locally           |
-| `npm run lint`     | Checks the code using ESLint                    |
-| `npm run lint:fix` | Automatically fixes ESLint errors               |
-| `npm run format`   | Formats the code using Prettier                 |
+| Command             | Description                                     |
+| ------------------- | ----------------------------------------------- |
+| `yarn run dev`      | Starts the project in development mode with HMR |
+| `yarn run build`    | Builds the project for production               |
+| `yarn run preview`  | Previews the production build locally           |
+| `yarn run lint`     | Checks the code using ESLint                    |
+| `yarn run lint:fix` | Automatically fixes ESLint errors               |
+| `yarn run format`   | Formats the code using Prettier                 |
 
 ---
 
@@ -134,18 +134,18 @@ In this case:
 
 Before making changes, it is recommended to review:
 
-* `CONTRIBUTING.md` — rules and guidelines for contributors;
+- `CONTRIBUTING.md` — rules and guidelines for contributors;
 
-* `package.json` — available npm scripts;
+- `package.json` — available yarn scripts;
 
-* `.eslintrc.json` — ESLint rules;
+- `.eslintrc.json` — ESLint rules;
 
-* `.prettierrc` — formatting rules.
+- `.prettierrc` — formatting rules.
 
-> 💡 **Tip:** *Before creating a Pull Request, make sure that the project successfully passes both code checks and formatting.*
+> 💡 **Tip:** _Before creating a Pull Request, make sure that the project successfully passes both code checks and formatting._
 
 ```bash
-npm run lint
+yarn run lint
 
-npm run format
+yarn run format
 ```
