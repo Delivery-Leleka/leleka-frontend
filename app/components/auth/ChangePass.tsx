@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router';
-import { useState } from 'react';
-import Footer from './Footer';
+import { Link, useNavigate } from "react-router";
+import { useState } from "react";
+import Footer from "../layout/Footer";
 
 export default function ChangePass() {
   const [menuOpen, setMenuOpen] = useState(false);

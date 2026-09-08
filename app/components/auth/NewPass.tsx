@@ -1,9 +1,9 @@
-import Header from './Header';
-import type { NewPass } from '~/types/Types';
-import { useState, useEffect } from 'react';
-import Footer from './Footer';
-import axiosBackend from 'app/axios';
-import { useNavigate } from 'react-router-dom';
+import Header from "../layout/Header";
+import type { NewPass } from "~/types";
+import { useState, useEffect } from "react";
+import Footer from "../layout/Footer";
+import axiosBackend from "~/api/axios";
+import { useNavigate } from "react-router-dom";
 
 export default function NewPass() {
   const [newPass, setPass] = useState<NewPass['newPassword']>('');
