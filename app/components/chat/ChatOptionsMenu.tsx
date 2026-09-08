@@ -1,44 +1,56 @@
 import React from "react";
-import { Pin, Lock, Archive, Ban, Trash2 } from "lucide-react";
+import { Pin, Lock, Archive, Share2, Trash2, Edit2, Copy } from "lucide-react";
 
 interface ChatOptionsMenuProps {
   isOpen: boolean;
   onDeleteClick: () => void;
+  onClose: () => void;
 }
 
 export const ChatOptionsMenu: React.FC<ChatOptionsMenuProps> = ({
   isOpen,
   onDeleteClick,
+  onClose,
 }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-16 right-8 w-60 bg-white border border-brand-50 rounded-2xl shadow-xl z-50 py-2">
-      <ul className="flex flex-col text-sm text-brand-950 font-medium">
-        <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-50/60 cursor-pointer transition-colors">
-          <Pin className="w-4 h-4 text-brand-700" />
-          <span>Закріпити чат</span>
-        </li>
-        <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-50/60 cursor-pointer transition-colors">
-          <Lock className="w-4 h-4 text-brand-700" />
-          <span>Перенести в закриту папку</span>
-        </li>
-        <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-50/60 cursor-pointer transition-colors">
-          <Archive className="w-4 h-4 text-brand-700" />
-          <span>Архівувати</span>
-        </li>
-        <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-50/60 cursor-pointer transition-colors">
-          <Ban className="w-4 h-4 text-brand-700" />
-          <span>Заблокувати</span>
-        </li>
-        <li
-          onClick={onDeleteClick}
-          className="flex items-center gap-3 px-4 py-2.5 text-danger-primary hover:bg-danger-primary/10 cursor-pointer transition-colors"
-        >
-          <Trash2 className="w-4 h-4 text-danger-primary" />
-          <span>Видалити чат</span>
-        </li>
-      </ul>
-    </div>
+    <>
+      <div className="fixed inset-0 z-40" onClick={onClose} />
+      <div className="absolute top-16 right-4 w-56 bg-white border border-gray-100 rounded-2xl shadow-2xl z-50 py-2">
+        <ul className="flex flex-col text-sm text-gray-800 font-medium">
+          <li onClick={onClose} className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition">
+            <Copy className="w-4 h-4 text-gray-600" />
+            <span>Копіювати</span>
+          </li>
+          <li onClick={onClose} className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition">
+            <Pin className="w-4 h-4 text-gray-600" />
+            <span>Закріпити</span>
+          </li>
+          <li onClick={onClose} className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition">
+            <Edit2 className="w-4 h-4 text-gray-600" />
+            <span>Редагувати</span>
+          </li>
+          <li onClick={onClose} className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition">
+            <Archive className="w-4 h-4 text-gray-600" />
+            <span>Архівувати</span>
+          </li>
+          <li onClick={onClose} className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition">
+            <Share2 className="w-4 h-4 text-gray-600" />
+            <span>Переслати</span>
+          </li>
+          <li
+            onClick={() => {
+              onClose();
+              onDeleteClick();
+            }}
+            className="flex items-center gap-3 px-4 py-2.5 text-red-600 hover:bg-red-50 cursor-pointer transition border-t border-gray-100 mt-1 pt-2.5"
+          >
+            <Trash2 className="w-4 h-4 text-red-600" />
+            <span>Видалити</span>
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };

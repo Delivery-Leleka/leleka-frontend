@@ -15,8 +15,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   return (
-    <form 
-      onSubmit={onSend} 
+    <form
+      onSubmit={onSend}
       className="w-full px-3 py-2 md:px-8 md:py-4 bg-white border-t border-gray-100 flex items-center justify-between shrink-0"
     >
       <div className="w-full flex items-center gap-2 md:gap-3 bg-app-bg border-[1.5px] border-border-input rounded-xl md:rounded-[15px] px-2.5 py-1.5 md:px-4 md:py-2 focus-within:border-brand-800 transition">
