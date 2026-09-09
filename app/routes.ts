@@ -7,6 +7,7 @@ export default [
     ]),
 
     layout("routes/layouts/protected.tsx", [
+        route("onboarding", "routes/onboarding.tsx"),
         route("profile/*", "routes/profile.tsx"),
         route("settings", "routes/settings.tsx"),
         route("contacts", "routes/contacts.tsx"),
