@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
-import axiosBackend from "../api/axios";
-import { useNavigate } from "react-router-dom";
-import { setUser } from "../api/userFuncs";
+import React, { useState, useEffect } from 'react';
+import axiosBackend from '../api/axios';
+import { useNavigate } from 'react-router-dom';
+import { setUser } from '../api/userFuncs';
 
 function LoginPage() {
-  const [email, setEmail] = useState<string>("");
-  const [pass, setPass] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [pass, setPass] = useState<string>('');
   const [showPass, setShowPass] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>('');
   const [submitting, setSubmitting] = useState<boolean>(false);
   const navigate = useNavigate();
-  const ERROR_ICON = "/icons/error.png";
+  const ERROR_ICON = '/icons/error.png';
 
   /* ---------------- INPUT HANDLERS ---------------- */
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
 
-    if (process.env.NODE_ENV == "development") {
+    if (process.env.NODE_ENV == 'development') {
       console.log(`DL [DEV_DEBUG]: Email - ${email}`);
     }
   };
@@ -24,31 +24,27 @@ function LoginPage() {
   const handlePassChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPass(e.target.value);
 
-    if (process.env.NODE_ENV == "development") {
+    if (process.env.NODE_ENV == 'development') {
       console.log(`DL [DEV_DEBUG]: Password (!!!!) - ${pass}`);
     }
   };
-
-  const goTo = (path: string) => {
-        navigate(path);
-    };
   /* ---------------- SUBMIT ---------------- */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submitting) return;
 
-    setError("");
+    setError('');
     setSubmitting(true);
 
     try {
       // console.log(email)
       // console.log(pass)
-      const res = await axiosBackend.post("/auth/login", {
+      const res = await axiosBackend.post('/auth/login', {
         email,
         pass,
       });
       const data = res.data;
-      if (process.env.NODE_ENV == "development") {
+      if (process.env.NODE_ENV == 'development') {
         console.log(data);
       }
 
@@ -56,9 +52,9 @@ function LoginPage() {
         if (data.two_factor_status) {
           // TODO: 2FA!!!!
         } else {
-          setError("Вхід успішний!");
+          setError('Вхід успішний!');
           setUser(data.user);
-          navigate("/");
+          navigate('/');
         }
       }
     } catch (err: any) {
@@ -67,20 +63,20 @@ function LoginPage() {
       console.log(msg);
 
       switch (msg) {
-        case "wrong-email":
-          setError("Неправильна пошта");
+        case 'wrong-email':
+          setError('Неправильна пошта');
           break;
-        case "wrong-password":
-          setError("Неправильний пароль");
+        case 'wrong-password':
+          setError('Неправильний пароль');
           break;
-        case "attempts-left":
-          setError("Залишилось 2 спроби");
+        case 'attempts-left':
+          setError('Залишилось 2 спроби');
           break;
-        case "limit-exceeded":
-          setError("Ліміт спроб вичерпано, спробуйте через 10 хвилин");
+        case 'limit-exceeded':
+          setError('Ліміт спроб вичерпано, спробуйте через 10 хвилин');
           break;
         default:
-          setError("Помилка входу");
+          setError('Помилка входу');
       }
     } finally {
       setSubmitting(false);
@@ -90,16 +86,16 @@ function LoginPage() {
   /* ---------------- ERROR AUTO-HIDE ---------------- */
   useEffect(() => {
     if (!error) return;
-    const t = setTimeout(() => setError(""), 3000);
+    const t = setTimeout(() => setError(''), 3000);
     return () => clearTimeout(t);
   }, [error]);
 
   /* ---------------- DEBUG (SAFE) ---------------- */
 
   useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      console.log("EMAIL STATE:", email);
-      console.log("PASS STATE:", pass);
+    if (process.env.NODE_ENV === 'development') {
+      console.log('EMAIL STATE:', email);
+      console.log('PASS STATE:', pass);
     }
   }, [email, pass]);
 
@@ -148,9 +144,9 @@ function LoginPage() {
                 </h5>
                 <input
                   className={`border-2 rounded-lg w-full h-10 px-4 transition-all duration-300 ${
-                    error === "Неправильна пошта"
-                      ? "bg-red-200 border-red-500 animate-shake"
-                      : "bg-white border-[--input-border-color] text-primary focus:scale-[1.02]"
+                    error === 'Неправильна пошта'
+                      ? 'bg-red-200 border-red-500 animate-shake'
+                      : 'bg-white border-[--input-border-color] text-primary focus:scale-[1.02]'
                   }`}
                   type="text"
                   value={email}
@@ -163,18 +159,18 @@ function LoginPage() {
                   Введіть пароль
                 </h5>
                 <input
-                  type={showPass ? "text" : "password"}
+                  type={showPass ? 'text' : 'password'}
                   value={pass}
                   onChange={handlePassChange}
                   autoComplete="current-password"
                   className={`border-2 rounded-lg w-full h-10 px-4 pr-12 transition-all duration-300 ${
                     [
-                      "Неправильний пароль",
-                      "Залишилось 2 спроби",
-                      "Ліміт спроб вичерпано, спробуйте через 10 хвилин",
+                      'Неправильний пароль',
+                      'Залишилось 2 спроби',
+                      'Ліміт спроб вичерпано, спробуйте через 10 хвилин',
                     ].includes(error)
-                      ? "bg-red-200 border-red-500 animate-shake"
-                      : "bg-white border-[--input-border-color] text-primary focus:scale-[1.02]"
+                      ? 'bg-red-200 border-red-500 animate-shake'
+                      : 'bg-white border-[--input-border-color] text-primary focus:scale-[1.02]'
                   }`}
                 />
                 <button
@@ -185,8 +181,8 @@ function LoginPage() {
                   <img
                     src={
                       showPass
-                        ? "/icons/Preview-close.png"
-                        : "/icons/Preview-open.png"
+                        ? '/icons/Preview-close.png'
+                        : '/icons/Preview-open.png'
                     }
                     alt="toggle password"
                     className="w-5 h-5 select-none mt-8"
@@ -219,7 +215,7 @@ function LoginPage() {
                 onSubmit={() => navigate('/onboarding')}
                 className="w-full sm:w-auto bg-[#4b6b3d] hover:bg-[#3d5832] text-white font-semibold px-6 py-2 rounded-md shadow-md transition-all duration-200 active:scale-95 cursor-pointer disabled:opacity-60"
               >
-                {submitting ? "Завантаження..." : "Увійти"}
+                {submitting ? 'Завантаження...' : 'Увійти'}
               </button>
             </div>
 

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import Footer from "../layout/Footer";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import Footer from '../layout/Footer';
 
 interface Props {
   onNext: (newEmail: string) => void;
@@ -10,8 +10,8 @@ interface Props {
 export default function Stage2ChangeEmail({ onNext, onBack }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
-  const [newEmail, setNewEmail] = useState("");
-  const [error, setError] = useState("");
+  const [newEmail, setNewEmail] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const goTo = (path: string) => {
@@ -24,16 +24,16 @@ export default function Stage2ChangeEmail({ onNext, onBack }: Props) {
   };
 
   const validate = () => {
-    let err = "";
+    let err = '';
 
     if (!newEmail.trim()) {
-      err = "Поле не може бути порожнім";
+      err = 'Поле не може бути порожнім';
     } else if (!validateEmail(newEmail.trim())) {
-      err = "Вкажіть коректну пошту (наприклад: name@example.com)";
+      err = 'Вкажіть коректну пошту (наприклад: name@example.com)';
     }
 
     setError(err);
-    return err === "";
+    return err === '';
   };
 
   const handleSubmit = () => {
@@ -71,26 +71,26 @@ export default function Stage2ChangeEmail({ onNext, onBack }: Props) {
 
         <div
           className={`absolute top-16 left-0 w-56 bg-[#B5D7A5] border border-black rounded-b-xl overflow-hidden transition-all duration-300 z-50 
-            ${menuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}
+            ${menuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}
           `}
         >
           <ul className="flex flex-col text-black select-none">
-            <li onClick={() => goTo("/myProfile")} className="menu-item">
+            <li onClick={() => goTo('/myProfile')} className="menu-item">
               <img src="/icons/profile.png" className="w-5" /> Профіль
             </li>
-            <li onClick={() => goTo("/contacts")} className="menu-item">
+            <li onClick={() => goTo('/contacts')} className="menu-item">
               <img src="/icons/phone.png" className="w-5" /> Контакти
             </li>
-            <li onClick={() => goTo("/createGroup")} className="menu-item">
+            <li onClick={() => goTo('/createGroup')} className="menu-item">
               <img src="/icons/add-group.png" className="w-5" /> Створити групу
             </li>
-            <li onClick={() => goTo("/privateFolder")} className="menu-item">
+            <li onClick={() => goTo('/privateFolder')} className="menu-item">
               <img src="/icons/folder.png" className="w-5" /> Приватна папка
             </li>
-            <li onClick={() => goTo("/archive")} className="menu-item">
+            <li onClick={() => goTo('/archive')} className="menu-item">
               <img src="/icons/archive.png" className="w-5" /> Архів
             </li>
-            <li onClick={() => goTo("/settings")} className="menu-item">
+            <li onClick={() => goTo('/settings')} className="menu-item">
               <img src="/icons/settings.png" className="w-5" /> Налаштування
             </li>
             <li className="menu-item">
@@ -136,19 +136,17 @@ export default function Stage2ChangeEmail({ onNext, onBack }: Props) {
                     w-full h-10 px-3 sm:px-4
                     transition-all duration-300
                     focus:outline-none
-                    ${error ? "border-red-500" : "border-gray-300"}
+                    ${error ? 'border-red-500' : 'border-gray-300'}
                   `}
                   value={newEmail}
                   onChange={(e) => {
                     setNewEmail(e.target.value);
-                    if (error) setError("");
+                    if (error) setError('');
                   }}
                 />
               </div>
 
-              {error && (
-                <p className="text-red-600 text-sm mt-1">{error}</p>
-              )}
+              {error && <p className="text-red-600 text-sm mt-1">{error}</p>}
             </div>
           </div>
 
@@ -173,11 +171,15 @@ export default function Stage2ChangeEmail({ onNext, onBack }: Props) {
               absolute bottom-4 right-4
               text-white font-medium py-3 px-6 rounded-md 
               flex items-center gap-2 transition z-20 cursor-pointer
-              ${isInvalid ? "bg-gray-400 cursor-not-allowed" : "bg-[#3F6D2F] hover:bg-[#355C27]"}
+              ${isInvalid ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#3F6D2F] hover:bg-[#355C27]'}
             `}
           >
             Далі
-            <img src="/icons/Arrow-right.png" alt="Right-Arrow" className="w-5 h-5" />
+            <img
+              src="/icons/Arrow-right.png"
+              alt="Right-Arrow"
+              className="w-5 h-5"
+            />
           </button>
 
           <div className="absolute bottom-0 left-0 right-0 overflow-hidden rounded-b-xl z-0 pointer-events-none">

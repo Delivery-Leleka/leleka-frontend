@@ -28,9 +28,8 @@ export interface Message {
   id: string;
   text: string;
   fromMe: boolean;
-  time?: string;  
+  time?: string;
 }
-
 
 export interface ExtendedMessage extends Message {
   read?: boolean;

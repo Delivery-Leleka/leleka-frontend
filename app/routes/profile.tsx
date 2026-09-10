@@ -1,14 +1,14 @@
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfilePage() {
-  const [about, setAbout] = useState("");
-  const [photo, setPhoto] = useState("/icons/add-image.png");
+  const [about, setAbout] = useState('');
+  const [photo, setPhoto] = useState('/icons/add-image.png');
   const [menuOpen, setMenuOpen] = useState(false);
-  const [nickname, setNickname] = useState("");
-  const [error, setError] = useState("");
+  const [nickname, setNickname] = useState('');
+  const [error, setError] = useState('');
   const [logoutModal, setLogoutModal] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const fileInput = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
@@ -27,15 +27,15 @@ export default function ProfilePage() {
   };
 
   const allowedDomains = [
-    "gmail.com",
-    "ukr.net",
-    "i.ua",
-    "meta.ua",
-    "icloud.com",
-    "outlook.com",
-    "hotmail.com",
-    "yahoo.com",
-    "proton.me",
+    'gmail.com',
+    'ukr.net',
+    'i.ua',
+    'meta.ua',
+    'icloud.com',
+    'outlook.com',
+    'hotmail.com',
+    'yahoo.com',
+    'proton.me',
   ];
 
   const validateEmail = (email: string) => {
@@ -44,7 +44,7 @@ export default function ProfilePage() {
     // без пробілів
     if (/\s/.test(email)) return false;
 
-    const parts = email.split("@");
+    const parts = email.split('@');
     if (parts.length !== 2) return false;
 
     const [local, domain] = parts;
@@ -58,27 +58,27 @@ export default function ProfilePage() {
     setEmail(v);
 
     if (!validateEmail(v)) {
-      setError("Некоректна або непідтримувана пошта");
+      setError('Некоректна або непідтримувана пошта');
     } else {
-      setError("");
+      setError('');
     }
   };
 
   const validateNickname = (v: string) => {
     const regex = /^[A-Za-z0-9_]+$/;
 
-    if (!v) return "Поле не може бути порожнім";
+    if (!v) return 'Поле не може бути порожнім';
 
     if (!regex.test(v))
-      return "Можна використовувати лише латинські літери, цифри та _";
+      return 'Можна використовувати лише латинські літери, цифри та _';
 
-    if (v.length < 3) return "Нікнейм занадто короткий";
+    if (v.length < 3) return 'Нікнейм занадто короткий';
 
-    return "";
+    return '';
   };
 
   const checkTaken = async (v: string) => {
-    const taken = ["delured", "admin", "mod"]; //МИРОСЛАВ ЗАМІНИШ НА ЗАПИТ
+    const taken = ['delured', 'admin', 'mod']; //МИРОСЛАВ ЗАМІНИШ НА ЗАПИТ
 
     return taken.includes(v.toLowerCase());
   };
@@ -95,22 +95,22 @@ export default function ProfilePage() {
     const taken = await checkTaken(v);
 
     if (taken) {
-      setError("Цей нік вже використовується");
+      setError('Цей нік вже використовується');
     } else {
-      setError("");
+      setError('');
     }
   };
 
   const getErrorIcon = (msg: string) => {
     switch (msg) {
-      case "Можна використовувати лише латинські літери, цифри та _":
-        return "/icons/Auto-line-height.png";
+      case 'Можна використовувати лише латинські літери, цифри та _':
+        return '/icons/Auto-line-height.png';
 
-      case "Нікнейм занадто короткий":
-        return "/icons/Auto-width.png";
+      case 'Нікнейм занадто короткий':
+        return '/icons/Auto-width.png';
 
       default:
-        return "/icons/error.png";
+        return '/icons/error.png';
     }
   };
 
@@ -124,19 +124,19 @@ export default function ProfilePage() {
 
     const taken = await checkTaken(nickname);
     if (taken) {
-      setError("Цей нік вже використовується");
+      setError('Цей нік вже використовується');
       return;
     }
 
     if (!validateEmail(email)) {
-      setError("Некоректна або непідтримувана пошта");
+      setError('Некоректна або непідтримувана пошта');
       return;
     }
 
-    setError("");
+    setError('');
 
     try {
-      console.log("SAVE PROFILE", {
+      console.log('SAVE PROFILE', {
         nickname,
         email,
         about,
@@ -144,7 +144,7 @@ export default function ProfilePage() {
 
       // МИРОСЛАВ запит на бек :)
     } catch (err) {
-      setError("Помилка збереження");
+      setError('Помилка збереження');
     }
   };
 
@@ -176,26 +176,26 @@ export default function ProfilePage() {
 
         <div
           className={`absolute top-16 left-0 w-56 bg-[#B5D7A5] border border-black rounded-b-xl overflow-hidden transition-all duration-300 z-50 
-            ${menuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}
+            ${menuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}
           `}
         >
           <ul className="flex flex-col text-black select-none">
-            <li onClick={() => goTo("/myProfile")} className="menu-item">
+            <li onClick={() => goTo('/myProfile')} className="menu-item">
               <img src="/icons/profile.png" className="w-5" /> Профіль
             </li>
-            <li onClick={() => goTo("/contacts")} className="menu-item">
+            <li onClick={() => goTo('/contacts')} className="menu-item">
               <img src="/icons/phone.png" className="w-5" /> Контакти
             </li>
-            <li onClick={() => goTo("/createGroup")} className="menu-item">
+            <li onClick={() => goTo('/createGroup')} className="menu-item">
               <img src="/icons/add-group.png" className="w-5" /> Створити групу
             </li>
-            <li onClick={() => goTo("/privateFolder")} className="menu-item">
+            <li onClick={() => goTo('/privateFolder')} className="menu-item">
               <img src="/icons/folder.png" className="w-5" /> Приватна папка
             </li>
-            <li onClick={() => goTo("/archive")} className="menu-item">
+            <li onClick={() => goTo('/archive')} className="menu-item">
               <img src="/icons/archive.png" className="w-5" /> Архів
             </li>
-            <li onClick={() => goTo("/settings")} className="menu-item">
+            <li onClick={() => goTo('/settings')} className="menu-item">
               <img src="/icons/settings.png" className="w-5" /> Налаштування
             </li>
             <li className="menu-item">
@@ -219,7 +219,10 @@ export default function ProfilePage() {
       )}
 
       <main className="flex justify-center items-start py-12 sm:py-16 px-4 w-full">
-        <form onSubmit={handleSubmit} className="w-full max-w-[900px] bg-[#BADB9B] rounded-xl p-6 sm:p-10 relative overflow-hidden">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-[900px] bg-[#BADB9B] rounded-xl p-6 sm:p-10 relative overflow-hidden"
+        >
           <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 sm:mb-8 text-[#16321F]">
             Профіль
           </h2>
@@ -270,13 +273,13 @@ export default function ProfilePage() {
                     ${
                       error &&
                       [
-                        "Можна використовувати лише латинські літери, цифри та _",
-                        "Цей нік вже використовується",
-                        "Нікнейм занадто короткий",
-                        "Поле не може бути порожнім",
+                        'Можна використовувати лише латинські літери, цифри та _',
+                        'Цей нік вже використовується',
+                        'Нікнейм занадто короткий',
+                        'Поле не може бути порожнім',
                       ].includes(error)
-                        ? "bg-red-200 border-red-500 animate-shake"
-                        : "bg-white border-[--input-border-color] text-primary focus:scale-[1.02]"
+                        ? 'bg-red-200 border-red-500 animate-shake'
+                        : 'bg-white border-[--input-border-color] text-primary focus:scale-[1.02]'
                     }
                     `}
                 />
@@ -290,9 +293,9 @@ export default function ProfilePage() {
                   className={`
                     border-2 rounded-md w-full h-9 px-3 transition-all duration-300 bg-white text-black
                     ${
-                      error === "Некоректна або непідтримувана пошта"
-                        ? "bg-red-200 border-red-500 animate-shake"
-                        : "border-gray-500 focus:scale-[1.02]"
+                      error === 'Некоректна або непідтримувана пошта'
+                        ? 'bg-red-200 border-red-500 animate-shake'
+                        : 'border-gray-500 focus:scale-[1.02]'
                     }
                   `}
                 />
@@ -340,8 +343,8 @@ export default function ProfilePage() {
 
               <button
                 onClick={() => {
-                  console.log("USER LOGGED OUT");
-                  navigate("/login");
+                  console.log('USER LOGGED OUT');
+                  navigate('/login');
                 }}
                 className="w-full py-2 bg-red-300 hover:bg-red-400 text-white font-semibold rounded-lg flex items-center justify-center gap-2 border border-black"
               >

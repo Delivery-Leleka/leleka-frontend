@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Check, CheckCheck } from "lucide-react";
-import type { ChatItem, ExtendedMessage } from "~/types";
+import React, { useState } from 'react';
+import { Check, CheckCheck } from 'lucide-react';
+import type { ChatItem, ExtendedMessage } from '~/types';
 
 interface ChatListProps {
   items: ChatItem[];
@@ -9,18 +9,24 @@ interface ChatListProps {
 }
 
 const TABS = [
-  { id: "all", label: "Усі" },
-  { id: "personal", label: "Особисті" },
-  { id: "groups", label: "Групи" },
-  { id: "archive", label: "Архів" },
+  { id: 'all', label: 'Усі' },
+  { id: 'personal', label: 'Особисті' },
+  { id: 'groups', label: 'Групи' },
+  { id: 'archive', label: 'Архів' },
 ];
 
-export const ChatList: React.FC<ChatListProps> = ({ items, messages, onSelectChat }) => {
-  const [activeTab, setActiveTab] = useState("all");
+export const ChatList: React.FC<ChatListProps> = ({
+  items,
+  messages,
+  onSelectChat,
+}) => {
+  const [activeTab, setActiveTab] = useState('all');
 
   const getLastMessage = (chatId: string) => {
     const chatMsgs = messages[chatId];
-    return chatMsgs && chatMsgs.length > 0 ? chatMsgs[chatMsgs.length - 1] : null;
+    return chatMsgs && chatMsgs.length > 0
+      ? chatMsgs[chatMsgs.length - 1]
+      : null;
   };
 
   return (
@@ -34,8 +40,8 @@ export const ChatList: React.FC<ChatListProps> = ({ items, messages, onSelectCha
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-1.5 rounded-xl text-sm font-medium transition whitespace-nowrap cursor-pointer border ${
                 isActive
-                  ? "bg-[#C2CE9C] text-gray-800 border-transparent"
-                  : "bg-white text-gray-500 border-gray-200 hover:bg-gray-50"
+                  ? 'bg-[#C2CE9C] text-gray-800 border-transparent'
+                  : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-50'
               }`}
             >
               {tab.label}
@@ -47,7 +53,7 @@ export const ChatList: React.FC<ChatListProps> = ({ items, messages, onSelectCha
       <div className="flex flex-col px-4 pt-2">
         {items.map((it) => {
           const lastMsg = getLastMessage(it.id);
-          const isOnline = it.status === "В мережі";
+          const isOnline = it.status === 'В мережі';
 
           return (
             <div
@@ -74,12 +80,20 @@ export const ChatList: React.FC<ChatListProps> = ({ items, messages, onSelectCha
 
                   <div className="flex items-center gap-1 text-xs text-gray-500 truncate mt-0.5">
                     {lastMsg?.fromMe && (
-                      <span className={lastMsg.read ? "text-green-600" : "text-gray-400"}>
-                        {lastMsg.read ? <CheckCheck size={14} /> : <Check size={14} />}
+                      <span
+                        className={
+                          lastMsg.read ? 'text-green-600' : 'text-gray-400'
+                        }
+                      >
+                        {lastMsg.read ? (
+                          <CheckCheck size={14} />
+                        ) : (
+                          <Check size={14} />
+                        )}
                       </span>
                     )}
                     <span className="truncate">
-                      {lastMsg ? lastMsg.text : "Немає повідомлень"}
+                      {lastMsg ? lastMsg.text : 'Немає повідомлень'}
                     </span>
                   </div>
                 </div>
@@ -87,7 +101,7 @@ export const ChatList: React.FC<ChatListProps> = ({ items, messages, onSelectCha
 
               <div className="shrink-0 text-right self-start pt-1">
                 <span className="text-xs text-gray-400">
-                  {lastMsg?.time || "10:24"}
+                  {lastMsg?.time || '10:24'}
                 </span>
               </div>
             </div>

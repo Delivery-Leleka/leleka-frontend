@@ -1,4 +1,9 @@
-import { useState, useEffect, type ChangeEvent, type KeyboardEvent } from "react";
+import {
+  useState,
+  useEffect,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from 'react';
 
 interface Props {
   onBack: () => void;
@@ -8,7 +13,7 @@ interface Props {
 export default function PasswordRecoveryStage3({ onBack, onConfirm }: Props) {
   const [active, setActive] = useState(false);
   const [timer, setTimer] = useState(0);
-  const [code, setCode] = useState<string[]>(Array(6).fill(""));
+  const [code, setCode] = useState<string[]>(Array(6).fill(''));
 
   useEffect(() => {
     let interval: number | undefined;
@@ -27,7 +32,10 @@ export default function PasswordRecoveryStage3({ onBack, onConfirm }: Props) {
     }
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const val = e.target.value;
     if (!/^\d*$/.test(val)) return;
 
@@ -41,13 +49,17 @@ export default function PasswordRecoveryStage3({ onBack, onConfirm }: Props) {
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
-    if (e.key === "Backspace" && !code[index] && e.currentTarget.previousElementSibling) {
+    if (
+      e.key === 'Backspace' &&
+      !code[index] &&
+      e.currentTarget.previousElementSibling
+    ) {
       (e.currentTarget.previousElementSibling as HTMLInputElement).focus();
     }
   };
 
   const handleConfirm = () => {
-    const fullCode = code.join("");
+    const fullCode = code.join('');
     if (onConfirm) {
       onConfirm(fullCode);
     }
@@ -106,13 +118,13 @@ export default function PasswordRecoveryStage3({ onBack, onConfirm }: Props) {
             onClick={handleResendCode}
             disabled={active}
             className={`w-64 sm:w-64 md:w-80 lg:w-[500px] py-3 text-white font-semibold rounded-lg shadow-md transition 
-                       ${active ? "bg-green-700 cursor-not-allowed" : "bg-[#72A850] hover:bg-green-700 cursor-pointer"}`}
+                       ${active ? 'bg-green-700 cursor-not-allowed' : 'bg-[#72A850] hover:bg-green-700 cursor-pointer'}`}
           >
             {active ? (
               `Надіслати код повторно через ${timer} с`
             ) : (
               <>
-                Надіслати код повторно{" "}
+                Надіслати код повторно{' '}
                 <img
                   src="/icons/redo.png"
                   alt="redo"

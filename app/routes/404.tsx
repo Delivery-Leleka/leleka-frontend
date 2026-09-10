@@ -1,5 +1,5 @@
-import { Link } from "react-router";
-import { useAuth } from "~/hooks/useAuth";
+import { Link } from 'react-router';
+import { useAuth } from '~/hooks/useAuth';
 
 export default function Four04() {
   const { isAuthenticated } = useAuth();
@@ -37,7 +37,9 @@ export default function Four04() {
             to="/"
             className="bg-[#477628] hover:bg-[#385e20] text-white w-140 max-w-full h-12 rounded-lg text-xl font-semibold flex items-center justify-center transition duration-200"
           >
-            {isAuthenticated ? "Повернутися до чатів" : "Повернутися на головну"}
+            {isAuthenticated
+              ? 'Повернутися до чатів'
+              : 'Повернутися на головну'}
           </Link>
         </div>
       </main>

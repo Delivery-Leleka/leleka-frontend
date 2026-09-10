@@ -1,16 +1,23 @@
-import React from "react";
+import React from 'react';
 
 interface DeleteModalProps {
   onClose: () => void;
   onDelete: () => void;
 }
 
-export const DeleteModal: React.FC<DeleteModalProps> = ({ onClose, onDelete }) => {
+export const DeleteModal: React.FC<DeleteModalProps> = ({
+  onClose,
+  onDelete,
+}) => {
   return (
     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center z-[999]">
       <div className="bg-white w-[340px] rounded-2xl p-6 shadow-2xl flex flex-col items-center text-center">
-        <h3 className="font-bold text-brand-950 text-lg mb-2">Дійсно хочете видалити цей чат?</h3>
-        <p className="text-sm text-brand-700 mb-6">Цю дію не можна буде скасувати.</p>
+        <h3 className="font-bold text-brand-950 text-lg mb-2">
+          Дійсно хочете видалити цей чат?
+        </h3>
+        <p className="text-sm text-brand-700 mb-6">
+          Цю дію не можна буде скасувати.
+        </p>
         <div className="flex gap-4 w-full">
           <button
             onClick={onClose}

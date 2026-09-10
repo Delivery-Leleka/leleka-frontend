@@ -1,20 +1,20 @@
-import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateGroupPage() {
-  const [groupName, setGroupName] = useState("");
-  const [description, setDescription] = useState("");
-  const [photo, setPhoto] = useState("/icons/add-image.png");
+  const [groupName, setGroupName] = useState('');
+  const [description, setDescription] = useState('');
+  const [photo, setPhoto] = useState('/icons/add-image.png');
   const [menuOpen, setMenuOpen] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
-  const [errors, setErrors] = useState({ groupName: "" });
+  const [errors, setErrors] = useState({ groupName: '' });
   const [members, setMembers] = useState([
-    { id: 1, name: "Лелека", status: "В мережі", selected: false },
-    { id: 2, name: "Лелека", status: "В мережі", selected: false },
-    { id: 3, name: "Лелека", status: "16:58", selected: false },
-    { id: 4, name: "Лелека", status: "19:40", selected: false },
-    { id: 5, name: "Лелека", status: "Місяць тому о 12:32", selected: false },
-    { id: 6, name: "Лелека", status: "19.02 о 17:50", selected: false },
+    { id: 1, name: 'Лелека', status: 'В мережі', selected: false },
+    { id: 2, name: 'Лелека', status: 'В мережі', selected: false },
+    { id: 3, name: 'Лелека', status: '16:58', selected: false },
+    { id: 4, name: 'Лелека', status: '19:40', selected: false },
+    { id: 5, name: 'Лелека', status: 'Місяць тому о 12:32', selected: false },
+    { id: 6, name: 'Лелека', status: '19.02 о 17:50', selected: false },
   ]);
 
   const fileInput = useRef<HTMLInputElement | null>(null);
@@ -22,7 +22,7 @@ export default function CreateGroupPage() {
 
   const goTo = (path: string) => {
     navigate(path);
-  }
+  };
 
   const handlePhotoPick = (e: any) => {
     const file = e.target.files?.[0];
@@ -33,13 +33,13 @@ export default function CreateGroupPage() {
 
   const toggleMember = (id: number) => {
     setMembers((prev) =>
-      prev.map((m) => (m.id === id ? { ...m, selected: !m.selected } : m)),
+      prev.map((m) => (m.id === id ? { ...m, selected: !m.selected } : m))
     );
   };
 
   const validateForm = () => {
     let ok = true;
-    const newErrors = { groupName: "" };
+    const newErrors = { groupName: '' };
     if (groupName.trim().length === 0) {
       newErrors.groupName = "Назва групи є обов'язковою";
       ok = false;
@@ -50,7 +50,7 @@ export default function CreateGroupPage() {
 
   const submit = () => {
     if (!validateForm()) return;
-    console.log("GROUP CREATED", { groupName, description, photo, members });
+    console.log('GROUP CREATED', { groupName, description, photo, members });
   };
 
   return (
@@ -81,26 +81,26 @@ export default function CreateGroupPage() {
 
         <div
           className={`absolute top-16 left-0 w-56 bg-[#B5D7A5] border border-black rounded-b-xl overflow-hidden transition-all duration-300 z-50 
-            ${menuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}
+            ${menuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}
           `}
         >
           <ul className="flex flex-col text-black select-none">
-            <li onClick={() => goTo("/myProfile")} className="menu-item">
+            <li onClick={() => goTo('/myProfile')} className="menu-item">
               <img src="/icons/profile.png" className="w-5" /> Профіль
             </li>
-            <li onClick={() => goTo("/contacts")} className="menu-item">
+            <li onClick={() => goTo('/contacts')} className="menu-item">
               <img src="/icons/phone.png" className="w-5" /> Контакти
             </li>
-            <li onClick={() => goTo("/createGroup")} className="menu-item">
+            <li onClick={() => goTo('/createGroup')} className="menu-item">
               <img src="/icons/add-group.png" className="w-5" /> Створити групу
             </li>
-            <li onClick={() => goTo("/privateFolder")} className="menu-item">
+            <li onClick={() => goTo('/privateFolder')} className="menu-item">
               <img src="/icons/folder.png" className="w-5" /> Приватна папка
             </li>
-            <li onClick={() => goTo("/archive")} className="menu-item">
+            <li onClick={() => goTo('/archive')} className="menu-item">
               <img src="/icons/archive.png" className="w-5" /> Архів
             </li>
-            <li onClick={() => goTo("/settings")} className="menu-item">
+            <li onClick={() => goTo('/settings')} className="menu-item">
               <img src="/icons/settings.png" className="w-5" /> Налаштування
             </li>
             <li className="menu-item">
@@ -131,7 +131,7 @@ export default function CreateGroupPage() {
                 maxLength={70}
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
-                className={`w-full h-10 rounded-md border px-3 mt-1 bg-white text-black transition ${errors.groupName ? "border-red-500" : "border-black"}`}
+                className={`w-full h-10 rounded-md border px-3 mt-1 bg-white text-black transition ${errors.groupName ? 'border-red-500' : 'border-black'}`}
               />
               <div className="flex justify-between text-xs mt-1">
                 <span className="text-red-600">{errors.groupName}</span>
@@ -139,9 +139,7 @@ export default function CreateGroupPage() {
                   {70 - groupName.length} символів
                 </span>
               </div>
-              <label className="font-bold text-[#16321F]">
-                Аватар
-              </label>
+              <label className="font-bold text-[#16321F]">Аватар</label>
 
               <div className="flex flex-col gap-4 mt-6 sm:flex-row">
                 <div className="flex items-center gap-4">
@@ -176,13 +174,17 @@ export default function CreateGroupPage() {
                   <label className="font-bold text-[#16321F]">
                     Опис <span className="text-red-600">(необов'язково)</span>
                   </label>
-                  <textarea maxLength={300} value={description} onChange={(e) => setDescription(e.target.value)} className="w-full h-32 border border-black rounded-md px-3 py-2 mt-1 bg-white text-black resize-none" />
+                  <textarea
+                    maxLength={300}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="w-full h-32 border border-black rounded-md px-3 py-2 mt-1 bg-white text-black resize-none"
+                  />
                   <div className="text-right text-xs text-black opacity-70">
                     {300 - description.length} символів
                   </div>
                 </div>
               </div>
-
             </div>
 
             <div>
@@ -230,7 +232,6 @@ export default function CreateGroupPage() {
               className="w-full object-cover opacity-90"
             />
           </div>
-
         </form>
       </main>
 

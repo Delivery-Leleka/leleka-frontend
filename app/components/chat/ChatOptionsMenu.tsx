@@ -1,5 +1,5 @@
-import React from "react";
-import { Pin, Lock, Archive, Ban, Trash2 } from "lucide-react";
+import React from 'react';
+import { Pin, Lock, Archive, Ban, Trash2 } from 'lucide-react';
 
 interface ChatOptionsMenuProps {
   isOpen: boolean;
