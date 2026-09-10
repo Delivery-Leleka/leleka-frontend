@@ -46,22 +46,27 @@
 
 Перед початком роботи переконайтеся, що у вас встановлено:
 
-- **Node.js** — версія `18.x` або вище;
-- **yarn** — пакетний менеджер. Версія 4 і вище.
+- **Node.js** — версія `18.x` або вище; [Як встановити Node (**Вкрай** рекомендовано використовувати nvm/або інший node version manager)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- **yarn** — пакетний менеджер. Yarn Berry (v4);  [Як встановити yarn berry (Використовувати частину `yarn berry` гайду)](https://dev.to/arshak_grigoryan/yarn-classic-vs-yarn-berry-installation-guide-3oob)
 
 ### 1. Клонуйте репозиторій
 
 ```bash
-git clone <посилання-на-репозиторій>
+git clone https://github.com/Delivery-Leleka/leleka-frontend
 
-cd <назва-папки-проєкту>
+cd leleka-frontend
 ```
 
 ### 2. Встановіть залежності
 
 ```bash
+yarn
+```
+Або:
+```bash
 yarn install
 ```
+(Роблять однакову річ)
 
 Після встановлення залежностей заповніть необхідні змінні середовища та ключі, якщо вони потрібні для роботи проєкту.
 
@@ -73,9 +78,7 @@ yarn install
 yarn dev
 ```
 
-Після запуску додаток буде доступний за адресою:
-
-**http://localhost:5173**
+Після запуску додаток буде доступний за адресою, яка відображена в терміналі
 
 > ℹ️ Порт може відрізнятися. Актуальну адресу буде вказано в консолі після запуску.
 
@@ -130,14 +133,14 @@ Husky автоматично запускає `pre-commit` hook, який:
 
 Перед внесенням змін рекомендується ознайомитися з:
 
-- `CONTRIBUTING.md` — правилами та рекомендаціями для контриб'юторів;
-- `package.json` — доступними npm-скриптами;
+- `CONTRIBUTING.md` — правилами для contributions;
+- `package.json` — доступними скриптами;
 - `.eslintrc.json` — правилами ESLint;
 - `.prettierrc` — правилами форматування.
 
 > 💡 **Порада:** перед створенням Pull Request переконайтеся, що проєкт успішно проходить перевірку коду та форматування.
 
 ```bash
-yarn run lint
-yarn run format
+yarn lint
+yarn format
 ```
