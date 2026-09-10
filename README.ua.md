@@ -47,7 +47,7 @@
 Перед початком роботи переконайтеся, що у вас встановлено:
 
 - **Node.js** — версія `18.x` або вище; [Як встановити Node (**Вкрай** рекомендовано використовувати nvm/або інший node version manager)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-- **yarn** — пакетний менеджер. Yarn Berry (v4);  [Як встановити yarn berry (Використовувати частину `yarn berry` гайду)](https://dev.to/arshak_grigoryan/yarn-classic-vs-yarn-berry-installation-guide-3oob)
+- **yarn** — пакетний менеджер. Yarn Berry (v4); [Як встановити yarn berry (Використовувати частину `yarn berry` гайду)](https://dev.to/arshak_grigoryan/yarn-classic-vs-yarn-berry-installation-guide-3oob)
 
 ### 1. Клонуйте репозиторій
 
@@ -62,10 +62,13 @@ cd leleka-frontend
 ```bash
 yarn
 ```
+
 Або:
+
 ```bash
 yarn install
 ```
+
 (Роблять однакову річ)
 
 Після встановлення залежностей заповніть необхідні змінні середовища та ключі, якщо вони потрібні для роботи проєкту.
