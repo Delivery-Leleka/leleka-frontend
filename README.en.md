@@ -46,7 +46,7 @@ A brief overview of the main directories and files:
 
 Before getting started, make sure you have the following installed:
 
-* **Node.js** — version `18.x` or higher. [Node.js installation guide (using nvm or another Node version manager is **highly recommended**)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+* **Node.js** — version `18.x` or higher. [Node.js installation guide (using nvm/another Node version manager is **highly recommended**)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 * **Yarn** — package manager. Yarn Berry (v4). [Yarn Berry installation guide (follow the Yarn Berry section)](https://dev.to/arshak_grigoryan/yarn-classic-vs-yarn-berry-installation-guide-3oob)
 
@@ -69,10 +69,7 @@ Or:
 ```bash
 yarn install
 ```
-
 (Both commands do the same thing.)
-
-After installing the dependencies, configure the required environment variables and keys if they are needed for the project to work.
 
 ### 3. Run the project
 
@@ -90,16 +87,16 @@ Once started, the application will be available at the address displayed in the 
 
 ## 🛠️ Useful Commands
 
-All main project scripts can be executed using `yarn run <command>`.
+All main project scripts can be executed using `yarn <command>`.
 
 | Command             | Description                                    |
 | ------------------- | ---------------------------------------------- |
-| `yarn run dev`      | Start the project in development mode with HMR |
-| `yarn run build`    | Build the project for production               |
-| `yarn run preview`  | Preview the production build locally           |
-| `yarn run lint`     | Check the code using ESLint                    |
-| `yarn run lint:fix` | Automatically fix ESLint errors                |
-| `yarn run format`   | Format the code using Prettier                 |
+| `yarn dev`      | Start the project in development mode with HMR |
+| `yarn build`    | Build the project for production               |
+| `yarn preview`  | Preview the production build locally           |
+| `yarn lint`     | Check the code using ESLint                    |
+| `yarn lint:fix` | Automatically fix ESLint errors                |
+| `yarn format`   | Format the code using Prettier                 |
 
 ---
 
