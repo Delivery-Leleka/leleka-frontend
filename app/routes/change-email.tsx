@@ -1,23 +1,23 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import Stage1ChangeEmail from "~/components/auth/EmailChange1";
-import Stage2ChangeEmail from "~/components/auth/EmailChange2";
-import axiosBackend from "~/api/axios";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import Stage1ChangeEmail from '~/components/auth/EmailChange1';
+import Stage2ChangeEmail from '~/components/auth/EmailChange2';
+import axiosBackend from '~/api/axios';
 
 export default function ChangeEmailRoute() {
   const [step, setStep] = useState<1 | 2>(1);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleFinish = async (newEmail: string) => {
     try {
-      await axiosBackend.post("/change-email", {
+      await axiosBackend.post('/change-email', {
         password: encodeURIComponent(password),
         email: newEmail,
       });
-      navigate("/myProfile");
+      navigate('/myProfile');
     } catch (err) {
-      console.error("Помилка під час зміни пошти:", err);
+      console.error('Помилка під час зміни пошти:', err);
     }
   };
 
@@ -33,10 +33,7 @@ export default function ChangeEmailRoute() {
       )}
 
       {step === 2 && (
-        <Stage2ChangeEmail
-          onNext={handleFinish}
-          onBack={() => setStep(1)}
-        />
+        <Stage2ChangeEmail onNext={handleFinish} onBack={() => setStep(1)} />
       )}
     </>
   );

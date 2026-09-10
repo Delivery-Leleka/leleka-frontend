@@ -1,5 +1,5 @@
-import { useState } from "react";
-import type { Stage2 } from "~/types";
+import { useState } from 'react';
+import type { Stage2 } from '~/types';
 
 interface Props {
   onNext: (email?: string) => void;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function PasswordRecoveryStage2({ onNext, onBack }: Props) {
-  const [email, setEmail] = useState<Stage2["email"]>("");
+  const [email, setEmail] = useState<Stage2['email']>('');
 
   return (
     <main

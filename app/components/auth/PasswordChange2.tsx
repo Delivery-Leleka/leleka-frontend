@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-import Footer from "../layout/Footer";
-import type { NewPass } from "~/types";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import Footer from '../layout/Footer';
+import type { NewPass } from '~/types';
 
 interface Props {
   onBack: () => void;
@@ -11,11 +11,11 @@ interface Props {
 export default function Stage2ChangePassword({ onBack, onConfirm }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
-  const [newPass, setPass] = useState<NewPass["newPassword"]>("");
-  const [conPass, setCon] = useState<NewPass["confirmedPass"]>("");
+  const [newPass, setPass] = useState<NewPass['newPassword']>('');
+  const [conPass, setCon] = useState<NewPass['confirmedPass']>('');
   const [showNewPass, setShowNewPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const goTo = (path: string) => {
@@ -27,27 +27,27 @@ export default function Stage2ChangePassword({ onBack, onConfirm }: Props) {
     e.preventDefault();
 
     if (newPass.trim().length < 8) {
-      setError("Пароль має містити щонайменше 8 символів");
+      setError('Пароль має містити щонайменше 8 символів');
       return;
     }
 
     if (!/[A-Z]/.test(newPass) || !/[0-9]/.test(newPass)) {
-      setError("Цей пароль не виглядає надійним");
+      setError('Цей пароль не виглядає надійним');
       return;
     }
 
     if (newPass !== conPass) {
-      setError("Паролі не співпадають");
+      setError('Паролі не співпадають');
       return;
     }
 
-    setError("");
+    setError('');
     onConfirm(newPass);
   };
 
   useEffect(() => {
     if (error) {
-      const timer = setTimeout(() => setError(""), 3000);
+      const timer = setTimeout(() => setError(''), 3000);
       return () => clearTimeout(timer);
     }
   }, [error]);
@@ -82,26 +82,26 @@ export default function Stage2ChangePassword({ onBack, onConfirm }: Props) {
 
         <div
           className={`absolute top-16 left-0 w-56 bg-[#B5D7A5] border border-black rounded-b-xl overflow-hidden transition-all duration-300 z-50 
-            ${menuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}
+            ${menuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}
           `}
         >
           <ul className="flex flex-col text-black select-none">
-            <li onClick={() => goTo("/myProfile")} className="menu-item">
+            <li onClick={() => goTo('/myProfile')} className="menu-item">
               <img src="/icons/profile.png" className="w-5" /> Профіль
             </li>
-            <li onClick={() => goTo("/contacts")} className="menu-item">
+            <li onClick={() => goTo('/contacts')} className="menu-item">
               <img src="/icons/phone.png" className="w-5" /> Контакти
             </li>
-            <li onClick={() => goTo("/createGroup")} className="menu-item">
+            <li onClick={() => goTo('/createGroup')} className="menu-item">
               <img src="/icons/add-group.png" className="w-5" /> Створити групу
             </li>
-            <li onClick={() => goTo("/privateFolder")} className="menu-item">
+            <li onClick={() => goTo('/privateFolder')} className="menu-item">
               <img src="/icons/folder.png" className="w-5" /> Приватна папка
             </li>
-            <li onClick={() => goTo("/archive")} className="menu-item">
+            <li onClick={() => goTo('/archive')} className="menu-item">
               <img src="/icons/archive.png" className="w-5" /> Архів
             </li>
-            <li onClick={() => goTo("/settings")} className="menu-item">
+            <li onClick={() => goTo('/settings')} className="menu-item">
               <img src="/icons/settings.png" className="w-5" /> Налаштування
             </li>
             <li className="menu-item">
@@ -141,10 +141,10 @@ export default function Stage2ChangePassword({ onBack, onConfirm }: Props) {
                   className={`border-2 rounded-lg w-full h-10 px-4 pr-12 bg-white text-[#2f2f2f] 
                         focus:outline-none transition-all duration-300 focus:scale-[1.02] ${
                           error && newPass.trim().length < 8
-                            ? "border-red-500 bg-red-100 animate-shake"
-                            : "border-[#557B4E]"
+                            ? 'border-red-500 bg-red-100 animate-shake'
+                            : 'border-[#557B4E]'
                         }`}
-                  type={showNewPass ? "text" : "password"}
+                  type={showNewPass ? 'text' : 'password'}
                   value={newPass}
                   onChange={(e) => setPass(e.target.value)}
                 />
@@ -157,8 +157,8 @@ export default function Stage2ChangePassword({ onBack, onConfirm }: Props) {
                   <img
                     src={
                       showNewPass
-                        ? "/icons/Preview-close.png"
-                        : "/icons/Preview-open.png"
+                        ? '/icons/Preview-close.png'
+                        : '/icons/Preview-open.png'
                     }
                     alt="toggle password"
                     className="w-5 h-5 select-none"
@@ -177,10 +177,10 @@ export default function Stage2ChangePassword({ onBack, onConfirm }: Props) {
                   className={`border-2 rounded-lg w-full h-10 px-4 pr-12 bg-white text-[#2f2f2f]
                     focus:outline-none transition-all duration-300 focus:scale-[1.02] ${
                       error && newPass !== conPass
-                        ? "border-red-500 bg-red-100 animate-shake"
-                        : "border-[#557B4E]"
+                        ? 'border-red-500 bg-red-100 animate-shake'
+                        : 'border-[#557B4E]'
                     }`}
-                  type={showConfirmPass ? "text" : "password"}
+                  type={showConfirmPass ? 'text' : 'password'}
                   value={conPass}
                   onChange={(e) => setCon(e.target.value)}
                 />
@@ -193,8 +193,8 @@ export default function Stage2ChangePassword({ onBack, onConfirm }: Props) {
                   <img
                     src={
                       showConfirmPass
-                        ? "/icons/Preview-close.png"
-                        : "/icons/Preview-open.png"
+                        ? '/icons/Preview-close.png'
+                        : '/icons/Preview-open.png'
                     }
                     alt="toggle password"
                     className="w-5 h-5 select-none"
@@ -218,8 +218,8 @@ export default function Stage2ChangePassword({ onBack, onConfirm }: Props) {
                 disabled={isInvalid}
                 className={`font-medium py-3 px-6 rounded-md transition flex items-center justify-center gap-2 cursor-pointer ${
                   isInvalid
-                    ? "bg-gray-400 cursor-not-allowed text-white"
-                    : "bg-[#3F6D2F] hover:bg-[#355C27] text-white"
+                    ? 'bg-gray-400 cursor-not-allowed text-white'
+                    : 'bg-[#3F6D2F] hover:bg-[#355C27] text-white'
                 }`}
               >
                 Створити

@@ -1,13 +1,14 @@
-import { useState, useRef, useEffect } from "react";
-import type { ChatItem, ExtendedMessage } from "~/types";
-import { INITIAL_CHATS, INITIAL_MESSAGES } from "~/components/chat/mockData";
+import { useState, useRef, useEffect } from 'react';
+import type { ChatItem, ExtendedMessage } from '~/types';
+import { INITIAL_CHATS, INITIAL_MESSAGES } from '~/components/chat/mockData';
 
 export function useMessenger() {
   const [items, setItems] = useState<ChatItem[]>(INITIAL_CHATS);
-  const [messages, setMessages] = useState<Record<string, ExtendedMessage[]>>(INITIAL_MESSAGES);
+  const [messages, setMessages] =
+    useState<Record<string, ExtendedMessage[]>>(INITIAL_MESSAGES);
   const [selected, setSelected] = useState<ChatItem | null>(null);
-  const [query, setQuery] = useState("");
-  const [inputText, setInputText] = useState("");
+  const [query, setQuery] = useState('');
+  const [inputText, setInputText] = useState('');
 
   const [dotsOpen, setDotsOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -38,7 +39,7 @@ export function useMessenger() {
       [selected.id]: [...(prev[selected.id] || []), newMsg],
     }));
 
-    setInputText("");
+    setInputText('');
   };
 
   const handleDeleteChat = () => {
@@ -49,7 +50,7 @@ export function useMessenger() {
   };
 
   useEffect(() => {
-    chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, selected]);
 
   return {

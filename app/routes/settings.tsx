@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router";
-import { useState } from "react";
+import { Link, useNavigate } from 'react-router';
+import { useState } from 'react';
 
 export default function ProfilePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,26 +39,26 @@ export default function ProfilePage() {
 
         <div
           className={`absolute top-16 left-0 w-56 bg-[#B5D7A5] border border-black rounded-b-xl overflow-hidden transition-all duration-300 z-50 
-            ${menuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}
+            ${menuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}
           `}
         >
           <ul className="flex flex-col text-black select-none">
-            <li onClick={() => goTo("/profile")} className="menu-item">
+            <li onClick={() => goTo('/profile')} className="menu-item">
               <img src="/icons/profile.png" className="w-5" /> Профіль
             </li>
-            <li onClick={() => goTo("/contacts")} className="menu-item">
+            <li onClick={() => goTo('/contacts')} className="menu-item">
               <img src="/icons/phone.png" className="w-5" /> Контакти
             </li>
-            <li onClick={() => goTo("/create-group")} className="menu-item">
+            <li onClick={() => goTo('/create-group')} className="menu-item">
               <img src="/icons/add-group.png" className="w-5" /> Створити групу
             </li>
-            <li onClick={() => goTo("/private-folder")} className="menu-item">
+            <li onClick={() => goTo('/private-folder')} className="menu-item">
               <img src="/icons/folder.png" className="w-5" /> Приватна папка
             </li>
-            <li onClick={() => goTo("/archive")} className="menu-item">
+            <li onClick={() => goTo('/archive')} className="menu-item">
               <img src="/icons/archive.png" className="w-5" /> Архів
             </li>
-            <li onClick={() => goTo("/settings")} className="menu-item">
+            <li onClick={() => goTo('/settings')} className="menu-item">
               <img src="/icons/settings.png" className="w-5" /> Налаштування
             </li>
             <li className="menu-item">

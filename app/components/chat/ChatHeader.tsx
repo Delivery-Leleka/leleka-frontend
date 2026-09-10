@@ -1,6 +1,13 @@
-import React, { useState } from "react";
-import { Search, Plus, SlidersHorizontal, ArrowLeft, Menu, X } from "lucide-react";
-import type { ChatItem } from "~/types";
+import React, { useState } from 'react';
+import {
+  Search,
+  Plus,
+  SlidersHorizontal,
+  ArrowLeft,
+  Menu,
+  X,
+} from 'lucide-react';
+import type { ChatItem } from '~/types';
 
 interface ChatHeaderProps {
   selected: ChatItem | null;

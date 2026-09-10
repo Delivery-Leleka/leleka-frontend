@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export interface User {
   id: string;
@@ -6,7 +6,7 @@ export interface User {
   name: string;
 }
 
-// Поки тут замокані данні та можна самостійно поставити, авторизований юзер чи ні. 
+// Поки тут замокані данні та можна самостійно поставити, авторизований юзер чи ні.
 // Коли буде готова авторизація на бекенді - сюди треба буде підключити
 
 export const useAuth = () => {
@@ -26,9 +26,9 @@ export const useAuth = () => {
     setTimeout(() => {
       setIsAuthenticated(true);
       setUser({
-        id: "1",
-        email: "user@leleka.com",
-        name: "Тестовий Користувач",
+        id: '1',
+        email: 'user@leleka.com',
+        name: 'Тестовий Користувач',
       });
       setIsLoading(false);
     }, 500);
