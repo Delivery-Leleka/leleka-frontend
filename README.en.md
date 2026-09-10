@@ -2,7 +2,7 @@
 
 Welcome to the project documentation!
 
-Here you will find the main information about the **project structure, setup and execution, available commands, and automation tools**.
+Here you will find the main information about the **project structure, setup, available commands, and automation tools**.
 
 ---
 
@@ -11,6 +11,7 @@ Here you will find the main information about the **project structure, setup and
 A brief overview of the main directories and files:
 
 ```text
+.
 ├── app/
 │   ├── api/                       # Axios configuration and API requests
 │   ├── components/                # Reusable UI components
@@ -18,8 +19,8 @@ A brief overview of the main directories and files:
 │   │   ├── chat/                  # Chat interface components
 │   │   └── layout/                # Common layout elements
 │   ├── hooks/                     # Custom React hooks
-│   ├── routes/                    # Project routing and pages
-│   │   ├── layouts/               # Layouts for protecting and grouping routes
+│   ├── routes/                    # Project routes and pages
+│   │   ├── layouts/               # Layouts for route protection and grouping
 │   │   └── *.tsx                  # Project pages
 │   ├── types/                     # Global TypeScript types and interfaces
 │   │   └── index.ts
@@ -29,11 +30,11 @@ A brief overview of the main directories and files:
 │
 ├── .github/                       # PR, Issue, and CI/CD workflow templates
 ├── .husky/                        # Git hooks for automated checks
-├── public/                        # Static files: icons, fonts, images
+├── public/                        # Static files: icons, fonts, and images
 ├── .eslintrc.json                 # ESLint configuration
 ├── .prettierrc                    # Prettier configuration
-├── CONTRIBUTING.md                # Rules and guidelines for contributors
-├── package.json                   # Dependencies and yarn scripts
+├── CONTRIBUTING.md                # Contribution guidelines and recommendations
+├── package.json                   # Dependencies and npm scripts
 └── README.md                      # Main project documentation
 ```
 
@@ -45,62 +46,68 @@ A brief overview of the main directories and files:
 
 Before getting started, make sure you have the following installed:
 
-- **Node.js** — version `18.x` or higher;
+* **Node.js** — version `18.x` or higher. [Node.js installation guide (using nvm or another Node version manager is **highly recommended**)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
-- **yarn** — or an alternative package manager such as `pyarn` / `yarn`.
+* **Yarn** — package manager. Yarn Berry (v4). [Yarn Berry installation guide (follow the Yarn Berry section)](https://dev.to/arshak_grigoryan/yarn-classic-vs-yarn-berry-installation-guide-3oob)
 
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
-git clone <repository-link>
+git clone https://github.com/Delivery-Leleka/leleka-frontend
 
-cd <project-folder-name>
+cd leleka-frontend
 ```
 
-### 2. Install Dependencies
+### 2. Install dependencies
+
+```bash
+yarn
+```
+
+Or:
 
 ```bash
 yarn install
 ```
 
-After installing the dependencies, fill in the required environment variables and keys if they are needed for the project to work.
+(Both commands do the same thing.)
 
-### 3. Start the Project
+After installing the dependencies, configure the required environment variables and keys if they are needed for the project to work.
+
+### 3. Run the project
 
 To start the local development server, run:
 
 ```bash
-yarn run dev
+yarn dev
 ```
 
-After starting, the application will be available at:
+Once started, the application will be available at the address displayed in the terminal.
 
-**http://localhost:5173**
-
-> ℹ️ The port may vary. The actual address will be displayed in the console after startup.
+> ℹ️ The port may vary. The current address will be shown in the console after startup.
 
 ---
 
 ## 🛠️ Useful Commands
 
-All main project scripts are executed using `yarn run <command>`.
+All main project scripts can be executed using `yarn run <command>`.
 
-| Command             | Description                                     |
-| ------------------- | ----------------------------------------------- |
-| `yarn run dev`      | Starts the project in development mode with HMR |
-| `yarn run build`    | Builds the project for production               |
-| `yarn run preview`  | Previews the production build locally           |
-| `yarn run lint`     | Checks the code using ESLint                    |
-| `yarn run lint:fix` | Automatically fixes ESLint errors               |
-| `yarn run format`   | Formats the code using Prettier                 |
+| Command             | Description                                    |
+| ------------------- | ---------------------------------------------- |
+| `yarn run dev`      | Start the project in development mode with HMR |
+| `yarn run build`    | Build the project for production               |
+| `yarn run preview`  | Preview the production build locally           |
+| `yarn run lint`     | Check the code using ESLint                    |
+| `yarn run lint:fix` | Automatically fix ESLint errors                |
+| `yarn run format`   | Format the code using Prettier                 |
 
 ---
 
 ## 🐶 Husky and Automation
 
-The project uses **Husky** together with **lint-staged** to maintain clean code and a consistent formatting style.
+The project uses **Husky** together with **lint-staged** to maintain code quality and a consistent coding style.
 
-### How Does It Work?
+### How does it work?
 
 When running:
 
@@ -111,21 +118,17 @@ git commit
 Husky automatically runs the `pre-commit` hook, which:
 
 1. 🔍 Checks the modified files (`staged files`).
-
 2. 🧹 Runs **ESLint** to check the code.
-
 3. ✨ Runs **Prettier** to automatically format the code.
 
 ### ⚠️ Important
 
-If the code contains errors that ESLint cannot fix automatically, **the commit will be rejected**.
+If there are errors in the code that ESLint cannot fix automatically, **the commit will be rejected**.
 
-In this case:
+In that case:
 
 1. Fix the errors reported by ESLint.
-
 2. Check the formatting.
-
 3. Run `git commit` again.
 
 ---
@@ -134,18 +137,15 @@ In this case:
 
 Before making changes, it is recommended to review:
 
-- `CONTRIBUTING.md` — rules and guidelines for contributors;
+* `CONTRIBUTING.md` — contribution guidelines;
+* `package.json` — available scripts;
+* `.eslintrc.json` — ESLint rules;
+* `.prettierrc` — formatting rules.
 
-- `package.json` — available yarn scripts;
-
-- `.eslintrc.json` — ESLint rules;
-
-- `.prettierrc` — formatting rules.
-
-> 💡 **Tip:** _Before creating a Pull Request, make sure that the project successfully passes both code checks and formatting._
+> 💡 **Tip:** Before creating a Pull Request, make sure the project passes both code quality and formatting checks.
 
 ```bash
-yarn run lint
+yarn lint
 
-yarn run format
+yarn format
 ```
