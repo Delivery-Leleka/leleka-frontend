@@ -15,6 +15,7 @@ export default [
     route('create-group/*', 'routes/create-group.tsx'),
     route('change-email', 'routes/change-email.tsx'),
     route('change-password', 'routes/change-pass.tsx'),
+    route('onboarding', 'routes/onboarding.tsx'),
   ]),
 
   layout('routes/layouts/guest.tsx', [
