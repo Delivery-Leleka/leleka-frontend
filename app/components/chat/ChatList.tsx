@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Check, CheckCheck } from "lucide-react";
 import type { ChatItem, ExtendedMessage } from "~/types";
 
 interface ChatListProps {
@@ -71,9 +72,16 @@ export const ChatList: React.FC<ChatListProps> = ({ items, messages, onSelectCha
                     </h3>
                   </div>
 
-                  <p className="text-xs text-gray-500 truncate mt-0.5">
-                    {lastMsg ? lastMsg.text : "Немає повідомлень"}
-                  </p>
+                  <div className="flex items-center gap-1 text-xs text-gray-500 truncate mt-0.5">
+                    {lastMsg?.fromMe && (
+                      <span className={lastMsg.read ? "text-green-600" : "text-gray-400"}>
+                        {lastMsg.read ? <CheckCheck size={14} /> : <Check size={14} />}
+                      </span>
+                    )}
+                    <span className="truncate">
+                      {lastMsg ? lastMsg.text : "Немає повідомлень"}
+                    </span>
+                  </div>
                 </div>
               </div>
 
