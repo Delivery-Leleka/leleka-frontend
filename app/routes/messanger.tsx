@@ -1,15 +1,15 @@
-import React from "react";
-import { useNavigate } from "react-router";
-import { useMessenger } from "~/hooks/useMessenger";
+import React from 'react';
+import { useNavigate } from 'react-router';
+import { useMessenger } from '~/hooks/useMessenger';
 
-import { SidebarNav } from "~/components/layout/SidebarNav";
-import { ChatHeader } from "~/components/chat/ChatHeader";
-import { ChatList } from "~/components/chat/ChatList";
-import { MessageBubble } from "~/components/chat/MessageBubble";
-import { MessageInput } from "~/components/chat/MessageInput";
-import { UserProfileDrawer } from "~/components/chat/UserProfileDrawer";
-import { ChatOptionsMenu } from "~/components/chat/ChatOptionsMenu";
-import { DeleteModal } from "~/components/chat/DeleteModal";
+import { SidebarNav } from '~/components/layout/SidebarNav';
+import { ChatHeader } from '~/components/chat/ChatHeader';
+import { ChatList } from '~/components/chat/ChatList';
+import { MessageBubble } from '~/components/chat/MessageBubble';
+import { MessageInput } from '~/components/chat/MessageInput';
+import { UserProfileDrawer } from '~/components/chat/UserProfileDrawer';
+import { ChatOptionsMenu } from '~/components/chat/ChatOptionsMenu';
+import { DeleteModal } from '~/components/chat/DeleteModal';
 
 export default function MessangerPage() {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function MessangerPage() {
           onQueryChange={chat.setQuery}
           onBack={() => chat.setSelected(null)}
           onOpenProfile={() => chat.setProfileOpen(true)}
-          onNavigateContacts={() => navigate("/contacts")}
+          onNavigateContacts={() => navigate('/contacts')}
           onToggleMenu={() => {
             if (chat.selected) {
               chat.setDotsOpen(!chat.dotsOpen);
@@ -47,7 +47,9 @@ export default function MessangerPage() {
         />
 
         <div className="flex-1 flex overflow-hidden relative">
-          <div className={`${chat.selected ? "hidden md:flex" : "flex"} w-full md:w-auto h-full`}>
+          <div
+            className={`${chat.selected ? 'hidden md:flex' : 'flex'} w-full md:w-auto h-full`}
+          >
             <ChatList
               items={chat.items}
               messages={chat.messages}

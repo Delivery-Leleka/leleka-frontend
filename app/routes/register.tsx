@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
-import type { Register } from "../types";
-import axiosBackend from "~/api/axios";
-import { Turnstile } from "@marsidev/react-turnstile";
-import { useNavigate } from "react-router";
+import React, { useEffect, useMemo, useState } from 'react';
+import type { Register } from '../types';
+import axiosBackend from '~/api/axios';
+import { Turnstile } from '@marsidev/react-turnstile';
+import { useNavigate } from 'react-router';
 
 export default function RegisterPage() {
   const [username, setUsername] = useState<Register['name']>('');

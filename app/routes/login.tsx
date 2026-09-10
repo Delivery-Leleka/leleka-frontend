@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axiosBackend from "../api/axios";
-import { useNavigate } from "react-router-dom";
-import { setUser } from "../api/userFuncs";
+import React, { useState, useEffect } from 'react';
+import axiosBackend from '../api/axios';
+import { useNavigate } from 'react-router-dom';
+import { setUser } from '../api/userFuncs';
 
 function LoginPage() {
   const [email, setEmail] = useState<string>('');
@@ -54,7 +54,7 @@ function LoginPage() {
         } else {
           setError('Вхід успішний!');
           setUser(data.user);
-          navigate("/");
+          navigate('/');
         }
       }
     } catch (err: any) {

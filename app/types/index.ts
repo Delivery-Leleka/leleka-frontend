@@ -31,7 +31,6 @@ export interface Message {
   time?: string;
 }
 
-
 export interface ExtendedMessage extends Message {
   read?: boolean;
 }
