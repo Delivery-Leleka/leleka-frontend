@@ -1,0 +1,1612 @@
+diff --cc app/components/chat/ChatHeader.tsx
+index ea88323,f2b054a..0000000
+--- a/app/components/chat/ChatHeader.tsx
++++ b/app/components/chat/ChatHeader.tsx
+@@@ -1,5 -1,5 +1,10 @@@
+++<<<<<<< HEAD
+ +import React from "react";
+ +import { Search, Plus, SlidersHorizontal, ArrowLeft } from "lucide-react";
+++=======
++ import React, { useState } from "react";
++ import { Search, Plus, SlidersHorizontal, ArrowLeft, Menu, X } from "lucide-react";
+++>>>>>>> dev
+  import type { ChatItem } from "~/types";
+  
+  interface ChatHeaderProps {
+@@@ -21,62 -21,118 +26,177 @@@ export const ChatHeader: React.FC<ChatH
+    onNavigateContacts,
+    onToggleMenu,
+  }) => {
+++<<<<<<< HEAD
+ +  return (
+ +    <header className="h-[120px] w-full px-8 flex items-center justify-between bg-white border-b border-gray-100 z-10 shrink-0">
+ +      <div className="flex items-center gap-4">
+ +        {selected ? (
+ +          <>
+ +            <button onClick={onBack} className="p-2 hover:bg-gray-100 rounded-xl transition">
+ +              <ArrowLeft className="w-6 h-6 text-gray-700" />
+ +            </button>
+ +            <div onClick={onOpenProfile} className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+ +              <div className="w-12 h-12 rounded-full bg-[var(--color-brand-100)] flex items-center justify-center font-bold text-[var(--color-brand-850)]">
+ +                {selected.name[0]}
+ +              </div>
+ +              <div>
+ +                <h2 className="font-bold text-gray-900 text-lg leading-tight">{selected.name}</h2>
+ +                <span className="text-xs text-green-600 font-medium">{selected.status}</span>
+ +              </div>
+ +            </div>
+ +          </>
+ +        ) : (
+ +          <h1 className="text-[32px] font-semibold text-black tracking-tight">Чати</h1>
+ +        )}
+ +      </div>
+ +
+ +      {!selected && (
+ +        <div className="relative w-[505px] h-[58px]">
+ +          <div className="absolute left-4 top-1/2 -translate-y-1/2 w-[30px] h-[30px] flex items-center justify-center pointer-events-none">
+ +            <Search className="w-[30px] h-[30px] text-gray-700" />
+ +          </div>
+ +          <input
+ +            type="text"
+ +            placeholder="Пошук контактів..."
+ +            value={query}
+ +            onChange={(e) => onQueryChange(e.target.value)}
+ +            className="w-full h-full pl-[58px] pr-4 bg-white border-[1.5px] border-[var(--color-border-input)] rounded-[10px] text-[18px] text-black outline-none placeholder:text-[var(--color-placeholder)] focus:border-[var(--color-brand-800)] transition"
+ +          />
+ +        </div>
+ +      )}
+ +
+ +      <div className="flex items-center gap-3">
+ +        {!selected ? (
+ +          <button
+ +            onClick={onNavigateContacts}
+ +            className="h-[58px] px-6 flex items-center gap-2.5 bg-[var(--color-brand-800)] text-white rounded-[10px] text-base font-medium hover:bg-[var(--color-brand-900)] transition shadow-sm"
+ +          >
+ +            <span>Додати контакт</span>
+ +            <Plus className="w-5 h-5" />
+ +          </button>
+ +        ) : (
+ +          <button
+ +            onClick={onToggleMenu}
+ +            className="p-3 border border-[var(--color-brand-800)] rounded-xl text-[var(--color-brand-800)] hover:bg-[var(--color-brand-50)] transition"
+ +          >
+ +            <SlidersHorizontal className="w-6 h-6" />
+ +          </button>
+ +        )}
+ +      </div>
+++=======
++   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
++ 
++   return (
++     <header className="h-16 md:h-[120px] w-full px-4 md:px-8 flex items-center justify-between bg-white border-b border-gray-100 z-10 shrink-0 relative transition-all">
++       {!selected && isMobileSearchOpen ? (
++         <div className="flex items-center w-full gap-2 md:hidden">
++           <div className="relative flex-1">
++             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
++             <input
++               type="text"
++               autoFocus
++               placeholder="Пошук..."
++               value={query}
++               onChange={(e) => onQueryChange(e.target.value)}
++               className="w-full h-10 pl-10 pr-4 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black outline-none focus:border-brand-800"
++             />
++           </div>
++           <button
++             onClick={() => setIsMobileSearchOpen(false)}
++             className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg cursor-pointer"
++           >
++             <X className="w-6 h-6" />
++           </button>
++         </div>
++       ) : (
++         <>
++           <div className="flex items-center gap-2 md:gap-4">
++             {!selected && (
++               <button
++                 onClick={onToggleMenu}
++                 className="p-2 -ml-2 text-gray-700 hover:bg-gray-100 rounded-lg md:hidden cursor-pointer"
++               >
++                 <Menu className="w-6 h-6" />
++               </button>
++             )}
++ 
++             {selected ? (
++               <>
++                 <button
++                   onClick={onBack}
++                   className="p-1.5 md:p-2 hover:bg-gray-100 rounded-xl transition cursor-pointer"
++                 >
++                   <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
++                 </button>
++                 <div
++                   onClick={onOpenProfile}
++                   className="flex items-center gap-2.5 md:gap-3 cursor-pointer hover:opacity-80 transition"
++                 >
++                   <div className="w-9 h-9 md:w-12 md:h-12 rounded-full bg-brand-100 flex items-center justify-center font-bold text-brand-850 text-sm md:text-base">
++                     {selected.name[0]}
++                   </div>
++                   <div>
++                     <h2 className="font-bold text-gray-900 text-base md:text-lg leading-tight truncate max-w-[140px] sm:max-w-[200px] md:max-w-none">
++                       {selected.name}
++                     </h2>
++                     <span className="text-[11px] md:text-xs text-green-600 font-medium">
++                       {selected.status}
++                     </span>
++                   </div>
++                 </div>
++               </>
++             ) : (
++               <h1 className="text-xl md:text-[32px] font-semibold text-black tracking-tight font-title">
++                 Чати
++               </h1>
++             )}
++           </div>
++ 
++           {!selected && (
++             <div className="hidden md:block relative w-[320px] lg:w-[505px] h-[58px]">
++               <div className="absolute left-4 top-1/2 -translate-y-1/2 w-[30px] h-[30px] flex items-center justify-center pointer-events-none">
++                 <Search className="w-[30px] h-[30px] text-gray-700" />
++               </div>
++               <input
++                 type="text"
++                 placeholder="Пошук контактів..."
++                 value={query}
++                 onChange={(e) => onQueryChange(e.target.value)}
++                 className="w-full h-full pl-[58px] pr-4 bg-white border-[1.5px] border-border-input rounded-[10px] text-[18px] text-black outline-none placeholder:text-placeholder focus:border-brand-800 transition"
++               />
++             </div>
++           )}
++ 
++           <div className="flex items-center gap-1 md:gap-3">
++             {!selected ? (
++               <>
++                 <button
++                   onClick={() => setIsMobileSearchOpen(true)}
++                   className="p-2 text-gray-700 hover:bg-gray-100 rounded-lg md:hidden cursor-pointer"
++                 >
++                   <Search className="w-6 h-6" />
++                 </button>
++ 
++                 <button
++                   onClick={onNavigateContacts}
++                   className="h-10 px-3 md:h-[58px] md:px-6 flex items-center justify-center gap-2.5 bg-brand-800 text-white rounded-lg md:rounded-[10px] text-sm md:text-base font-medium hover:bg-brand-900 transition shadow-sm cursor-pointer"
++                 >
++                   <span className="hidden md:inline">Додати контакт</span>
++                   <Plus className="w-5 h-5" />
++                 </button>
++               </>
++             ) : (
++               <button
++                 onClick={onToggleMenu}
++                 className="p-2 md:p-3 border border-brand-800 rounded-lg md:rounded-xl text-brand-800 hover:bg-brand-50 transition cursor-pointer"
++               >
++                 <SlidersHorizontal className="w-5 h-5 md:w-6 md:h-6" />
++               </button>
++             )}
++           </div>
++         </>
++       )}
+++>>>>>>> dev
+      </header>
+    );
+  };
+diff --cc app/components/chat/ChatList.tsx
+index 9933042,d4d097a..0000000
+--- a/app/components/chat/ChatList.tsx
++++ b/app/components/chat/ChatList.tsx
+@@@ -1,5 -1,4 +1,9 @@@
+++<<<<<<< HEAD
+ +import { Check, CheckCheck } from "lucide-react";
+ +import React from "react";
+++=======
++ import React, { useState } from "react";
+++>>>>>>> dev
+  import type { ChatItem, ExtendedMessage } from "~/types";
+  
+  interface ChatListProps {
+@@@ -8,15 -7,43 +12,52 @@@
+    onSelectChat: (chat: ChatItem) => void;
+  }
+  
+++<<<<<<< HEAD
+ +export const ChatList: React.FC<ChatListProps> = ({ items, messages, onSelectChat }) => {
+++=======
++ const TABS = [
++   { id: "all", label: "Усі" },
++   { id: "personal", label: "Особисті" },
++   { id: "groups", label: "Групи" },
++   { id: "archive", label: "Архів" },
++ ];
++ 
++ export const ChatList: React.FC<ChatListProps> = ({ items, messages, onSelectChat }) => {
++   const [activeTab, setActiveTab] = useState("all");
++ 
+++>>>>>>> dev
+    const getLastMessage = (chatId: string) => {
+      const chatMsgs = messages[chatId];
+      return chatMsgs && chatMsgs.length > 0 ? chatMsgs[chatMsgs.length - 1] : null;
+    };
+  
+    return (
+++<<<<<<< HEAD
+ +    <div className="w-full h-full overflow-y-auto px-[60px] py-[30px] bg-[var(--color-app-bg)]">
+ +      <div className="flex flex-col gap-[20px]">
+++=======
++     <div className="w-full h-full overflow-y-auto bg-white flex flex-col">
++       <div className="flex items-center gap-2 px-4 py-2 overflow-x-auto no-scrollbar shrink-0">
++         {TABS.map((tab) => {
++           const isActive = activeTab === tab.id;
++           return (
++             <button
++               key={tab.id}
++               onClick={() => setActiveTab(tab.id)}
++               className={`px-4 py-1.5 rounded-xl text-sm font-medium transition whitespace-nowrap cursor-pointer border ${
++                 isActive
++                   ? "bg-[#C2CE9C] text-gray-800 border-transparent"
++                   : "bg-white text-gray-500 border-gray-200 hover:bg-gray-50"
++               }`}
++             >
++               {tab.label}
++             </button>
++           );
++         })}
++       </div>
++ 
++       <div className="flex flex-col px-4 pt-2">
+++>>>>>>> dev
+          {items.map((it) => {
+            const lastMsg = getLastMessage(it.id);
+            const isOnline = it.status === "В мережі";
+@@@ -25,45 -52,35 +66,77 @@@
+              <div
+                key={it.id}
+                onClick={() => onSelectChat(it)}
+++<<<<<<< HEAD
+ +              className="w-full h-[100px] px-6 bg-[var(--color-app-bg)] rounded-[20px] shadow-sm hover:shadow-md transition cursor-pointer flex items-center justify-between border border-gray-100/50"
+ +            >
+ +              <div className="flex items-center gap-5 flex-1 min-w-0 mr-4">
+ +                <div className="relative shrink-0">
+ +                  <div className="w-[65px] h-[65px] rounded-full bg-[var(--color-brand-50)] flex items-center justify-center font-bold text-2xl text-[var(--color-brand-deep)]">
+ +                    {it.name[0]}
+ +                  </div>
+ +                  {isOnline && (
+ +                    <span className="absolute bottom-1 right-0 w-3 h-3 bg-[var(--color-brand-600)] rounded-full ring-2 ring-[var(--color-app-bg)]" />
+ +                  )}
+ +                </div>
+ +
+ +                <div className="flex flex-col gap-1 min-w-0">
+ +                  <h3 className="text-[22px] font-bold text-[var(--color-brand-deep)] leading-tight truncate">
+ +                    {it.name}
+ +                  </h3>
+ +
+ +                  {lastMsg ? (
+ +                    <div className="flex items-center gap-1.5 text-[18px] text-gray-500 truncate">
+ +                      {lastMsg.fromMe && (
+ +                        <span className={`text-sm font-semibold ${lastMsg.read ? "text-[var(--color-brand-600)]" : "text-gray-400"}`}>
+ +                          {lastMsg.read ? `${<CheckCheck />}` : `${<Check />}`}
+ +                        </span>
+ +                      )}
+ +                      <span className="truncate">{lastMsg.text}</span>
+ +                    </div>
+ +                  ) : (
+ +                    <p className="text-[18px] text-gray-400 italic">Немає повідомлень</p>
+ +                  )}
+ +                </div>
+ +              </div>
+ +              <div className="shrink-0 text-right">
+ +                {isOnline ? (
+ +                  <span className="text-[18px] font-medium text-[var(--color-brand-600)]">В мережі</span>
+ +                ) : (
+ +                  <span className={`text-sm font-semibold ${lastMsg.read ? "text-[var(--color-brand-600)]" : "text-gray-400"}`}>
+ +                    {lastMsg.read ? <CheckCheck size={16} /> : <Check size={16} />}
+ +                  </span>
+ +                )}
+++=======
++               className="w-full py-3 flex items-center justify-between cursor-pointer hover:bg-gray-50/80 transition rounded-xl px-2"
++             >
++               <div className="flex items-center gap-3.5 min-w-0 flex-1 mr-3">
++                 <div className="relative shrink-0">
++                   <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center font-bold text-gray-600 text-base">
++                     {it.name[0]}
++                   </div>
++                   {isOnline && (
++                     <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-600 rounded-full ring-2 ring-white" />
++                   )}
++                 </div>
++ 
++                 <div className="flex flex-col min-w-0 flex-1">
++                   <div className="flex items-center gap-1.5">
++                     <h3 className="font-semibold text-gray-900 text-base leading-tight truncate">
++                       {it.name}
++                     </h3>
++                   </div>
++ 
++                   <p className="text-xs text-gray-500 truncate mt-0.5">
++                     {lastMsg ? lastMsg.text : "Немає повідомлень"}
++                   </p>
++                 </div>
++               </div>
++ 
++               <div className="shrink-0 text-right self-start pt-1">
++                 <span className="text-xs text-gray-400">
++                   {lastMsg?.time || "10:24"}
++                 </span>
+++>>>>>>> dev
+                </div>
+              </div>
+            );
+diff --cc app/components/chat/ChatOptionsMenu.tsx
+index de0d86a,fa1ee34..0000000
+--- a/app/components/chat/ChatOptionsMenu.tsx
++++ b/app/components/chat/ChatOptionsMenu.tsx
+@@@ -13,29 -13,29 +13,54 @@@ export const ChatOptionsMenu: React.FC<
+    if (!isOpen) return null;
+  
+    return (
+++<<<<<<< HEAD
+ +    <div className="absolute top-16 right-8 w-60 bg-white border border-gray-200 rounded-2xl shadow-xl z-50 py-2">
+ +      <ul className="flex flex-col text-sm text-gray-700">
+ +        <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+ +          <Pin className="w-4 h-4 text-gray-500" />
+ +          <span>Закріпити чат</span>
+ +        </li>
+ +        <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+ +          <Lock className="w-4 h-4 text-gray-500" />
+ +          <span>Перенести в закриту папку</span>
+ +        </li>
+ +        <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+ +          <Archive className="w-4 h-4 text-gray-500" />
+ +          <span>Архівувати</span>
+ +        </li>
+ +        <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+ +          <Ban className="w-4 h-4 text-gray-500" />
+++=======
++     <div className="absolute top-16 right-8 w-60 bg-white border border-brand-50 rounded-2xl shadow-xl z-50 py-2">
++       <ul className="flex flex-col text-sm text-brand-950 font-medium">
++         <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-50/60 cursor-pointer transition-colors">
++           <Pin className="w-4 h-4 text-brand-700" />
++           <span>Закріпити чат</span>
++         </li>
++         <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-50/60 cursor-pointer transition-colors">
++           <Lock className="w-4 h-4 text-brand-700" />
++           <span>Перенести в закриту папку</span>
++         </li>
++         <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-50/60 cursor-pointer transition-colors">
++           <Archive className="w-4 h-4 text-brand-700" />
++           <span>Архівувати</span>
++         </li>
++         <li className="flex items-center gap-3 px-4 py-2.5 hover:bg-brand-50/60 cursor-pointer transition-colors">
++           <Ban className="w-4 h-4 text-brand-700" />
+++>>>>>>> dev
+            <span>Заблокувати</span>
+          </li>
+          <li
+            onClick={onDeleteClick}
+++<<<<<<< HEAD
+ +          className="flex items-center gap-3 px-4 py-2.5 text-red-500 hover:bg-red-50 cursor-pointer"
+ +        >
+ +          <Trash2 className="w-4 h-4 text-red-500" />
+++=======
++           className="flex items-center gap-3 px-4 py-2.5 text-danger-primary hover:bg-danger-primary/10 cursor-pointer transition-colors"
++         >
++           <Trash2 className="w-4 h-4 text-danger-primary" />
+++>>>>>>> dev
+            <span>Видалити чат</span>
+          </li>
+        </ul>
+diff --cc app/components/chat/DeleteModal.tsx
+index 25377e6,c0bfd9a..0000000
+--- a/app/components/chat/DeleteModal.tsx
++++ b/app/components/chat/DeleteModal.tsx
+@@@ -9,18 -9,18 +9,31 @@@ export const DeleteModal: React.FC<Dele
+    return (
+      <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center z-[999]">
+        <div className="bg-white w-[340px] rounded-2xl p-6 shadow-2xl flex flex-col items-center text-center">
+++<<<<<<< HEAD
+ +        <h3 className="font-bold text-gray-900 text-lg mb-2">Дійсно хочете видалити цей чат?</h3>
+ +        <p className="text-sm text-gray-500 mb-6">Цю дію не можна буде скасувати.</p>
+ +        <div className="flex gap-4 w-full">
+ +          <button
+ +            onClick={onClose}
+ +            className="flex-1 py-2 border border-[var(--color-brand-500)] text-[var(--color-brand-700)] rounded-lg font-medium hover:bg-green-50 transition"
+++=======
++         <h3 className="font-bold text-brand-950 text-lg mb-2">Дійсно хочете видалити цей чат?</h3>
++         <p className="text-sm text-brand-700 mb-6">Цю дію не можна буде скасувати.</p>
++         <div className="flex gap-4 w-full">
++           <button
++             onClick={onClose}
++             className="flex-1 py-2 border border-brand-500 text-brand-700 rounded-lg font-medium hover:bg-brand-50 transition cursor-pointer"
+++>>>>>>> dev
+            >
+              Назад
+            </button>
+            <button
+              onClick={onDelete}
+++<<<<<<< HEAD
+ +            className="flex-1 py-2 bg-[var(--color-danger-primary)] text-white rounded-lg font-medium hover:bg-[var(--color-danger-hover)] transition"
+++=======
++             className="flex-1 py-2 bg-danger-primary text-white rounded-lg font-medium hover:bg-danger-hover transition cursor-pointer"
+++>>>>>>> dev
+            >
+              Видалити
+            </button>
+diff --cc app/components/chat/MessageBubble.tsx
+index 0ae52e7,4d77bd2..0000000
+--- a/app/components/chat/MessageBubble.tsx
++++ b/app/components/chat/MessageBubble.tsx
+@@@ -11,19 -11,19 +11,32 @@@ export const MessageBubble: React.FC<Me
+      <div
+        className={`max-w-[85%] sm:max-w-[65%] md:max-w-[50%] px-3.5 py-2 rounded-[18px] shadow-sm text-[15px] leading-snug transition-all ${
+          msg.fromMe
+++<<<<<<< HEAD
+ +          ? "self-end bg-[var(--color-brand-50)] text-[var(--color-brand-deep)] rounded-br-[4px]"
+ +          : "self-start bg-[var(--color-app-bg)] text-black border border-gray-100 rounded-bl-[4px]"
+++=======
++           ? "self-end bg-brand-50 text-brand-deep rounded-br-[4px]"
++           : "self-start bg-app-bg text-brand-950 border border-gray-100 rounded-bl-[4px]"
+++>>>>>>> dev
+        }`}
+      >
+        <p className="break-words">{msg.text}</p>
+        <div
+          className={`flex items-center justify-end gap-1 mt-0.5 text-[11px] font-medium ${
+++<<<<<<< HEAD
+ +          msg.fromMe ? "text-[var(--color-brand-600)]" : "text-[var(--color-placeholder)]"
+++=======
++           msg.fromMe ? "text-brand-600" : "text-placeholder"
+++>>>>>>> dev
+          }`}
+        >
+          <span>{msg.time}</span>
+          {msg.fromMe && (
+++<<<<<<< HEAD
+ +          <span className={msg.read ? "text-[var(--color-brand-600)]" : "text-[var(--color-placeholder)]"}>
+++=======
++           <span className={msg.read ? "text-brand-600" : "text-placeholder"}>
+++>>>>>>> dev
+              {msg.read ? <CheckCheck size={14} /> : <Check size={14} />}
+            </span>
+          )}
+diff --cc app/components/chat/MessageInput.tsx
+index bb6f2ba,80393ab..0000000
+--- a/app/components/chat/MessageInput.tsx
++++ b/app/components/chat/MessageInput.tsx
+@@@ -17,32 -17,33 +17,59 @@@ export const MessageInput: React.FC<Mes
+    return (
+      <form 
+        onSubmit={onSend} 
+++<<<<<<< HEAD
+ +      className="w-full px-8 py-4 bg-white border-t border-gray-100 flex items-center justify-between shrink-0"
+ +    >
+ +      <div className="w-full flex items-center gap-3 bg-[var(--color-app-bg)] border-[1.5px] border-[var(--color-border-input)] rounded-[15px] px-4 py-2 focus-within:border-[var(--color-brand-800)] transition">
+ +        <button
+ +          type="button"
+ +          onClick={() => fileInputRef.current?.click()}
+ +          className="p-2 text-[var(--color-brand-800)] hover:bg-[var(--color-brand-50)] rounded-lg transition shrink-0"
+ +          title="Прикріпити файл"
+ +        >
+ +          <Paperclip className="w-6 h-6" />
+++=======
++       className="w-full px-3 py-2 md:px-8 md:py-4 bg-white border-t border-gray-100 flex items-center justify-between shrink-0"
++     >
++       <div className="w-full flex items-center gap-2 md:gap-3 bg-app-bg border-[1.5px] border-border-input rounded-xl md:rounded-[15px] px-2.5 py-1.5 md:px-4 md:py-2 focus-within:border-brand-800 transition">
++         <button
++           type="button"
++           onClick={() => fileInputRef.current?.click()}
++           className="p-1.5 md:p-2 text-brand-800 hover:bg-brand-50 rounded-lg transition shrink-0 cursor-pointer"
++           title="Прикріпити файл"
++         >
++           <Paperclip className="w-5 h-5 md:w-6 md:h-6" />
+++>>>>>>> dev
+          </button>
+  
+          <input
+            type="text"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+++<<<<<<< HEAD
+ +          className="flex-1 bg-transparent text-[18px] text-black outline-none placeholder:text-[var(--color-placeholder)] py-1"
+ +          placeholder="Повідомлення..."
+ +        />
+ +        <button
+ +          type="submit"
+ +          disabled={!inputText.trim()}
+ +          className="p-2.5 bg-[var(--color-brand-800)] text-white rounded-[10px] hover:bg-[var(--color-brand-900)] disabled:opacity-40 disabled:hover:bg-[var(--color-brand-800)] transition shrink-0 flex items-center justify-center shadow-sm"
+ +          title="Надіслати"
+ +        >
+ +          <Send className="w-5 h-5" />
+++=======
++           className="flex-1 bg-transparent text-sm md:text-[18px] text-brand-950 outline-none placeholder:text-placeholder py-1"
++           placeholder="Повідомлення..."
++         />
++ 
++         <button
++           type="submit"
++           disabled={!inputText.trim()}
++           className="p-2 md:p-2.5 bg-brand-800 text-white rounded-lg md:rounded-[10px] hover:bg-brand-900 disabled:opacity-40 disabled:hover:bg-brand-800 transition shrink-0 flex items-center justify-center shadow-sm cursor-pointer disabled:cursor-not-allowed"
++           title="Надіслати"
++         >
++           <Send className="w-4 h-4 md:w-5 md:h-5" />
+++>>>>>>> dev
+          </button>
+  
+          <input type="file" ref={fileInputRef} className="hidden" />
+diff --cc app/components/chat/UserProfileDrawer.tsx
+index 2ae173c,7faaba2..0000000
+--- a/app/components/chat/UserProfileDrawer.tsx
++++ b/app/components/chat/UserProfileDrawer.tsx
+@@@ -10,28 -10,37 +10,63 @@@ interface UserProfileDrawerProps 
+  
+  export const UserProfileDrawer: React.FC<UserProfileDrawerProps> = ({ isOpen, selectedUser, onClose }) => {
+    return (
+++<<<<<<< HEAD
+ +    <div
+ +      className={`fixed top-0 right-0 h-full w-[320px] bg-white border-l border-gray-200 shadow-2xl z-[999] transform transition-transform duration-300 p-6 flex flex-col items-center text-center ${
+ +        isOpen ? "translate-x-0" : "translate-x-full"
+ +      }`}
+ +    >
+ +      <button onClick={onClose} className="self-end text-gray-400 hover:text-gray-700 font-bold p-1">
+ +        <X className="w-5 h-5" />
+ +      </button>
+ +      <div className="w-32 h-32 rounded-full bg-[var(--color-brand-100)] my-4 flex items-center justify-center text-4xl font-bold text-[var(--color-brand-850)]">
+ +        {selectedUser?.name[0] || "U"}
+ +      </div>
+ +      <h2 className="text-xl font-bold text-gray-900">{selectedUser?.name}</h2>
+ +      <p className="text-gray-500 text-sm">@leleka_user</p>
+ +      <p className="mt-2 text-xs text-green-600 font-medium">
+ +        {selectedUser?.status === "В мережі" ? "Зараз в мережі" : `Був(-ла): ${selectedUser?.date}`}
+ +      </p>
+ +      <button
+ +        onClick={onClose}
+ +        className="mt-auto w-full py-2.5 bg-[var(--color-brand-850)] text-white rounded-xl font-medium hover:bg-[var(--color-brand-950)] transition"
+ +      >
+ +        Написати
+ +      </button>
+ +    </div>
+++=======
++     <>
++       {isOpen && (
++         <div
++           className="fixed inset-0 bg-black/40 z-[998] transition-opacity"
++           onClick={onClose}
++         />
++       )}
++ 
++       <div
++         className={`fixed top-0 right-0 h-full w-full sm:w-[320px] bg-white border-l border-brand-50 shadow-2xl z-[999] transform transition-transform duration-300 p-6 flex flex-col items-center text-center ${
++           isOpen ? "translate-x-0" : "translate-x-full"
++         }`}
++       >
++         <button onClick={onClose} className="self-end text-brand-700 hover:text-brand-950 font-bold p-1 cursor-pointer">
++           <X className="w-5 h-5" />
++         </button>
++         <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-brand-100 my-4 flex items-center justify-center text-3xl sm:text-4xl font-bold text-brand-850 shrink-0">
++           {selectedUser?.name[0] || "U"}
++         </div>
++         <h2 className="text-lg sm:text-xl font-bold text-brand-950">{selectedUser?.name}</h2>
++         <p className="text-brand-700 text-sm">@leleka_user</p>
++         <p className="mt-2 text-xs text-brand-600 font-medium">
++           {selectedUser?.status === "В мережі" ? "Зараз в мережі" : `Був(-ла): ${selectedUser?.date}`}
++         </p>
++         <button
++           onClick={onClose}
++           className="mt-auto w-full py-2.5 bg-brand-850 text-white rounded-xl font-medium hover:bg-brand-950 transition cursor-pointer"
++         >
++           Написати
++         </button>
++       </div>
++     </>
+++>>>>>>> dev
+    );
+  };
+diff --cc app/components/layout/Footer.tsx
+index 0e46d51,86d1d0c..0000000
+--- a/app/components/layout/Footer.tsx
++++ b/app/components/layout/Footer.tsx
+@@@ -1,6 -1,6 +1,10 @@@
+  const Footer = () => {
+    return (
+++<<<<<<< HEAD
+ +    <footer className="absolute bottom-0 left-0 w-full bg-[var(--color-brand-50)] text-center space-y-2">
+++=======
++     <footer className="absolute bottom-0 left-0 w-full bg-brand-50 text-center space-y-2">
+++>>>>>>> dev
+        <div className="h-24"></div>
+      </footer>
+    );
+diff --cc app/components/layout/Header.tsx
+index dca6bf6,f15e9a0..0000000
+--- a/app/components/layout/Header.tsx
++++ b/app/components/layout/Header.tsx
+@@@ -1,6 -1,6 +1,10 @@@
+  const Header = () => {
+    return (
+++<<<<<<< HEAD
+ +    <header className="absolute top-0 left-0 w-full bg-[var(--color-brand-50)] py-4 text-center shadow-sm z-10">
+++=======
++     <header className="absolute top-0 left-0 w-full bg-brand-50 py-4 text-center shadow-sm z-10">
+++>>>>>>> dev
+        <h1 className="font-bold text-gray-800 font-title text-3xl">
+          Поштовий Лелека
+        </h1>
+diff --cc app/components/layout/SidebarNav.tsx
+index c7f83cf,c7d8735..0000000
+--- a/app/components/layout/SidebarNav.tsx
++++ b/app/components/layout/SidebarNav.tsx
+@@@ -1,8 -1,10 +1,17 @@@
+  import React from "react";
+++<<<<<<< HEAD
+ +import { MessageSquareText as ChatIcon, User, Folders, SettingsIcon, Edit3 } from "lucide-react";
+ +import { MY_PROFILE } from "~/components/chat/mockData";
+ +
+ +interface SidebarNavProps {
+++=======
++ import { MessageSquareText as ChatIcon, User, Folders, SettingsIcon, Edit3, X } from "lucide-react";
++ import { MY_PROFILE } from "~/components/chat/mockData";
++ 
++ interface SidebarNavProps {
++   isOpen?: boolean;
++   onClose?: () => void;
+++>>>>>>> dev
+    onSelectHome: () => void;
+    myProfilePop: boolean;
+    setMyProfilePop: (val: boolean) => void;
+@@@ -10,87 -12,139 +19,221 @@@
+  }
+  
+  export const SidebarNav: React.FC<SidebarNavProps> = ({
+++<<<<<<< HEAD
+++=======
++   isOpen = false,
++   onClose,
+++>>>>>>> dev
+    onSelectHome,
+    myProfilePop,
+    setMyProfilePop,
+    onNavigate,
+  }) => {
+    return (
+++<<<<<<< HEAD
+ +    <nav className="w-[100px] h-full bg-[var(--color-brand-100)] flex flex-col justify-between items-center pt-[34px] pb-8 shrink-0 z-20 relative">
+ +      <img
+ +        src="/logo.svg"
+ +        alt="Logo"
+ +        className="w-[89px] h-[59px] cursor-pointer object-contain"
+ +        onClick={onSelectHome}
+ +      />
+ +      <div className="flex flex-col items-center gap-[55px]">
+ +        <button 
+ +          onClick={onSelectHome} 
+ +          className="text-[var(--color-brand-800)] hover:opacity-80 transition flex items-center justify-center w-10 h-10" 
+ +          title="Чати"
+ +        >
+ +          <ChatIcon className="w-10 h-10" />
+ +        </button>
+ +        <button 
+ +          onClick={() => onNavigate("/contacts")} 
+ +          className="text-[var(--color-brand-800)] hover:opacity-80 transition flex items-center justify-center w-10 h-10" 
+ +          title="Контакти"
+ +        >
+ +          <User className="w-10 h-10" />
+ +        </button>
+ +        <button 
+ +          onClick={() => onNavigate("/privateFolder")} 
+ +          className="text-[var(--color-brand-800)] hover:opacity-80 transition flex items-center justify-center w-10 h-10" 
+ +          title="Приватна папка"
+ +        >
+ +          <Folders className="w-10 h-10" />
+ +        </button>
+ +      </div>
+ +      <div className="flex flex-col items-center gap-[35px] relative">
+ +        <button 
+ +          onClick={() => onNavigate("/settings")} 
+ +          className="text-[var(--color-brand-800)] hover:opacity-80 transition flex items-center justify-center w-10 h-10" 
+ +          title="Налаштування"
+ +        >
+ +          <SettingsIcon className="w-10 h-10" />
+ +        </button>
+ +        <button
+ +          onClick={() => setMyProfilePop(!myProfilePop)}
+ +          className="w-12 h-12 rounded-full bg-white text-[var(--color-brand-800)] font-bold flex items-center justify-center shadow-sm hover:scale-105 transition border border-gray-100"
+ +          title="Мій профіль"
+ +        >
+ +          {MY_PROFILE.avatar}
+ +        </button>
+ +        {myProfilePop && (
+ +          <>
+ +            <div className="fixed inset-0 z-30" onClick={() => setMyProfilePop(false)} />
+ +            <div className="absolute bottom-0 left-[110px] w-72 bg-white border border-gray-200 rounded-2xl shadow-xl z-40 p-4">
+ +              <div className="flex items-center gap-3 pb-3 border-b border-gray-100">
+ +                <div className="w-12 h-12 rounded-full bg-[var(--color-brand-850)] text-white font-bold text-lg flex items-center justify-center shrink-0">
+ +                  {MY_PROFILE.avatar}
+ +                </div>
+ +                <div className="min-w-0">
+ +                  <h3 className="font-bold text-gray-900 text-sm truncate">{MY_PROFILE.name}</h3>
+ +                  <p className="text-xs text-green-600 font-medium truncate">{MY_PROFILE.username}</p>
+ +                </div>
+ +              </div>
+ +              <p className="text-xs text-gray-600 my-3 leading-relaxed bg-gray-50 p-2.5 rounded-xl border border-gray-100">
+ +                {MY_PROFILE.bio}
+ +              </p>
+ +              <button
+ +                onClick={() => {
+ +                  setMyProfilePop(false);
+ +                  onNavigate("/myProfile");
+ +                }}
+ +                className="w-full py-2 bg-[var(--color-brand-850)] text-white rounded-xl text-xs font-medium hover:bg-[var(--color-brand-950)] transition flex items-center justify-center gap-1.5 shadow-sm"
+ +              >
+ +                <Edit3 className="w-3.5 h-3.5" />
+ +                <span>Редагувати профіль</span>
+ +              </button>
+ +            </div>
+ +          </>
+ +        )}
+ +      </div>
+ +    </nav>
+++=======
++     <>
++       {isOpen && (
++         <div
++           className="fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300"
++           onClick={onClose}
++         />
++       )}
++ 
++       <aside
++         className={`
++           fixed md:relative top-0 left-0 h-full w-[280px] md:w-[100px] bg-brand-100 
++           flex flex-col justify-between items-center pt-6 md:pt-[34px] pb-8 shrink-0 z-50 
++           transition-transform duration-300 ease-in-out
++           ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
++         `}
++       >
++         <div className="w-full px-6 flex items-center justify-between md:justify-center">
++           <img
++             src="/logo.svg"
++             alt="Logo"
++             className="w-[89px] h-[59px] cursor-pointer object-contain"
++             onClick={() => {
++               onSelectHome();
++               onClose?.();
++             }}
++           />
++           <button
++             onClick={onClose}
++             className="md:hidden p-2 text-brand-800 hover:bg-brand-200/50 rounded-xl transition cursor-pointer"
++           >
++             <X className="w-6 h-6" />
++           </button>
++         </div>
++ 
++         <div className="flex flex-col items-center gap-4 md:gap-[55px] w-full px-4">
++           <button
++             onClick={() => {
++               onSelectHome();
++               onClose?.();
++             }}
++             className="w-full md:w-10 h-12 md:h-10 text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer"
++             title="Чати"
++           >
++             <ChatIcon className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
++             <span className="font-medium text-base md:hidden">Чати</span>
++           </button>
++ 
++           <button
++             onClick={() => {
++               onNavigate("/contacts");
++               onClose?.();
++             }}
++             className="w-full md:w-10 h-12 md:h-10 text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer"
++             title="Контакти"
++           >
++             <User className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
++             <span className="font-medium text-base md:hidden">Контакти</span>
++           </button>
++ 
++           <button
++             onClick={() => {
++               onNavigate("/privateFolder");
++               onClose?.();
++             }}
++             className="w-full md:w-10 h-12 md:h-10 text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer"
++             title="Приватна папка"
++           >
++             <Folders className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
++             <span className="font-medium text-base md:hidden">Приватна папка</span>
++           </button>
++         </div>
++ 
++         <div className="flex flex-col items-center gap-4 md:gap-[35px] relative w-full px-4 md:px-0">
++           <button
++             onClick={() => {
++               onNavigate("/settings");
++               onClose?.();
++             }}
++             className="w-full md:w-10 h-12 md:h-10 text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer"
++             title="Налаштування"
++           >
++             <SettingsIcon className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
++             <span className="font-medium text-base md:hidden">Налаштування</span>
++           </button>
++ 
++           <button
++             onClick={() => setMyProfilePop(!myProfilePop)}
++             className="w-12 h-12 rounded-full bg-white text-brand-800 font-bold flex items-center justify-center shadow-sm hover:scale-105 transition border border-brand-50 cursor-pointer shrink-0"
++             title="Мій профіль"
++           >
++             {MY_PROFILE.avatar}
++           </button>
++ 
++           {myProfilePop && (
++             <>
++               <div className="fixed inset-0 z-30" onClick={() => setMyProfilePop(false)} />
++               <div className="absolute bottom-16 md:bottom-0 left-4 md:left-[110px] w-64 md:w-72 bg-white border border-brand-50 rounded-2xl shadow-xl z-40 p-4">
++                 <div className="flex items-center gap-3 pb-3 border-b border-gray-100">
++                   <div className="w-12 h-12 rounded-full bg-brand-850 text-white font-bold text-lg flex items-center justify-center shrink-0">
++                     {MY_PROFILE.avatar}
++                   </div>
++                   <div className="min-w-0">
++                     <h3 className="font-bold text-brand-950 text-sm truncate">{MY_PROFILE.name}</h3>
++                     <p className="text-xs text-brand-600 font-medium truncate">{MY_PROFILE.username}</p>
++                   </div>
++                 </div>
++                 <p className="text-xs text-brand-700 my-3 leading-relaxed bg-brand-50/50 p-2.5 rounded-xl border border-brand-50">
++                   {MY_PROFILE.bio}
++                 </p>
++                 <button
++                   onClick={() => {
++                     setMyProfilePop(false);
++                     onNavigate("/myProfile");
++                     onClose?.();
++                   }}
++                   className="w-full py-2 bg-brand-850 text-white rounded-xl text-xs font-medium hover:bg-brand-950 transition flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
++                 >
++                   <Edit3 className="w-3.5 h-3.5" />
++                   <span>Редагувати профіль</span>
++                 </button>
++               </div>
++             </>
++           )}
++         </div>
++       </aside>
++     </>
+++>>>>>>> dev
+    );
+  };
+diff --cc app/hooks/useAuth.tsx
+index 9d27a53,03a3395..0000000
+--- a/app/hooks/useAuth.tsx
++++ b/app/hooks/useAuth.tsx
+@@@ -9,11 -9,15 +9,23 @@@ export interface User 
+  //Поки тут замокані данні та можна самотно поставити, авторизований юзер чи ні. Коли буде готова авторизація на юекенді - сюди треба буде підключити
+  
+  export const useAuth = () => {
+++<<<<<<< HEAD
+ +  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false); // щоб зробити юзера автризваним, треба зробити значення true
+ +  const [isLoading, setIsLoading] = useState<boolean>(false);
+ +
+ +  const [user, setUser] = useState<User | null>(
+ +    null
+++=======
++   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true); // щоб зробити юзера автризваним, треба зробити значення true
++   const [isLoading, setIsLoading] = useState<boolean>(false);
++ 
++   const [user, setUser] = useState<User | null>(
++     {
++     id: "1",
++     email: "user@leleka.com",
++     name: "Тестовий Користувач",
++ }
+++>>>>>>> dev
+    );
+    // треба додати юзера. Наприклад:
+    /*
+diff --cc app/hooks/useMessenger.ts
+index c07c9ad,3084f16..0000000
+--- a/app/hooks/useMessenger.ts
++++ b/app/hooks/useMessenger.ts
+@@@ -13,6 -13,7 +13,10 @@@ export function useMessenger() 
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [myProfilePop, setMyProfilePop] = useState(false);
+    const [profileOpen, setProfileOpen] = useState(false);
+++<<<<<<< HEAD
+++=======
++   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+++>>>>>>> dev
+  
+    const chatBottomRef = useRef<HTMLDivElement | null>(null);
+  
+@@@ -68,6 -69,8 +72,11 @@@
+      setMyProfilePop,
+      profileOpen,
+      setProfileOpen,
+++<<<<<<< HEAD
+++=======
++     isSidebarOpen,
++     setIsSidebarOpen,
+++>>>>>>> dev
+      chatBottomRef,
+      handleSendMessage,
+      handleDeleteChat,
+diff --cc app/routes/home.tsx
+index dd691c0,b29fdf5..0000000
+--- a/app/routes/home.tsx
++++ b/app/routes/home.tsx
+@@@ -1,322 -1,256 +1,577 @@@
+  import React, { useState } from "react";
+++<<<<<<< HEAD
+ +import { useNavigate } from "react-router-dom";
+ +
+ +interface FaqItem {
+ +  q: string;
+ +  a: string;
+ +}
+ +
+ +const faqItems: FaqItem[] = [
+ +  {
+ +    q: "Лелека дійсно безкоштовна? У чому підвох?",
+ +    a: "Жодного підвоху! Ми не продаємо ваші дані, не крутимо рекламу та не нав'язуємо преміум-підписки. Месенджер створювався для вільного спілкування, а не для викачування грошей.",
+ +  },
+ +  {
+ +    q: "Що потрібно для реєстрації?",
+ +    a: "Для створення акаунту потрібна тільки ваша електронна пошта — на неї ми надішлемо лист для підтвердження. Номер телефону вказувати не потрібно.",
+ +  },
+ +  {
+ +    q: "Чи читаєте ви мої чати? Наскільки це безпечно?",
+ +    a: "Ні, ми не маємо доступу до ваших листувань. Усі дані захищені сучасним шифруванням (HTTPS/TLS) і зберігаються на надійних серверах.",
+ +  },
+ +  {
+ +    q: "Як працює «Приватна папка»?",
+ +    a: "Це спеціальний розділ-сейф для найважливіших або секретних чатів. Доступ до неї відкривається лише після введення твого особистого PIN-коду.",
+ +  },
+ +  {
+ +    q: "Чи можу я видаляти або редагувати свої повідомлення?",
+ +    a: "Звісно! Ти маєш повний контроль над своїми повідомленнями. Їх можна редагувати або видаляти для всіх учасників бесіди без жодних часових лімітів.",
+ +  },
+ +  {
+ +    q: "Чи працює Лелека при поганому інтернеті?",
+ +    a: "Так! Ми оптимізували застосунок для роботи навіть при слабкому 3G/EDGE з'єднанні. А також ми маємо лайт режим. У ньому не завантажуються медіа файли, стікери та анімації, що значно зменшує трафік.",
+ +  },
+ +];
+ +
+ +const LandingPage: React.FC = () => {
+ +  const [openFaq, setOpenFaq] = useState<number | null>(null);
+ +  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+ +  const [currentLang, setCurrentLang] = useState<"UA" | "EN">("UA");
+ +  const navigate = useNavigate();
+ +
+ +  const toggleFaq = (index: number) => {
+ +    setOpenFaq((prev) => (prev === index ? null : index));
+ +  };
+ +
+ +  const toggleLanguage = () => {
+ +    setCurrentLang((prev) => (prev === "UA" ? "EN" : "UA"));
+ +  };
+ +
+ +  return (
+ +    <div className="min-h-screen bg-app-bg-alt text-brand-950 font-sans selection:bg-brand-800 selection:text-white overflow-x-hidden">
+ +
+ +      <header className="sticky top-0 z-50 bg-app-bg-alt/90 backdrop-blur-md border-b border-brand-50 px-4 md:px-12 py-2.5 md:py-4 flex items-center justify-between transition-all">
+ +        <div className="flex items-center gap-2">
+ +          <button
+ +            type="button"
+ +            aria-label="На головну"
+ +            className="w-[120px] md:w-[160px] h-[32px] md:h-[45px] bg-contain bg-no-repeat bg-left transition-transform hover:scale-105 cursor-pointer border-none bg-transparent"
+ +            style={{ backgroundImage: 'url("/icons/LOGO.png")' }}
+ +            onClick={() => navigate("/")}
+ +          />
+ +        </div>
+ +
+ +        <nav className="hidden md:flex gap-8 font-medium text-brand-700 text-sm tracking-wide">
+ +          <a href="#about" className="hover:text-brand-950 transition-colors">Про нас</a>
+ +          <a href="#benefits" className="hover:text-brand-950 transition-colors">Переваги</a>
+ +          <a href="#faq" className="hover:text-brand-950 transition-colors">Часті запитання</a>
+ +          <a href="#contacts" className="hover:text-brand-950 transition-colors">Контакти</a>
+ +        </nav>
+ +
+ +        <div className="flex items-center gap-2 md:gap-3">
+ +          {/* Стильний перемикач мови */}
+ +          <button
+ +            type="button"
+ +            onClick={toggleLanguage}
+ +            className="flex items-center gap-1.5 px-2.5 py-1 md:py-1.5 rounded-lg border border-brand-100 bg-white/80 hover:bg-white text-brand-800 text-xs md:text-sm font-semibold transition-all shadow-xs cursor-pointer active:scale-95"
+ +            aria-label="Змінити мову"
+ +          >
+ +            <svg
+ +              className="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-700"
+ +              fill="none"
+ +              stroke="currentColor"
+ +              viewBox="0 0 24 24"
+ +            >
+ +              <path
+ +                strokeLinecap="round"
+ +                strokeLinejoin="round"
+ +                strokeWidth={1.8}
+ +                d="M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a14.25 14.25 0 00-3.9 9 14.25 14.25 0 003.9 9 14.25 14.25 0 003.9-9A14.25 14.25 0 0012 3z"
+ +              />
+ +            </svg>
+ +            <span className="tracking-wide">{currentLang}</span>
+ +          </button>
+ +
+ +          <button
+ +            type="button"
+ +            onClick={() => navigate("/register")}
+ +            className="bg-brand-800 text-white px-3.5 md:px-5 py-1.5 md:py-2.5 rounded-lg md:rounded-xl text-xs md:text-sm font-bold hover:bg-brand-900 shadow-sm hover:shadow-md transition-all active:scale-95 cursor-pointer"
+ +          >
+ +            Створити акаунт
+ +          </button>
+ +
+ +          <button
+ +            type="button"
+ +            aria-label="Переключити меню"
+ +            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+ +            className="md:hidden p-1.5 text-brand-800 cursor-pointer rounded-lg hover:bg-brand-50"
+ +          >
+ +            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+ +              {isMobileMenuOpen ? (
+ +                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+ +              ) : (
+ +                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+ +              )}
+ +            </svg>
+ +          </button>
+ +        </div>
+ +      </header>
+ +
+ +      {isMobileMenuOpen && (
+ +        <nav className="md:hidden bg-app-bg-alt border-b border-brand-50 px-6 py-4 flex flex-col gap-4 text-center font-medium text-brand-700">
+ +          <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>Про нас</a>
+ +          <a href="#benefits" onClick={() => setIsMobileMenuOpen(false)}>Переваги</a>
+ +          <a href="#faq" onClick={() => setIsMobileMenuOpen(false)}>Часті запитання</a>
+ +          <a href="#contacts" onClick={() => setIsMobileMenuOpen(false)}>Контакти</a>
+ +        </nav>
+ +      )}
+ +
+ +      <section className="relative px-6 md:px-12 py-16 md:py-28 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 overflow-hidden">
+ +        <div className="w-full md:w-1/2 space-y-6 z-10">
+ +          <h1 className="text-4xl md:text-6xl font-black leading-tight text-brand-950 tracking-tight">
+ +            Свобода спілкування <br />
+ +            <span className="text-brand-800">у кожному повідомленні</span>
+ +          </h1>
+ +
+ +          <p className="text-brand-700 text-lg leading-relaxed max-w-lg">
+ +            Затишний простір для швидкого спілкування з близькими без реклами, обмежень та зайвого шуму.
+ +          </p>
+ +
+ +          <div className="flex flex-col sm:flex-row gap-4 max-w-md pt-4">
+ +            <button
+ +              type="button"
+ +              onClick={() => navigate("/register")}
+ +              className="bg-brand-800 text-white py-4 px-8 rounded-2xl font-extrabold text-lg hover:bg-brand-900 shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 active:scale-95 text-center cursor-pointer"
+ +            >
+ +              Зареєструватися безкоштовно
+ +            </button>
+ +            <button
+ +              type="button"
+ +              onClick={() => navigate("/login")}
+ +              className="border-2 border-brand-800 bg-transparent text-brand-800 py-4 px-8 rounded-2xl font-extrabold text-lg hover:bg-brand-50 transition-all active:scale-95 text-center cursor-pointer"
+ +            >
+ +              Увійти
+ +            </button>
+ +          </div>
+ +        </div>
+ +
+ +        <div className="w-full md:w-1/2 flex items-center justify-center relative">
+ +          <img
+ +            src="/leleka.png"
+ +            alt="Лелека — логотип месенджера"
+ +            className="max-w-full h-auto object-contain"
+ +          />
+ +        </div>
+ +      </section>
+ +
+ +      <section className="bg-brand-50 border-y border-brand-50 py-10 px-6 md:px-12">
+ +        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+ +          <div className="space-y-1">
+ +            <p className="text-3xl md:text-4xl font-black text-brand-800">100%</p>
+ +            <p className="text-xs md:text-sm font-semibold text-brand-700">Безкоштовно назавжди</p>
+ +          </div>
+ +          <div className="space-y-1">
+ +            <p className="text-3xl md:text-4xl font-black text-brand-800">0.03 сек</p>
+ +            <p className="text-xs md:text-sm font-semibold text-brand-700">Миттєвий відгук</p>
+ +          </div>
+ +          <div className="space-y-1">
+ +            <p className="text-3xl md:text-4xl font-black text-brand-800">0%</p>
+ +            <p className="text-xs md:text-sm font-semibold text-brand-700">Реклами та спаму</p>
+ +          </div>
+ +          <div className="space-y-1">
+ +            <p className="text-3xl md:text-4xl font-black text-brand-800">Lite режим</p>
+ +            <p className="text-xs md:text-sm font-semibold text-brand-700">Для слабкого зв'язку</p>
+ +          </div>
+ +        </div>
+ +      </section>
+ +
+ +      <section id="about" className="mx-6 md:mx-auto my-16 max-w-7xl">
+ +        <div className="bg-brand-50/80 border border-brand-50 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-10 shadow-sm">
+ +          <div className="w-full md:w-2/3 space-y-5">
+ +            <h2 className="text-3xl md:text-4xl font-extrabold flex items-center gap-3 text-brand-950">
+ +              <img src="/icons/lapa1.png" alt="" className="w-8 h-8 object-contain" aria-hidden="true" /> Про нас
+ +            </h2>
+ +            <p className="text-2xl font-bold leading-relaxed text-brand-950">
+ +              Лелека — український месенджер для швидкого, безпечного та зручного спілкування.
+ +            </p>
+ +            <p className="text-brand-700 text-lg max-w-2xl">
+ +              Створено з думкою про людей. Ми об'єднуємо сучасні технології шифрування та простий інтерфейс, щоб ви могли залишатися на зв'язку з найважливішими людьми.
+ +            </p>
+ +          </div>
+ +          <div className="w-full md:w-1/3 flex justify-center">
+ +            <button
+ +              type="button"
+ +              onClick={() => navigate('/register')}
+ +              className="bg-brand-800 text-white px-10 py-5 rounded-2xl font-extrabold text-xl hover:bg-brand-900 transition-all shadow-xl hover:scale-105 active:scale-95 cursor-pointer"
+ +            >
+ +              Спробувати зараз ➔
+ +            </button>
+ +          </div>
+ +        </div>
+ +      </section>
+ +
+ +      <section id="benefits" className="px-6 md:px-12 py-16 max-w-7xl mx-auto text-center">
+ +        <h2 className="text-3xl md:text-4xl font-extrabold mb-12 flex justify-center items-center gap-3 text-brand-950">
+ +          <img src="/icons/lapa1.png" alt="" className="w-8 h-8 object-contain" aria-hidden="true" /> Переваги
+ +        </h2>
+ +        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+ +          {[
+ +            { title: "Зручність", desc: "лайтовий інтерфейс", icon: "/icons/ui.png" },
+ +            {
+ +              title: "Швидкість",
+ +              desc: <>миттєве повідомлення<br />(0,03 сек)</>,
+ +              icon: "/icons/speed.png"
+ +            },
+ +            { title: "Безпечність", desc: "використовуємо HTTPS", icon: "/icons/lock.png" },
+ +            { title: "Кастомізація", desc: "твій стиль – твої правила", icon: "/icons/custom.png" },
+ +            { title: "Приватна папка", desc: "максимальна секретність", icon: "/icons/folder2.png" },
+ +          ].map((item, idx) => (
+ +            <div key={idx} className="border border-brand-50 bg-white p-6 rounded-2xl flex flex-col items-center justify-center space-y-3 hover:shadow-xl hover:border-brand-800 hover:-translate-y-1 transition-all duration-300">
+ +              <div className="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center">
+ +                <img src={item.icon} alt="" className="w-6 h-6 object-contain" aria-hidden="true" />
+ +              </div>
+ +              <h3 className="font-bold text-lg text-brand-950">{item.title}</h3>
+ +              <p className="text-xs text-brand-700">{item.desc}</p>
+ +            </div>
+ +          ))}
+ +        </div>
+ +      </section>
+ +
+ +      <section id="faq" className="px-6 md:px-12 py-20 max-w-3xl mx-auto">
+ +        <h2 className="text-3xl md:text-4xl font-black text-center mb-12 text-brand-950">
+ +          Часті запитання
+ +        </h2>
+ +        <div className="space-y-4">
+ +          {faqItems.map((item, index) => {
+ +            const isOpen = openFaq === index;
+ +            return (
+ +              <div
+ +                key={index}
+ +                onClick={() => toggleFaq(index)}
+ +                role="button"
+ +                tabIndex={0}
+ +                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleFaq(index)}
+ +                className="border border-brand-50 bg-white rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:border-brand-800 hover:shadow-md transition-all duration-300"
+ +              >
+ +                <div className="p-6 flex justify-between items-center gap-4">
+ +                  <h3 className="font-bold text-lg text-brand-950">{item.q}</h3>
+ +                  <div className={`w-11 h-11 shrink-0 rounded-full border border-brand-50 flex items-center justify-center text-lg font-bold shadow-sm transition-all duration-300 ${isOpen ? "bg-brand-800 text-white rotate-180 border-brand-800" : "bg-brand-50 text-brand-800 hover:bg-brand-50"}`}>
+ +                    ↓
+ +                  </div>
+ +                </div>
+ +                <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+ +                  <div className="overflow-hidden">
+ +                    <p className="px-6 pb-6 text-brand-700 text-base leading-relaxed border-t border-app-bg-alt pt-4">
+ +                      {item.a}
+ +                    </p>
+ +                  </div>
+ +                </div>
+ +              </div>
+ +            );
+ +          })}
+ +        </div>
+ +      </section>
+ +
+ +      <section id="contacts" className="px-6 md:px-12 py-16 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
+ +        <div className="w-full md:w-1/2 space-y-4">
+ +          <h2 className="text-3xl md:text-4xl font-extrabold flex items-center gap-3 text-brand-950">
+ +            <img src="/icons/lapa1.png" alt="" className="w-8 h-8 object-contain" aria-hidden="true" /> Контакти
+ +          </h2>
+ +          <p className="text-xl font-bold max-w-md text-brand-950">
+ +            Залишилися питання? Маєш ідею чи хочеш залишити відгук? — наша пошта завжди відкрита для тебе )
+ +          </p>
+ +          <p className="text-xl font-bold text-brand-800">Чекаємо на твій меседж!</p>
+ +        </div>
+ +
+ +        <div className="w-full md:w-1/2 relative group">
+ +          <div
+ +            className="relative rounded-[40px] overflow-hidden shadow-2xl border border-brand-50 min-h-[260px] flex items-center justify-center bg-cover bg-center bg-no-repeat"
+ +            style={{
+ +              backgroundImage: 'linear-gradient(to bottom right, rgba(243, 244, 246, 0.45), rgba(220, 252, 231, 0.40)), url("/icons/lotus-contact.png")',
+ +            }}
+ +          >
+ +            <div className="relative z-10 p-6 text-center">
+ +              <a
+ +                href="mailto:deliveryleleka@gmail.com"
+ +                className="inline-block bg-brand-800 text-white px-8 py-4 rounded-xl font-extrabold text-lg md:text-xl hover:bg-brand-900 hover:scale-105 transition-all shadow-xl"
+ +              >
+ +                Написати нам
+ +              </a>
+ +            </div>
+ +          </div>
+ +        </div>
+ +      </section>
+ +
+ +      <footer className="border-t border-brand-50 bg-brand-50 px-6 md:px-12 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
+ +        <div
+ +          className="w-[150px] h-[40px] bg-contain bg-no-repeat bg-center"
+ +          style={{ backgroundImage: 'url("/icons/LOGO.png")' }}
+ +          aria-hidden="true"
+ +        />
+ +        <nav className="flex gap-6 font-semibold text-brand-700 text-sm">
+ +          <a href="#about" className="hover:text-brand-950 transition-colors">Про нас</a>
+ +          <a href="#benefits" className="hover:text-brand-950 transition-colors">Переваги</a>
+ +          <a href="#faq" className="hover:text-brand-950 transition-colors">Часті запитання</a>
+ +          <a href="#contacts" className="hover:text-brand-950 transition-colors">Контакти</a>
+ +        </nav>
+ +      </footer>
+ +    </div>
+ +  );
+++=======
++ import { useNavigate } from "react-router";
++ 
++ const faqItems = [
++     {
++         q: "Лелека – повністю безкоштовний месенджер?",
++         a: "Саме так! Ми переконані, що кожна людина має право користуватися крутими продуктами, тому жодних преміумфункцій 🎉",
++     },
++     {
++         q: "Для кого підходить Лелека?",
++         a: "Лелека не має вікових обмежень. Тому feel free юзати наш месенджер :)",
++     },
++     {
++         q: "Чому я маю обрати Лелеку?",
++         a: "Тут ти отримаєш багато можливостей: приватну папку, дошку для збережень, теми, що змінюються залежно від погоди, пасхалки та багато іншого",
++     },
++     {
++         q: "Чи обов’язково встановлювати застосунок?",
++         a: "Ні, можеш користуватися вебверсією, якщо ліньки встановлювати застосунок 🙂",
++     },
++     {
++         q: "Чи є мобільна версія?",
++         a: "Звичайно, все для твого комфорту 😎",
++     },
++ ];
++ 
++ const LandingPage = () => {
++     const [openFaq, setOpenFaq] = useState<number | null>(null);
++ 
++     const toggleFaq = (index: number) => {
++         setOpenFaq(prev => (prev === index ? null : index));
++     };
++     const navigate = useNavigate();
++     return (
++         <div className="min-h-screen bg-[#f1f1e6] font-sans text-[#2d4a22]">
++             <header className="flex items-center justify-between px-10 py-4 bg-[#b8d5a6]">
++                 <div className="flex items-center gap-2">
++                     <div className="w-[220px] h-[125px] bg-contain bg-no-repeat bg-center" style={{ backgroundImage: 'url("/icons/LOGO.png")' }}></div>
++                 </div>
++ 
++                 <nav className="hidden md:flex gap-6 font-medium text-[#4a6b3a]">
++                     <a href="#about" className="hover:underline">Про нас</a>
++                     <a href="#benefits" className="hover:underline">Переваги</a>
++                     <a href="#app" className="hover:underline">Застосунок</a>
++                     <a href="#faq" className="hover:underline">FAQ</a>
++                     <a href="#contacts" className="hover:underline">Контакти</a>
++                 </nav>
++ 
++                 <div className="flex items-center gap-4">
++                     <button className="bg-[#4c7d32] text-white px-6 py-2 rounded-lg font-bold hover:bg-[#3d6528] transition-colors">
++                         Створити акаунт
++                     </button>
++                     <div className="border-2 border-[#4c7d32] rounded-full w-10 h-10 flex items-center justify-center text-xs font-bold">
++                         ENG
++                     </div>
++                 </div>
++             </header>
++ 
++             <section className="relative px-10 py-20 flex flex-col md:flex-row items-center gap-10">
++                 <div className="w-full md:w-1/2 relative">
++                     <img src="/icons/chat_interface.png" alt="Chat Interface" className="w-full rounded-3xl" />
++                 </div>
++                 <div className="w-full md:w-1/2 space-y-6">
++                     <h1 className="text-4xl md:text-5xl font-bold leading-tight">
++                         Лелека — <br />
++                         <span className="text-[#68a347]">український месенджер, що об'єднує</span>
++                     </h1>
++                     <div className="flex flex-col gap-4 max-w-xs">
++                         <button onClick={() => navigate('/register')} className="bg-[#7ba35a] text-white py-3 rounded-xl font-bold text-xl shadow-md hover:bg-[#6a8d4d]">
++                             Зареєструватися
++                         </button>
++                         <button onClick={() => navigate('/login')} className="bg-[#7ba35a] text-white py-3 rounded-xl font-bold text-xl shadow-md hover:bg-[#6a8d4d]">
++                             Увійти
++                         </button>
++                     </div>
++                 </div>
++             </section>
++             <section id="about" className="mx-10 my-10 bg-[#b8d5a6]/50 rounded-[40px] p-12 flex flex-col md:flex-row items-center gap-10">
++                 <div className="w-full md:w-1/2 space-y-6">
++                     <h2 className="text-4xl font-extrabold flex items-center gap-2">
++                         <img src="/icons/lapa1.png" alt="" /> Про нас
++                     </h2>
++                     <p className="text-2xl font-bold leading-relaxed">
++                         Лелека — український месенджер для швидкого, безпечного та зручного спілкування.
++                     </p>
++                     <p className="text-xl">
++                         Залишайтесь на зв'язку з рідними та друзями — без підтримки іноземних платформ
++                     </p>
++                     <button className="bg-[#4c7d32] text-white px-10 py-4 rounded-xl font-bold text-xl hover:bg-[#3d6528]">
++                         Спробувати зараз
++                     </button>
++                 </div>
++                 <div className="w-full md:w-1/2">
++                     <img src="/icons/contacts.png" alt="Contacts list" className="w-full shadow-lg" />
++                 </div>
++             </section>
++             <section id="benefits" className="px-10 py-20 text-center">
++                 <h2 className="text-4xl font-extrabold mb-12 flex justify-center items-center gap-2">
++                     <img src="/icons/lapa1.png" alt="" /> Переваги
++                 </h2>
++                 <div className="bg-transparent border-4 border-[#7ba35a] rounded-[50px] p-10 grid grid-cols-1 md:grid-cols-5 gap-4">
++ 
++                     {[
++                         {
++                             title: "Зручність",
++                             desc: "лайтовий інтерфейс",
++                             icon: "/icons/ui.png",
++                         },
++                         {
++                             title: "Швидкість",
++                             desc: "миттєве повідомлення (0,03 сек)",
++                             icon: "/icons/speed.png",
++                         },
++                         {
++                             title: "Безпечність",
++                             desc: "використовуємо HTTPS",
++                             icon: "/icons/lock.png",
++                         },
++                         {
++                             title: "Кастомізація",
++                             desc: "твій стиль – твої правила",
++                             icon: "/icons/custom.png",
++                         },
++                         {
++                             title: "Приватна папка",
++                             desc: "максимальна секретність",
++                             icon: "/icons/folder2.png",
++                         },
++                     ].map((item, idx) => (
++                         <div key={idx} className="bg-[#7ba35a] p-6 rounded-[30px] text-white flex flex-col items-center justify-center space-y-4">
++                             <img
++                                 src={item.icon}
++                                 alt={item.title}
++                                 className="w-12 h-12 object-contain"
++                             />
++                             <h3 className="font-bold text-xl">{item.title}</h3>
++                             <p className="text-sm opacity-90">{item.desc}</p>
++                         </div>
++                     ))}
++                 </div>
++             </section>
++             <section id="app" className="px-10 py-20 bg-[#c7dfb6] relative overflow-hidden">
++                 <div className="max-w-4xl mx-auto text-center space-y-6 relative z-10">
++                     <h2 className="text-4xl font-extrabold flex justify-center items-center gap-2">
++                         <img src="/icons/lapa1.png" alt="" /> Застосунок
++                     </h2>
++                     <p className="text-xl font-medium">
++                         Лелека доступний у вебверсії та як застосунок — обирай формат, який тобі зручніший <br />
++                         Спілкуйся легко з будь-якого пристрою :)
++                     </p>
++                     <div className="relative inline-block">
++                         <span className="absolute -top-8 left-1 text-sm font-bold text-[#4c7d32] rotate-[-10deg]">
++                             тиць...
++                         </span>
++ 
++                         <img
++                             src="/icons/ArrowTUC.png"
++                             alt=""
++                             className="absolute -top-6 -left-14 w-20 rotate-[-10deg]"
++                         />
++ 
++                         <button className="bg-[#4c7d32] text-white px-16 py-4 rounded-xl font-bold text-2xl hover:bg-[#3d6528] shadow-lg relative z-10">
++                             Завантажити
++                         </button>
++                     </div>
++                 </div>
++                 <div className="absolute bottom-0 left-0 right-0 pointer-events-none select-none">
++                     <img
++                         src="/icons/waves.png"
++                         alt="Waves"
++                         className="w-full object-cover opacity-90"
++                         draggable="false"
++                     />
++                 </div>
++             </section>
++             <section id="faq" className="px-10 py-20">
++                 <h2 className="text-5xl font-black text-center mb-16">FAQ</h2>
++ 
++                 <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
++                     {faqItems.map((item, index) => {
++                         const open = openFaq === index;
++ 
++                         return (
++                             <div
++                                 key={index}
++                                 onClick={() => toggleFaq(index)}
++                                 className="bg-[#7ba35a] text-white p-6 rounded-2xl cursor-pointer"
++                             >
++                                 <div className="flex justify-between items-center">
++                                     <h3 className="font-bold">{item.q}</h3>
++                                     <img
++                                         src="/icons/faq-arrow.png"
++                                         className={`w-6 transition-transform ${open ? "rotate-180" : ""
++                                             }`}
++                                     />
++                                 </div>
++ 
++                                 <div
++                                     className={`mt-4 text-sm transition-all overflow-hidden ${open ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
++                                         }`}
++                                 >
++                                     {item.a}
++                                 </div>
++                             </div>
++                         );
++                     })}
++                 </div>
++             </section>
++             <section id="contacts" className="px-10 py-20 flex flex-col md:flex-row items-center gap-12">
++                 <div className="w-full md:w-1/2 space-y-6">
++                     <h2 className="text-5xl font-extrabold flex items-center gap-3">
++                         <img src="/icons/lapa1.png" alt="" /> Контакти
++                     </h2>
++                     <p className="text-2xl font-bold max-w-md">
++                         Залишилися питання? Маєш ідею чи хочеш залишити відгук? — наша пошта завжди відкрита для тебе )
++                     </p>
++                     <p className="text-2xl font-bold text-[#4c7d32]">Чекаємо на твій меседж!</p>
++                 </div>
++ 
++                 <div className="w-full md:w-1/2 relative group">
++                     <div className="relative rounded-[40px] overflow-hidden shadow-2xl">
++                         <img src="/icons/lotus-contact.png" alt="Contact us" className="w-full" />
++                         <div className="absolute inset-0 flex items-center justify-center">
++                             <button className="bg-[#4c7d32]/90 backdrop-blur-sm text-white px-12 py-4 rounded-xl font-bold text-2xl hover:scale-105 transition-transform">
++                                 Написати нам
++                             </button>
++                         </div>
++                     </div>
++                 </div>
++             </section>
++ 
++             <footer className="bg-[#b8d5a6] px-10 py-10 flex flex-col md:flex-row justify-between items-center gap-8">
++                 <div className="flex items-center gap-2">
++                     <div
++                         className="w-[220px] h-[125px] bg-contain bg-no-repeat bg-center"
++                         style={{ backgroundImage: 'url("/icons/LOGO.png")' }}
++                     ></div>
++                 </div>
++ 
++                 <nav className="flex gap-4 font-bold text-[#4c7d32]">
++                     <a href="#about">Про нас</a>
++                     <a href="#benefits">Переваги</a>
++                     <a href="#app">Застосунок</a>
++                     <a href="#faq">FAQ</a>
++                     <a href="#contacts">Контакти</a>
++                 </nav>
++ 
++                 <a href="mailto:deliveryleleka@gmail.com" className="text-xl font-bold underline decoration-2">
++                     deliveryleleka@gmail.com
++                 </a>
++             </footer>
++         </div>
++     );
+++>>>>>>> dev
+  };
+  
+  export default LandingPage;
+diff --cc app/routes/messanger.tsx
+index ba73803,03064ac..0000000
+--- a/app/routes/messanger.tsx
++++ b/app/routes/messanger.tsx
+@@@ -16,15 -16,20 +16,30 @@@ export default function MessangerPage(
+    const chat = useMessenger();
+  
+    return (
+++<<<<<<< HEAD
+ +    <div className="flex h-screen w-full bg-[var(--color-app-bg-alt)] overflow-hidden relative">
+ +      <SidebarNav
+ +        onSelectHome={() => chat.setSelected(null)}
+++=======
++     <div className="flex h-screen w-full bg-app-bg-alt overflow-hidden relative">
++       <SidebarNav
++         isOpen={chat.isSidebarOpen}
++         onClose={() => chat.setIsSidebarOpen(false)}
++         onSelectHome={() => {
++           chat.setSelected(null);
++           chat.setIsSidebarOpen(false);
++         }}
+++>>>>>>> dev
+          myProfilePop={chat.myProfilePop}
+          setMyProfilePop={chat.setMyProfilePop}
+          onNavigate={navigate}
+        />
+  
+++<<<<<<< HEAD
+ +      <div className="flex-1 flex flex-col h-full overflow-hidden">
+++=======
++       <div className="flex-1 flex flex-col h-full overflow-hidden w-full">
+++>>>>>>> dev
+          <ChatHeader
+            selected={chat.selected}
+            query={chat.query}
+@@@ -32,11 -37,17 +47,25 @@@
+            onBack={() => chat.setSelected(null)}
+            onOpenProfile={() => chat.setProfileOpen(true)}
+            onNavigateContacts={() => navigate("/contacts")}
+++<<<<<<< HEAD
+ +          onToggleMenu={() => chat.setDotsOpen(!chat.dotsOpen)}
+ +        />
+ +
+ +        <div className="flex-1 flex overflow-hidden relative">
+ +          {!chat.selected ? (
+++=======
++           onToggleMenu={() => {
++             if (chat.selected) {
++               chat.setDotsOpen(!chat.dotsOpen);
++             } else {
++               chat.setIsSidebarOpen(true);
++             }
++           }}
++         />
++ 
++         <div className="flex-1 flex overflow-hidden relative">
++           <div className={`${chat.selected ? "hidden md:flex" : "flex"} w-full md:w-auto h-full`}>
+++>>>>>>> dev
+              <ChatList
+                items={chat.items}
+                messages={chat.messages}
+@@@ -45,9 -56,11 +74,17 @@@
+                  chat.setDotsOpen(false);
+                }}
+              />
+++<<<<<<< HEAD
+ +          ) : (
+ +            <div className="flex-1 flex flex-col bg-[var(--color-chat-bg)] h-full">
+ +              <div className="flex-1 p-6 overflow-y-auto flex flex-col gap-3 max-w-4xl w-full mx-auto">
+++=======
++           </div>
++ 
++           {chat.selected && (
++             <div className="flex-1 flex flex-col bg-[var(--color-chat-bg)] h-full w-full">
++               <div className="flex-1 p-4 md:p-6 overflow-y-auto flex flex-col gap-3 max-w-4xl w-full mx-auto">
+++>>>>>>> dev
+                  {chat.messages[chat.selected.id]?.map((m) => (
+                    <MessageBubble key={m.id} msg={m} />
+                  ))}
+diff --cc package.json
+index 1a7aafe,b5db607..0000000
+--- a/package.json
++++ b/package.json
+@@@ -36,10 -35,5 +36,14 @@@
+      "vite": "^7.1.7",
+      "vite-tsconfig-paths": "^5.1.4"
+    },
+++<<<<<<< HEAD
+ +  "allowScripts": {
+ +    "@parcel/watcher@2.5.1": true,
+ +    "protobufjs@7.5.4": true,
+ +    "sharp@0.34.5": true,
+ +    "esbuild@0.28.1": true
+ +  }
+++=======
++   "packageManager": "yarn@4.18.0"
+++>>>>>>> dev
+  }
+* Unmerged path package-lock.json
