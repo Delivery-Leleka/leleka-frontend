@@ -7,13 +7,7 @@ export const useDetectedOS = (): SupportedOS => {
   useEffect(() => {
     const userAgent = window.navigator.userAgent.toLowerCase();
 
-    if (/iphone|ipad|ipod/.test(userAgent)) {
-      setDetectedOS("ios");
-    } else if (userAgent.includes("android")) {
-      setDetectedOS("android");
-    } else if (userAgent.includes("mac")) {
-      setDetectedOS("mac");
-    } else if (userAgent.includes("win")) {
+    if (userAgent.includes("win")) {
       setDetectedOS("windows");
     } else if (userAgent.includes("linux")) {
       setDetectedOS("linux");

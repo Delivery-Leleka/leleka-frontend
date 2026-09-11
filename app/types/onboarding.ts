@@ -1,4 +1,6 @@
-export type SupportedOS = "windows" | "linux" | "mac" | "android" | "ios" | "unknown";
+// export type SupportedOS = "windows" | "linux" | "mac" | "android" | "ios" | "unknown";
+
+export type SupportedOS = "windows" | "linux" | "unknown";
 
 export interface ProfileData {
   name: string;
