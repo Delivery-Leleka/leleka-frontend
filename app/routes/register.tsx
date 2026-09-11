@@ -163,15 +163,13 @@ export default function RegisterPage() {
       const resJson = await res.data;
 
       if (resJson.success) {
-        setPopupMessage({
-          msg: 'Реєстрація успішна! Вітаємо в Поштову Лелеку!',
-          icon: '/icons/sucess-icons8.png',
-        });
-      } else if (
-        resJson.message === 'Користувач із таким логіном або email уже існує'
-      ) {
-        setPopupMessage({ msg: 'Аккаунт уже існує', icon: '/icons/error.png' });
-        setTimeout(() => navigate('/login'), 2000);
+        setPopupMessage({ msg: "Реєстрація успішна! Вітаємо в Поштову Лелеку!", icon: "/icons/sucess-icons8.png" });
+        setTimeout(() => {
+          navigate("/onboarding");
+        }, 1500);
+      } else if (resJson.message === "Користувач із таким логіном або email уже існує") {
+        setPopupMessage({ msg: "Аккаунт уже існує", icon: "/icons/error.png" });
+        setTimeout(() => navigate("/login"), 2000);
       } else {
         console.error(`Помилка: ${resJson.message}`);
         setPopupMessage({
@@ -186,10 +184,7 @@ export default function RegisterPage() {
       setConfirm('');
     } catch (err) {
       console.error(`Помилка: ${err}`);
-      setPopupMessage({
-        msg: 'Помилка зʼєдання з сервером! Повний лог в консолі.',
-        icon: '/icons/error.png',
-      });
+      setPopupMessage({ msg: "Помилка зʼєднання з сервером! Повний лог в консолі.", icon: "/icons/error.png" });
     } finally {
       setSubmitting(false);
     }
@@ -366,11 +361,10 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={submitting || !isEmailValid}
-                className={`px-6 py-2 rounded-md font-semibold shadow-md transition-all duration-200 ${
-                  submitting || !isEmailValid
-                    ? 'bg-gray-400 text-white cursor-not-allowed'
-                    : 'bg-[#4b6b3d] hover:bg-[#3d5832] text-white'
-                }`}
+                className={`px-6 py-2 rounded-md font-semibold shadow-md transition-all duration-200 ${submitting || !isEmailValid
+                  ? "bg-gray-400 text-white cursor-not-allowed"
+                  : "bg-[#4b6b3d] hover:bg-[#3d5832] text-white"
+                  }`}
               >
                 {submitting ? 'Завантаження...' : 'Створити'}
               </button>
