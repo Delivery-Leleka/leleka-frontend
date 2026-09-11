@@ -107,6 +107,7 @@ export const ProfileStep: React.FC<ProfileStepProps> = ({
         <textarea
           name="bio"
           rows={3}
+          maxLength={70}
           value={profile.bio}
           onChange={onChange}
           placeholder="Розкажіть дещо про себе..."

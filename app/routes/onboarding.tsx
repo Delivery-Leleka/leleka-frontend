@@ -22,7 +22,6 @@ const OnboardingPage: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    if (name === "bio" && value.length > 70) return;
     setProfile((prev) => ({ ...prev, [name]: value }));
   };
 
