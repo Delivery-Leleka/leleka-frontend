@@ -27,10 +27,10 @@ const OnboardingPage: React.FC = () => {
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setProfile((prev) => ({ ...prev, avatar: imageUrl }));
-    }
+    if (!file) return;
+
+    const imageUrl = URL.createObjectURL(file);
+    setProfile((prev) => ({ ...prev, avatar: imageUrl }));
   };
 
   const handleDownload = (platform: string, format: string) => {

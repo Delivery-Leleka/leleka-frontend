@@ -17,9 +17,7 @@ export const ProfileStep: React.FC<ProfileStepProps> = ({
 }) => {
   const isValid =
     profile.name.trim() !== "" &&
-    profile.username.trim() !== "" &&
-    profile.email.trim() !== "" &&
-    profile.bio.trim() !== "";
+    profile.username.trim() !== ""
 
   return (
     <div className="w-full space-y-6 text-left">
@@ -80,20 +78,6 @@ export const ProfileStep: React.FC<ProfileStepProps> = ({
               value={profile.username}
               onChange={onChange}
               placeholder="@username"
-              className="w-full px-4 py-2.5 rounded-xl border border-brand-50 bg-brand-50/30 text-brand-950 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800 transition-all"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-brand-950 mb-1">
-              Пошта
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={profile.email}
-              onChange={onChange}
-              placeholder="example@mail.com"
               className="w-full px-4 py-2.5 rounded-xl border border-brand-50 bg-brand-50/30 text-brand-950 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800 transition-all"
             />
           </div>
