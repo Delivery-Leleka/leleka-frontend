@@ -90,7 +90,7 @@ const OnboardingPage: React.FC = () => {
               onClose={handleEditorClose}
               defaultTabId={TABS.ADJUST}
               defaultToolId={TOOLS.CROP}
-              defaultSavedImageName='DO_NOT_CHANGE_THIS_SETTINGS'
+              defaultSavedImageName='do_not_change_this_settings'
               defaultSavedImageType="png"
               defaultSavedImageQuality={1}
             />
