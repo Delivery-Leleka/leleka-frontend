@@ -89,7 +89,7 @@ export const DownloadStep: React.FC<DownloadStepProps> = ({
         <button
           type="button"
           onClick={() => setShowAllPlatforms((prev) => !prev)}
-          className="w-full py-2.5 px-4 rounded-xl border border-brand-50 text-xs md:text-sm font-semibold text-brand-700 hover:text-brand-950 hover:bg-brand-50/50 transition-all flex items-center justify-between"
+          className="w-full py-2.5 px-4 rounded-xl border border-brand-50 text-xs md:text-sm font-semibold text-brand-700 hover:text-brand-950 hover:bg-brand-50/50 transition-all flex items-center justify-between cursor-pointer"
         >
           <span>{showAllPlatforms ? "Сховати інші платформи" : "Завантажити для інших пристроїв"}</span>
           {showAllPlatforms ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
