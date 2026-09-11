@@ -51,10 +51,12 @@ const OnboardingPage: React.FC = () => {
   //   setEditingSrc(null);
   // };
   const handleEditorSave = (editedImg: { imageBase64?: string }) => {
-    if (editedImg.imageBase64) {
+    const avatar = editedImg.imageBase64;
+
+    if (avatar) {
       setProfile((prev) => ({
         ...prev,
-        avatar: editedImg.imageBase64,
+        avatar,
       }));
     }
 
@@ -90,8 +92,11 @@ const OnboardingPage: React.FC = () => {
               onClose={handleEditorClose}
               defaultTabId={TABS.ADJUST}
               defaultToolId={TOOLS.CROP}
-              defaultSavedImageName='do_not_change_this_settings'
-              defaultSavedImageType="png"
+              savingPixelRatio={1}
+              previewPixelRatio={1}
+              Crop={{ ratio: 1 }}
+              defaultSavedImageName='do not change this settings'
+              defaultSavedImageType='png'
               defaultSavedImageQuality={1}
             />
           </div>
