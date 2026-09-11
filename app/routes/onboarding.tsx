@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Download, Monitor, Smartphone, ArrowRight, Camera, ArrowLeft } from "lucide-react";
+import { 
+  Download, 
+  Monitor, 
+  Smartphone, 
+  ArrowRight, 
+  Camera, 
+  ArrowLeft, 
+  Apple, 
+  Globe, 
+  ChevronDown, 
+  ChevronUp 
+} from "lucide-react";
 
-type SupportedOS = "windows" | "linux" | null;
+type SupportedOS = "windows" | "linux" | "mac" | "android" | "ios" | "unknown";
 
 interface ProfileData {
   name: string;
@@ -12,11 +23,77 @@ interface ProfileData {
   avatar: string | null;
 }
 
+interface DownloadOption {
+  label: string;
+  format: string;
+  arch?: string;
+  status: "available" | "coming_soon";
+  note?: string;
+}
+
+interface PlatformDownloads {
+  title: string;
+  icon: React.ElementType;
+  options: DownloadOption[];
+}
+
+const DOWNLOAD_DATA: Record<SupportedOS, PlatformDownloads> = {
+  windows: {
+    title: "Windows",
+    icon: Monitor,
+    options: [
+      { label: "EXE Інсталятор", format: ".exe", arch: "x64 / ARM64", status: "available" },
+      { label: "Portable версія", format: ".zip / .exe", arch: "x64 / ARM64", status: "available" },
+      { label: "MSI Корпоративний", format: ".msi", arch: "x64 / ARM64", status: "available", note: "Для груп. політик" },
+      { label: "Microsoft Store", format: "AppX", status: "coming_soon" },
+    ],
+  },
+  linux: {
+    title: "Linux",
+    icon: Monitor,
+    options: [
+      { label: "AppImage", format: ".AppImage", arch: "x64 / ARM64", status: "available" },
+      { label: "Portable", format: ".tar.gz", arch: "x64 / ARM64", status: "available" },
+      { label: "DEB пакет", format: ".deb", arch: "Ubuntu / Debian", status: "coming_soon" },
+      { label: "RPM пакет", format: ".rpm", arch: "Fedora / RHEL", status: "coming_soon" },
+      { label: "Flatpak", format: "Flathub", status: "coming_soon" },
+    ],
+  },
+  mac: {
+    title: "macOS",
+    icon: Apple,
+    options: [
+      { label: "DMG Інсталятор", format: ".dmg", arch: "Universal (Intel / Apple Silicon)", status: "coming_soon", note: "Тестується у CI" },
+    ],
+  },
+  android: {
+    title: "Android",
+    icon: Smartphone,
+    options: [
+      { label: "Direct APK", format: ".apk", arch: "ARM64 / v7a", status: "coming_soon" },
+      { label: "Google Play Store", format: "Store", status: "coming_soon" },
+    ],
+  },
+  ios: {
+    title: "iOS",
+    icon: Smartphone,
+    options: [
+      { label: "Apple App Store", format: "App Store", status: "coming_soon" },
+    ],
+  },
+  unknown: {
+    title: "Веб-версія",
+    icon: Globe,
+    options: [],
+  },
+};
+
 const OnboardingPage: React.FC = () => {
   const navigate = useNavigate();
   
   const [step, setStep] = useState<number>(1);
-  const [detectedOS, setDetectedOS] = useState<SupportedOS>(null);
+  const [detectedOS, setDetectedOS] = useState<SupportedOS>("unknown");
+  const [showAllPlatforms, setShowAllPlatforms] = useState<boolean>(false);
 
   const [profile, setProfile] = useState<ProfileData>({
     name: "",
@@ -29,12 +106,18 @@ const OnboardingPage: React.FC = () => {
   useEffect(() => {
     const userAgent = window.navigator.userAgent.toLowerCase();
 
-    if (userAgent.includes("win")) {
+    if (/iphone|ipad|ipod/.test(userAgent)) {
+      setDetectedOS("ios");
+    } else if (userAgent.includes("android")) {
+      setDetectedOS("android");
+    } else if (userAgent.includes("mac")) {
+      setDetectedOS("mac");
+    } else if (userAgent.includes("win")) {
       setDetectedOS("windows");
-    } else if (userAgent.includes("linux") && !userAgent.includes("android")) {
+    } else if (userAgent.includes("linux")) {
       setDetectedOS("linux");
     } else {
-      setDetectedOS(null);
+      setDetectedOS("unknown");
     }
   }, []);
 
@@ -52,18 +135,20 @@ const OnboardingPage: React.FC = () => {
     }
   };
 
-  const handleDownload = (osName: string) => {
-    alert(`Завантаження застосунку для ${osName} незабаром буде доступне!`);
+  const handleDownload = (platform: string, format: string) => {
+    alert(`Завантаження (${platform} - ${format}) незабаром буде доступне!`);
   };
 
   const handleContinue = () => {
-    // Збереження даних профілю акаунту перед переходом
+    //  тут буде запит на бекенд з відправлянням даних про профіль
     navigate("/");
   };
 
+  const currentPlatformInfo = DOWNLOAD_DATA[detectedOS];
+
   return (
     <div className="min-h-screen bg-app-bg-alt text-brand-950 font-sans selection:bg-brand-800 selection:text-white flex items-center justify-center p-4 md:p-8 bg-cover bg-center bg-no-repeat bg-[url('/bg-mobile.png')] md:bg-[url('/bg.png')]">
-      <div className="max-w-xl w-full bg-white border border-brand-50 rounded-3xl p-8 md:p-12 shadow-xl flex flex-col items-center text-center space-y-6 relative overflow-hidden">
+      <div className="max-w-2xl w-full bg-white border border-brand-50 rounded-3xl p-6 md:p-10 shadow-xl flex flex-col items-center text-center space-y-6 relative overflow-hidden transition-all">
         
         <div className="flex justify-center items-center">
           <div
@@ -73,7 +158,7 @@ const OnboardingPage: React.FC = () => {
           />
         </div>
 
-        <div className="flex items-center justify-center gap-2 w-full max-w-xs my-2">
+        <div className="flex items-center justify-center gap-2 w-full max-w-xs my-1">
           <div
             className={`h-2 flex-1 rounded-full transition-all duration-300 ${
               step >= 1 ? "bg-brand-800" : "bg-brand-50"
@@ -200,74 +285,160 @@ const OnboardingPage: React.FC = () => {
         )}
 
         {step === 2 && (
-          <>
-            <div className="space-y-3">
-              <h1 className="text-3xl md:text-4xl font-black text-brand-950 tracking-tight">
+          <div className="w-full space-y-6">
+            <div className="space-y-2">
+              <h1 className="text-2xl md:text-3xl font-black text-brand-950 tracking-tight">
                 Ласкаво просимо до <span className="text-brand-800">Лелеки</span>
               </h1>
-              <p className="text-brand-700 text-base md:text-lg leading-relaxed max-w-md mx-auto">
-                Твій затишний простір для безпечного та миттєвого спілкування готовий.
+              <p className="text-brand-700 text-sm md:text-base leading-relaxed max-w-md mx-auto">
+                Оберіть зручний варіант для роботи або переходьте одразу у веб-версію.
               </p>
             </div>
 
-            {detectedOS ? (
-              <div className="w-full bg-brand-50/80 border border-brand-50 rounded-2xl p-5 md:p-6 space-y-4 text-center">
-                <div className="flex justify-center items-center gap-2.5 text-brand-950 font-bold text-base md:text-lg">
-                  <Monitor className="w-5 h-5 text-brand-800" />
-                  <span>Застосунок для вашого ПК</span>
+            {/* Визначена ОС користувача */}
+            {detectedOS !== "unknown" && (
+              <div className="w-full bg-brand-50/40 border border-brand-50 rounded-2xl p-4 md:p-5 text-left space-y-3">
+                <div className="flex items-center justify-between border-b border-brand-50/80 pb-3">
+                  <div className="flex items-center gap-2.5">
+                    <currentPlatformInfo.icon className="w-5 h-5 text-brand-800" />
+                    <div>
+                      <span className="text-xs text-brand-700 font-medium block">Ваша система:</span>
+                      <span className="text-base font-bold text-brand-950">{currentPlatformInfo.title}</span>
+                    </div>
+                  </div>
                 </div>
 
-                <p className="text-xs md:text-sm text-brand-700 leading-relaxed">
-                  Ви використовуєте <strong className="text-brand-950 capitalize">{detectedOS}</strong>. Завантажте настільний застосунок для швидшого доступу та зручних сповіщень.
-                </p>
-
-                <div className="flex justify-center pt-1">
-                  <button
-                    type="button"
-                    onClick={() => handleDownload(detectedOS === "windows" ? "Windows" : "Linux")}
-                    className="bg-brand-800 text-white px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-brand-900 shadow-md transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2.5"
-                  >
-                    <Download className="w-4 h-4" />
-                    <span>Завантажити для {detectedOS === "windows" ? "Windows" : "Linux"}</span>
-                  </button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                  {currentPlatformInfo.options.map((option, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      disabled={option.status === "coming_soon"}
+                      onClick={() => handleDownload(currentPlatformInfo.title, option.label)}
+                      className={`p-3 rounded-xl border text-left flex flex-col justify-between transition-all ${
+                        option.status === "available"
+                          ? "bg-white border-brand-800/20 hover:border-brand-800 hover:shadow-md cursor-pointer group"
+                          : "bg-gray-100 border-gray-200 text-gray-500 cursor-not-allowed"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between w-full gap-2">
+                        <span className={`font-bold text-xs md:text-sm ${option.status === "available" ? "text-brand-950 group-hover:text-brand-800" : "text-gray-600"}`}>
+                          {option.label}
+                        </span>
+                        <span className={`text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded ${option.status === "available" ? "bg-brand-50 text-brand-800" : "bg-gray-200 text-gray-600"}`}>
+                          {option.format}
+                        </span>
+                      </div>
+                      
+                      <div className="mt-2 flex items-center justify-between text-[11px]">
+                        {option.status === "available" ? (
+                          <>
+                            <span className="text-brand-700">{option.arch || ""}</span>
+                            <Download className="w-3.5 h-3.5 text-brand-800 group-hover:translate-y-0.5 transition-transform" />
+                          </>
+                        ) : (
+                          <span className="text-gray-500 font-medium">У розробці</span>
+                        )}
+                      </div>
+                      {option.note && (
+                        <span className={`text-[10px] italic mt-0.5 ${option.status === "available" ? "text-brand-700" : "text-gray-400"}`}>
+                          {option.note}
+                        </span>
+                      )}
+                    </button>
+                  ))}
                 </div>
-              </div>
-            ) : (
-              <div className="w-full bg-brand-50/50 border border-brand-50 rounded-2xl p-5 md:p-6 space-y-2 text-center">
-                <div className="flex justify-center items-center gap-2 text-brand-950 font-bold text-sm md:text-base">
-                  <Smartphone className="w-4 h-4 text-brand-800" />
-                  <span>Застосунок у розробці</span>
-                </div>
-                <p className="text-xs md:text-sm text-brand-700 leading-relaxed">
-                  Застосунок для вашої операційної системи зараз перебуває у розробці та з'явиться незабаром.
-                </p>
               </div>
             )}
 
-            <div className="w-full pt-1 flex flex-col md:flex-row gap-3">
+            {/* Спойлер для інших платформ */}
+            <div className="w-full">
+              <button
+                type="button"
+                onClick={() => setShowAllPlatforms((prev) => !prev)}
+                className="w-full py-2.5 px-4 rounded-xl border border-brand-50 text-xs md:text-sm font-semibold text-brand-700 hover:text-brand-950 hover:bg-brand-50/50 transition-all flex items-center justify-between"
+              >
+                <span>{showAllPlatforms ? "Сховати інші платформи" : "Завантажити для інших пристроїв"}</span>
+                {showAllPlatforms ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+
+              {showAllPlatforms && (
+                <div className="mt-4 space-y-4 text-left max-h-[320px] overflow-y-auto pr-1">
+                  {(Object.keys(DOWNLOAD_DATA) as SupportedOS[])
+                    .filter((os) => os !== "unknown" && os !== detectedOS)
+                    .map((osKey) => {
+                      const platform = DOWNLOAD_DATA[osKey];
+                      const Icon = platform.icon;
+                      return (
+                        <div key={osKey} className="border border-brand-50 rounded-2xl p-4 bg-white space-y-2.5">
+                          <div className="flex items-center gap-2 font-bold text-sm text-brand-950 border-b border-brand-50/60 pb-2">
+                            <Icon className="w-4 h-4 text-brand-800" />
+                            <span>{platform.title}</span>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {platform.options.map((option, idx) => (
+                              <button
+                                key={idx}
+                                type="button"
+                                disabled={option.status === "coming_soon"}
+                                onClick={() => handleDownload(platform.title, option.label)}
+                                className={`p-2.5 rounded-xl border text-left flex flex-col justify-between transition-all ${
+                                  option.status === "available"
+                                    ? "bg-white border-brand-800/20 hover:border-brand-800 hover:shadow-md cursor-pointer group"
+                                    : "bg-gray-100 border-gray-200 text-gray-500 cursor-not-allowed"
+                                }`}
+                              >
+                                <div className="flex items-start justify-between w-full gap-2">
+                                  <span className={`font-bold text-xs ${option.status === "available" ? "text-brand-950 group-hover:text-brand-800" : "text-gray-600"}`}>
+                                    {option.label}
+                                  </span>
+                                  <span className={`text-[9px] font-mono font-semibold px-1 py-0.5 rounded ${option.status === "available" ? "bg-brand-50 text-brand-800" : "bg-gray-200 text-gray-600"}`}>
+                                    {option.format}
+                                  </span>
+                                </div>
+                                <div className="mt-1 flex items-center justify-between text-[10px]">
+                                  {option.status === "available" ? (
+                                    <>
+                                      <span className="text-brand-700">{option.arch || ""}</span>
+                                      <Download className="w-3 h-3 text-brand-800" />
+                                    </>
+                                  ) : (
+                                    <span className="text-gray-500 font-medium">У розробці</span>
+                                  )}
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
+            </div>
+
+            {/* Навігація */}
+            <div className="w-full pt-2 flex flex-col md:flex-row gap-3">
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="py-4 px-6 rounded-2xl font-bold text-base border border-brand-50 text-brand-700 hover:bg-brand-50/50 transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2"
+                className="py-3.5 px-6 rounded-2xl font-bold text-sm border border-brand-50 text-brand-700 hover:bg-brand-50/50 transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="w-4 h-4" />
                 <span>Назад</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleContinue}
-                className={`flex-1 py-4 px-8 rounded-2xl font-extrabold text-lg transition-all active:scale-95 cursor-pointer shadow-lg flex items-center justify-center gap-2 ${
-                  detectedOS
-                    ? "border-2 border-brand-800 bg-transparent text-brand-800 hover:bg-brand-50"
-                    : "bg-brand-800 text-white hover:bg-brand-900 shadow-xl"
-                }`}
+                className="flex-1 py-3.5 px-8 rounded-2xl font-extrabold text-base bg-brand-800 text-white hover:bg-brand-900 transition-all active:scale-95 cursor-pointer shadow-lg flex items-center justify-center gap-2"
               >
-                <span>{detectedOS ? "Продовжити у браузері" : "Перейти до чатів"}</span>
-                <ArrowRight className="w-5 h-5" />
+                <Globe className="w-4 h-4" />
+                <span>Продовжити у браузері</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
-          </>
+          </div>
         )}
 
       </div>
