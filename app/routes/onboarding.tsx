@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { ProfileData } from '../types/onboarding';
 import { useDetectedOS } from '../hooks/useDetectedOS';
 import { ProfileStep } from '../components/onboarding/ProfileStep';
 import { DownloadStep } from '../components/onboarding/DownloadStep';
-import FilerobotImageEditor, {
-  TABS,
-  TOOLS,
-} from 'react-filerobot-image-editor';
+
+import { ClientOnly } from '~/components/shared/ClientOnly';
+
+const FilerobotImageEditor = lazy(() => import('react-filerobot-image-editor'))
 
 const OnboardingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -22,6 +22,14 @@ const OnboardingPage: React.FC = () => {
     avatar: null,
   });
   const [editingSrc, setEditingSrc] = useState<string | null>(null);
+
+  const [toolsEnums, setToolsEnums] = useState<{ TABS: any, TOOLS: any } | null>(null);
+
+  useEffect(() => {
+    import('react-filerobot-image-editor').then((mod) => {
+      setToolsEnums({ TABS: mod.TABS, TOOLS: mod.TOOLS })
+    })
+  }, [])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -41,15 +49,6 @@ const OnboardingPage: React.FC = () => {
     e.target.value = '';
   };
 
-  // const handleEditorSave = (editedImg: { imageB64?: string }) => {
-  //   if (editedImg.imageB64) {
-  //     setProfile((prev) => ({ ...prev, avatar: editedImg.imageB64 }));
-  //   }
-
-  //   if (editingSrc) URL.revokeObjectURL(editingSrc);
-
-  //   setEditingSrc(null);
-  // };
   const handleEditorSave = (editedImg: { imageBase64?: string }) => {
     const avatar = editedImg.imageBase64;
 
@@ -83,22 +82,28 @@ const OnboardingPage: React.FC = () => {
 
   return (
     <>
-      {editingSrc && (
+      {editingSrc && toolsEnums && (
         <div className="fixed inset-0 z-1000 flex items-center justify-center bg-black/50 p-4">
           <div className="h-[95vh] max-h-[900px] w-full max-w-6xl overflow-hidden rounded-xl bg-white shadow-2xl">
-            <FilerobotImageEditor
-              source={editingSrc}
-              onSave={handleEditorSave}
-              onClose={handleEditorClose}
-              defaultTabId={TABS.ADJUST}
-              defaultToolId={TOOLS.CROP}
-              savingPixelRatio={1}
-              previewPixelRatio={1}
-              Crop={{ ratio: 1 }}
-              defaultSavedImageName='do not change this settings'
-              defaultSavedImageType='png'
-              defaultSavedImageQuality={1}
-            />
+            <ClientOnly>
+              {() => (
+                <Suspense fallback={null}>
+                  <FilerobotImageEditor
+                    source={editingSrc}
+                    onSave={handleEditorSave}
+                    onClose={handleEditorClose}
+                    defaultTabId={toolsEnums.TABS.ADJUST}
+                    defaultToolId={toolsEnums.TOOLS.CROP}
+                    savingPixelRatio={1}
+                    previewPixelRatio={1}
+                    Crop={{ ratio: 1 }}
+                    defaultSavedImageName='do not change this settings'
+                    defaultSavedImageType='png'
+                    defaultSavedImageQuality={1}
+                  />
+                </Suspense>
+              )}
+            </ClientOnly>
           </div>
         </div>
       )}
