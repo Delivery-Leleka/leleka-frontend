@@ -39,16 +39,57 @@
   --color-danger-hover: #a82b1d;
 }
 
-/* Hide Spin Buttons for Number Inputs */
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/*
+   Custom Scrollbar
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--color-brand-600) var(--color-brand-50);
 }
 
-input[type='number'] {
-  -moz-appearance: textfield;
-  appearance: textfield;
+/* Chrome, Edge, Safari (WebKit) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-brand-600);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-brand-800);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  * {
+    scrollbar-color: var(--color-brand-500) rgba(255, 255, 255, 0.05);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-brand-500);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-brand-100);
+  }
 }
 
 /* Button utilities */
@@ -143,38 +184,6 @@ body {
 }
 
 .animate-slideDown {
-  animation: slideDown 0.36s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.985);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.45s ease-out;
-}
-
-@keyframes slideDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-slideDown {
   animation: slideDown 0.4s ease-out;
 }
 
@@ -195,7 +204,6 @@ body {
 }
 
 @keyframes shake {
-
   0%,
   100% {
     transform: translateX(0);
