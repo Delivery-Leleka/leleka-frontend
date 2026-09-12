@@ -1,5 +1,8 @@
+import { Globe, Laptop, Smartphone } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '~/components/layout/Footer';
+import Header from '~/components/layout/Header';
 
 interface FaqItem {
   q: string;
@@ -49,101 +52,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-app-bg-alt text-brand-950 font-sans selection:bg-brand-800 selection:text-white overflow-x-hidden">
-      <header className="sticky top-0 z-50 bg-app-bg-alt/90 backdrop-blur-md border-b border-brand-50 px-4 md:px-12 py-2.5 md:py-4 flex items-center justify-between transition-all">
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            aria-label="На головну"
-            className="w-[120px] md:w-[160px] h-[32px] md:h-[45px] bg-contain bg-no-repeat bg-left transition-transform hover:scale-105 cursor-pointer border-none bg-transparent"
-            style={{ backgroundImage: 'url("/icons/LOGO.png")' }}
-            onClick={() => navigate('/')}
-          />
-        </div>
-
-        <nav className="hidden md:flex gap-8 font-medium text-brand-700 text-sm tracking-wide">
-          <a href="#about" className="hover:text-brand-950 transition-colors">
-            Про нас
-          </a>
-          <a
-            href="#benefits"
-            className="hover:text-brand-950 transition-colors"
-          >
-            Переваги
-          </a>
-          <a href="#faq" className="hover:text-brand-950 transition-colors">
-            Часті запитання
-          </a>
-          <a
-            href="#contacts"
-            className="hover:text-brand-950 transition-colors"
-          >
-            Контакти
-          </a>
-        </nav>
-
-        <div className="flex items-center gap-2 md:gap-3">
-          {/* Стильний перемикач мови */}
-          <button
-            type="button"
-            onClick={toggleLanguage}
-            className="flex items-center gap-1.5 px-2.5 py-1 md:py-1.5 rounded-lg border border-brand-100 bg-white/80 hover:bg-white text-brand-800 text-xs md:text-sm font-semibold transition-all shadow-xs cursor-pointer active:scale-95"
-            aria-label="Змінити мову"
-          >
-            <svg
-              className="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-700"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.8}
-                d="M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a14.25 14.25 0 00-3.9 9 14.25 14.25 0 003.9 9 14.25 14.25 0 003.9-9A14.25 14.25 0 0012 3z"
-              />
-            </svg>
-            <span className="tracking-wide">{currentLang}</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => navigate('/register')}
-            className="bg-brand-800 text-white px-3.5 md:px-5 py-1.5 md:py-2.5 rounded-lg md:rounded-xl text-xs md:text-sm font-bold hover:bg-brand-900 shadow-sm hover:shadow-md transition-all active:scale-95 cursor-pointer"
-          >
-            Створити акаунт
-          </button>
-
-          <button
-            type="button"
-            aria-label="Переключити меню"
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            className="md:hidden p-1.5 text-brand-800 cursor-pointer rounded-lg hover:bg-brand-50"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
-        </div>
-      </header>
+      <Header />
 
       {isMobileMenuOpen && (
         <nav className="md:hidden bg-app-bg-alt border-b border-brand-50 px-6 py-4 flex flex-col gap-4 text-center font-medium text-brand-700">
@@ -152,6 +61,9 @@ const LandingPage: React.FC = () => {
           </a>
           <a href="#benefits" onClick={() => setIsMobileMenuOpen(false)}>
             Переваги
+          </a>
+          <a href="#apps" onClick={() => setIsMobileMenuOpen(false)}>
+            Застосунки
           </a>
           <a href="#faq" onClick={() => setIsMobileMenuOpen(false)}>
             Часті запитання
@@ -336,6 +248,68 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      <section id="apps" className="px-6 md:px-12 py-12 max-w-7xl mx-auto">
+        <div className="bg-white border border-brand-50 rounded-3xl p-8 md:p-12 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-10">
+          <div className="w-full lg:w-1/2 space-y-6">
+            <h2 className="text-3xl md:text-4xl font-extrabold flex items-center gap-3 text-brand-950">
+              <img
+                src="/icons/lapa1.png"
+                alt=""
+                className="w-8 h-8 object-contain"
+                aria-hidden="true"
+              />{' '}
+              Застосунки
+            </h2>
+
+            <p className="text-2xl font-bold leading-snug text-brand-950">
+              Обирай зручний формат для свого пристрою
+            </p>
+
+            <p className="text-brand-700 text-base md:text-lg leading-relaxed">
+              Створено для зручності людей. Лелека працює на смартфонах,
+              планшетах і комп'ютерах, щоб ви не втрачали зв'язок ні на мить.
+            </p>
+
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => navigate('/apps')}
+                className="bg-brand-800 text-white px-8 py-4 rounded-2xl font-extrabold text-lg hover:bg-brand-900 transition-all shadow-md hover:shadow-xl hover:scale-105 active:scale-95 cursor-pointer inline-flex items-center gap-3"
+              >
+                <span>Усі застосунки</span>
+                <span className="text-xl">➔</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-brand-50/60 border border-brand-50 p-6 rounded-2xl flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-white border border-brand-50 flex items-center justify-center text-brand-800 shadow-xs">
+                  <Smartphone />
+                </div>
+                <h3 className="text-xl font-bold text-brand-950">Смартфони</h3>
+                <p className="text-brand-700 text-xs leading-relaxed">
+                  Версії для iOS та Android. Завжди у твочій кишені.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-brand-50/60 border border-brand-50 p-6 rounded-2xl flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-white border border-brand-50 flex items-center justify-center text-brand-800 shadow-xs">
+                  <Laptop />
+                </div>
+                <h3 className="text-xl font-bold text-brand-950">Комп'ютери</h3>
+                <p className="text-brand-700 text-xs leading-relaxed">
+                  Версії для Windows, macOS та Linux для зручної роботи.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="faq" className="px-6 md:px-12 py-20 max-w-3xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-black text-center mb-12 text-brand-950">
           Часті запитання
@@ -419,34 +393,7 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </section>
-
-      <footer className="border-t border-brand-50 bg-brand-50 px-6 md:px-12 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div
-          className="w-[150px] h-[40px] bg-contain bg-no-repeat bg-center"
-          style={{ backgroundImage: 'url("/icons/LOGO.png")' }}
-          aria-hidden="true"
-        />
-        <nav className="flex gap-6 font-semibold text-brand-700 text-sm">
-          <a href="#about" className="hover:text-brand-950 transition-colors">
-            Про нас
-          </a>
-          <a
-            href="#benefits"
-            className="hover:text-brand-950 transition-colors"
-          >
-            Переваги
-          </a>
-          <a href="#faq" className="hover:text-brand-950 transition-colors">
-            Часті запитання
-          </a>
-          <a
-            href="#contacts"
-            className="hover:text-brand-950 transition-colors"
-          >
-            Контакти
-          </a>
-        </nav>
-      </footer>
+      <Footer />
     </div>
   );
 };
