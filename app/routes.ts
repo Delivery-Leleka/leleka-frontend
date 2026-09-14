@@ -25,4 +25,5 @@ export default [
 
   route('pass-recover', 'routes/pass-recover.tsx'),
   route('*', 'routes/404.tsx'),
+  route('apps', 'routes/apps.tsx'),
 ] satisfies RouteConfig;
