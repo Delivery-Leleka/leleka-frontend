@@ -18,6 +18,31 @@ const AppsPage: React.FC = () => {
     PlatformDownloads,
   ][];
 
+  const platformReqs: Record<string, React.ReactNode> = {
+    // TODO: для цього треба буде білдити на github actions (a.k.a CI)
+    Linux: <p>
+      - glibc 2.35 або новіша (Ubuntu 22.04+, Debian 12+, Fedora 36+, RHEL 9+)
+      <br />
+      - 4 ГБ ОЗУ
+      <br />
+      - 300 МБ сховища
+    </p>,
+    Windows: <p>
+      - Windows 10 або пізніша
+      <br />
+      - 4 ГБ ОЗУ
+      <br />
+      - 300 Мб сховища
+    </p>,
+    "Веб версія": <p>
+      - Chrome/Chromium (включаючи Chromium-based: Brave, Opera, Vivaldi тд.) 111 або новіший
+      <br />
+      - Firefox 114 або новіший
+      <br />
+      - Safari 16.4 або новіший
+    </p>
+  }
+
   return (
     <div className="min-h-screen bg-app-bg-alt text-brand-950 font-sans selection:bg-brand-800 selection:text-white overflow-x-hidden flex flex-col justify-between">
       <Header />
@@ -68,7 +93,7 @@ const AppsPage: React.FC = () => {
                       Системні вимоги:
                     </p>
                     <p className="leading-normal">
-                      бла-бла-бла
+                      {platformReqs[platform.title] ?? <p>Невідома платформа</p>}
                     </p>
                   </div>
 
