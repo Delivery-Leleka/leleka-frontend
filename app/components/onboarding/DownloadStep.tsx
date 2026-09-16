@@ -59,9 +59,9 @@ export const DownloadStep: React.FC<DownloadStepProps> = ({
                   <span className={`font-bold text-xs md:text-sm ${option.status === "available" ? "text-brand-950 group-hover:text-brand-800" : "text-gray-600"}`}>
                     {option.label}
                   </span>
-                  <span className={`text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded ${option.status === "available" ? "bg-brand-50 text-brand-800" : "bg-gray-200 text-gray-600"}`}>
+                  {/* <span className={`text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded ${option.status === "available" ? "bg-brand-50 text-brand-800" : "bg-gray-200 text-gray-600"}`}>
                     {option.format}
-                  </span>
+                  </span> */}
                 </div>
                 
                 <div className="mt-2 flex items-center justify-between text-[11px]">
