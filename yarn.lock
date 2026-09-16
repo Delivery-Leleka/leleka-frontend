@@ -6427,21 +6427,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"konva@npm:^10.5.0":
-  version: 10.5.0
-  resolution: "konva@npm:10.5.0"
-  peerDependencies:
-    canvas: ^3.0.0
-    skia-canvas: ^3.0.0
-  peerDependenciesMeta:
-    canvas:
-      optional: true
-    skia-canvas:
-      optional: true
-  checksum: 10c0/782b50cd6279bf370f05bb683806676a4b24a8e4b08bc6622bcc6243a401ca786cf8cb563e9c67096945aaeac1aca0c0a422ce44b879de383ef0505ac8dc7fe2
-  languageName: node
-  linkType: hard
-
 "kuler@npm:^2.0.0":
   version: 2.0.0
   resolution: "kuler@npm:2.0.0"
