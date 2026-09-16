@@ -58,7 +58,7 @@ const AppsPage: React.FC = () => {
                         {platform.title}
                       </h2>
                       <p className="text-xs text-brand-700 font-medium">
-                        {isWeb ? 'Працює в браузері' : 'Офіційні клієнти'}
+                        {isWeb ? 'Для платформ, там де нема додатку' : ''}
                       </p>
                     </div>
                   </div>
@@ -116,7 +116,7 @@ const AppsPage: React.FC = () => {
                                 }
                                 className="shrink-0 bg-brand-800 hover:bg-brand-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer border-none"
                               >
-                                Скачати
+                                Завантажити
                               </button>
                             ) : (
                               <span className="shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-amber-50 border border-amber-200 text-amber-800">
