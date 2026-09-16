@@ -3,24 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "react-router dev",
     "build": "react-router build",
+    "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "preview": "react-router build && react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc",
-    "lint": "npm run typecheck && eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
-    "prepare": "husky"
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{js,jsx,json,css,md}": [
-      "prettier --write"
-    ]
+    "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.3.1",
@@ -30,46 +16,29 @@
     "@react-router/serve": "^7.9.2",
     "axios": "^1.13.2",
     "isbot": "^5.1.31",
-    "konva": "^10.5.0",
-    "lucide-react": "^1.45.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-filerobot-image-editor": "5.0.0-beta.159",
     "react-icons": "^5.5.0",
-    "react-konva": "^19.2.7",
     "react-router": "^7.9.2",
-    "react-router-dom": "^7.9.5",
-    "styled-components": "^6.5.3"
+    "react-router-dom": "^7.9.5"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
     "@react-router/dev": "^7.9.2",
     "@tailwindcss/vite": "^4.1.13",
     "@types/node": "^22",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "@types/react-router-dom": "^5.3.3",
-    "eslint": "^10.10.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.6",
-    "globals": "^17.12.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^17.5.0",
-    "prettier": "^3.6.2",
+    "prettier": "3.6.2",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.69.0",
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4"
   },
-  "packageManager": "yarn@4.5.0",
   "allowScripts": {
     "@parcel/watcher@2.5.1": true,
     "protobufjs@7.5.4": true,
     "sharp@0.34.5": true,
     "esbuild@0.28.1": true
-  },
-  "resolutions": {
-    "konva": "9.3.18"
   }
 }
