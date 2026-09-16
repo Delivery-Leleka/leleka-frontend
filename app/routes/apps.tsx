@@ -109,15 +109,28 @@ const AppsPage: React.FC = () => {
                             </div>
 
                             {isAvailable ? (
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  alert(`Завантаження: ${option.label}`)
-                                }
-                                className="shrink-0 bg-brand-800 hover:bg-brand-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer border-none"
-                              >
-                                Завантажити
-                              </button>
+                              <div className='flex flex-col gap-2'>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    alert(`Завантаження: ${option.label} x64`)
+                                  }
+                                  className="shrink-0 bg-brand-800 hover:bg-brand-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer border-none"
+                                >
+                                  Завантажити x64
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    alert(
+                                      `Завантаження: ${option.label} ARM 64`
+                                    )
+                                  }
+                                  className="shrink-0 bg-brand-800 hover:bg-brand-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer border-none"
+                                >
+                                  Завантажити ARM 64
+                                </button>
+                              </div>
                             ) : (
                               <span className="shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-amber-50 border border-amber-200 text-amber-800">
                                 Скоро
