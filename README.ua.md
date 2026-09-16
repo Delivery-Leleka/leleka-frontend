@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/58f51948-f934-41c5-a2e4-5d9a2459dac8/deploy-status)](https://app.netlify.com/projects/deliveryleleka/deploys)
+
 # 📚 Документація проєкту
 
 Ласкаво просимо до документації проєкту!
