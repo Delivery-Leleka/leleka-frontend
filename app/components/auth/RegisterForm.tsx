@@ -4,7 +4,6 @@ import { Turnstile } from '@marsidev/react-turnstile';
 import axiosBackend from '~/api/axios';
 import type { Register } from '~/types';
 import {
-  validateEmailDomain,
   validatePasswordDetailed,
   type ValidationError,
 } from '~/constants/auth';
@@ -62,14 +61,14 @@ export function RegisterForm() {
 
   const handleEmailChange = (v: string) => {
     setEmail(v);
-    setIsEmailValid(validateEmailDomain(v));
+    setIsEmailValid(Boolean(v));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submitting) return;
 
-    if (!validateEmailDomain(email)) {
+    if (!email) {
       setPopupMessage({ msg: 'Некоректна або непідтримувана пошта', icon: '/icons/error.png' });
       return;
     }
@@ -93,7 +92,7 @@ export function RegisterForm() {
 
       if (res.data?.success) {
         setPopupMessage({
-          msg: 'Реєстрація успішна! Вітаємо в Поштову Лелеку!',
+          msg: 'Реєстрація успішна! Вітаємо до Лелеки!',
           icon: '/icons/sucess-icons8.png',
         });
         setTimeout(() => navigate('/onboarding'), 1500);

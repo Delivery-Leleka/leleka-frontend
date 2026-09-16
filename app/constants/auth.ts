@@ -1,24 +1,7 @@
-export const ALLOWED_EMAIL_DOMAINS = [
-  'gmail.com',
-  'ukr.net',
-  'i.ua',
-  'meta.ua',
-  'icloud.com',
-  'outlook.com',
-  'hotmail.com',
-  'yahoo.com',
-  'proton.me',
-];
-
 export interface ValidationError {
   msg: string;
   icon: string;
 }
-
-export const validateEmailDomain = (email: string): boolean => {
-  const domain = email.split('@')[1]?.toLowerCase();
-  return Boolean(domain && ALLOWED_EMAIL_DOMAINS.includes(domain));
-};
 
 export const validatePasswordDetailed = (
   v: string,
