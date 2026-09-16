@@ -1,11 +1,6 @@
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 [build]
-command = "npm run build"
+command = "yarn build"
 publish = "build/client"
 
 [dev]
-command = "npm run dev"
+command = "yarn dev"
