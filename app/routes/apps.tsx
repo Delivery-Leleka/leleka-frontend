@@ -57,7 +57,9 @@ const AppsPage: React.FC = () => {
           Завантажити Лелеку
         </h1>
         <p className="text-brand-700 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-          Обирай зручну версію для свого пристрою. Синхронізація та безпека на
+          Обирай зручну версію для свого пристрою.
+          <br />
+          Синхронізація та безпека на
           всіх платформах.
         </p>
       </section>
