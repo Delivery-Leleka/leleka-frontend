@@ -20,21 +20,21 @@ const AppsPage: React.FC = () => {
 
   const platformReqs: Record<string, React.ReactNode> = {
     // TODO: для цього треба буде білдити на github actions (a.k.a CI)
-    Linux: <p>
+    Linux: <p className='leading-normal'>
       - glibc 2.35 або новіша (Ubuntu 22.04+, Debian 12+, Fedora 36+, RHEL 9+)
       <br />
       - 4 ГБ ОЗУ
       <br />
       - 300 МБ сховища
     </p>,
-    Windows: <p>
+    Windows: <p className='leading-normal'>
       - Windows 10 або пізніша
       <br />
       - 4 ГБ ОЗУ
       <br />
       - 300 Мб сховища
     </p>,
-    "Веб версія": <p>
+    "Веб версія": <p className='leading-normal'>
       - Chrome/Chromium (включаючи Chromium-based: Brave, Opera, Vivaldi тд.) 111 або новіший
       <br />
       - Firefox 114 або новіший
@@ -92,9 +92,7 @@ const AppsPage: React.FC = () => {
                     <p className="font-semibold text-brand-900">
                       Системні вимоги:
                     </p>
-                    <p className="leading-normal">
-                      {platformReqs[platform.title] ?? <p>Невідома платформа</p>}
-                    </p>
+                    {platformReqs[platform.title] ?? <p>Невідома платформа</p>}
                   </div>
 
                   {isWeb ? (
@@ -108,7 +106,7 @@ const AppsPage: React.FC = () => {
                         onClick={() => navigate('/login')}
                         className="w-full bg-brand-800 text-white py-3.5 px-6 rounded-2xl font-extrabold text-base hover:bg-brand-900 shadow-md transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-2 border-none"
                       >
-                        <span>Відкрити у браузері</span>
+                        <span>Відкрити веб-версію</span>
                         <span>➔</span>
                       </button>
                     </div>
@@ -131,15 +129,15 @@ const AppsPage: React.FC = () => {
                                 <span className="font-bold text-sm text-brand-950">
                                   {option.label}
                                 </span>
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white border border-brand-100 text-brand-800 shrink-0">
+                                {/* <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white border border-brand-100 text-brand-800 shrink-0">
                                   {option.format}
-                                </span>
+                                </span> */}
                               </div>
-                              {option.arch && (
+                              {/* {option.arch && (
                                 <p className="text-xs text-brand-700 truncate">
                                   {option.arch}
                                 </p>
-                              )}
+                              )} */}
                             </div>
 
                             {isAvailable ? (
@@ -147,7 +145,8 @@ const AppsPage: React.FC = () => {
                                 <button
                                   type="button"
                                   onClick={() =>
-                                    alert(`Завантаження: ${option.label} x64`)
+                                    // alert(`Завантаження: ${option.label} x64`)
+                                    window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank")
                                   }
                                   className="w-full sm:w-auto bg-brand-800 hover:bg-brand-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer border-none text-center"
                                 >
