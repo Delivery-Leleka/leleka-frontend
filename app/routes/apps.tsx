@@ -63,6 +63,15 @@ const AppsPage: React.FC = () => {
                     </div>
                   </div>
 
+                  <div className="bg-brand-50/40 p-3 rounded-2xl border border-brand-50/80 text-xs text-brand-700 space-y-1">
+                    <p className="font-semibold text-brand-900">
+                      Системні вимоги:
+                    </p>
+                    <p className="leading-normal">
+                      бла-бла-бла
+                    </p>
+                  </div>
+
                   {isWeb ? (
                     <div className="space-y-4 pt-2">
                       <p className="text-brand-700 text-sm leading-relaxed">
@@ -86,7 +95,7 @@ const AppsPage: React.FC = () => {
                         return (
                           <div
                             key={idx}
-                            className={`p-3.5 rounded-2xl border transition-all flex items-center justify-between gap-3 ${
+                            className={`p-3.5 rounded-2xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                               isAvailable
                                 ? 'bg-brand-50/50 border-brand-50 hover:border-brand-800/40'
                                 : 'bg-gray-50/80 border-gray-100 opacity-75'
@@ -109,13 +118,13 @@ const AppsPage: React.FC = () => {
                             </div>
 
                             {isAvailable ? (
-                              <div className='flex flex-col gap-2'>
+                              <div className="flex flex-col sm:flex-col gap-2 shrink-0 w-full sm:w-auto pt-2 sm:pt-0">
                                 <button
                                   type="button"
                                   onClick={() =>
                                     alert(`Завантаження: ${option.label} x64`)
                                   }
-                                  className="shrink-0 bg-brand-800 hover:bg-brand-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer border-none"
+                                  className="w-full sm:w-auto bg-brand-800 hover:bg-brand-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer border-none text-center"
                                 >
                                   Завантажити x64
                                 </button>
@@ -126,13 +135,13 @@ const AppsPage: React.FC = () => {
                                       `Завантаження: ${option.label} ARM 64`
                                     )
                                   }
-                                  className="shrink-0 bg-brand-800 hover:bg-brand-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer border-none"
+                                  className="w-full sm:w-auto bg-brand-800 hover:bg-brand-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer border-none text-center"
                                 >
                                   Завантажити ARM 64
                                 </button>
                               </div>
                             ) : (
-                              <span className="shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-amber-50 border border-amber-200 text-amber-800">
+                              <span className="self-start sm:self-center shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-amber-50 border border-amber-200 text-amber-800">
                                 Скоро
                               </span>
                             )}
