@@ -4,3 +4,6 @@ publish = "build/client"
 
 [dev]
 command = "yarn dev"
+
+[functions]
+included_files = ["node_modules/react-router/dist/**"]
