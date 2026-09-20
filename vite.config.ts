@@ -12,7 +12,7 @@ export default defineConfig({
     tailwindcss(),
     reactRouter(),
     tsconfigPaths(),
-    netlify(),
     netlifyReactRouter(),
+    netlify()
   ],
 });
