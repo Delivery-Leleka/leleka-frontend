@@ -6,6 +6,12 @@ import {
   SettingsIcon,
   Edit3,
   X,
+  Phone,
+  PlusCircle,
+  Archive,
+  Settings,
+  Sun,
+  LogOut,
 } from 'lucide-react';
 import { MY_PROFILE } from '~/components/chat/mockData';
 
@@ -61,67 +67,14 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
           </button>
         </div>
 
-        <div className="flex flex-col items-center gap-4 md:gap-[55px] w-full px-4">
-          <button
-            onClick={() => {
-              onSelectHome();
-              onClose?.();
-            }}
-            className="w-full md:w-10 h-12 md:h-10 text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer"
-            title="Чати"
-          >
-            <ChatIcon className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
-            <span className="font-medium text-base md:hidden">Чати</span>
-          </button>
-
-          <button
-            onClick={() => {
-              onNavigate('/contacts');
-              onClose?.();
-            }}
-            className="w-full md:w-10 h-12 md:h-10 text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer"
-            title="Контакти"
-          >
-            <User className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
-            <span className="font-medium text-base md:hidden">Контакти</span>
-          </button>
-
-          <button
-            onClick={() => {
-              onNavigate('/privateFolder');
-              onClose?.();
-            }}
-            className="w-full md:w-10 h-12 md:h-10 text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer"
-            title="Приватна папка"
-          >
-            <Folders className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
-            <span className="font-medium text-base md:hidden">
-              Приватна папка
-            </span>
-          </button>
-        </div>
-
-        <div className="flex flex-col items-center gap-4 md:gap-[35px] relative w-full px-4 md:px-0">
-          <button
-            onClick={() => {
-              onNavigate('/settings');
-              onClose?.();
-            }}
-            className="w-full md:w-10 h-12 md:h-10 text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer"
-            title="Налаштування"
-          >
-            <SettingsIcon className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
-            <span className="font-medium text-base md:hidden">
-              Налаштування
-            </span>
-          </button>
-
+        <div className="flex flex-col items-center my-3 gap-4 md:gap-[35px] relative w-full px-4 md:px-0">
           <button
             onClick={() => setMyProfilePop(!myProfilePop)}
-            className="w-12 h-12 rounded-full bg-white text-brand-800 font-bold flex items-center justify-center shadow-sm hover:scale-105 transition border border-brand-50 cursor-pointer shrink-0"
+            className="burger-menu-item"
             title="Мій профіль"
           >
-            {MY_PROFILE.avatar}
+            <div className='w-12 h-12 rounded-full bg-white text-brand-800 font-bold flex items-center justify-center shadow-sm hover:scale-105 transition border border-brand-50 cursor-pointer shrink-0'>{MY_PROFILE.avatar}</div>
+            <span className='font-bold text-xl md:hidden'>{MY_PROFILE.name}</span>
           </button>
 
           {myProfilePop && (
@@ -162,6 +115,109 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
             </>
           )}
         </div>
+
+        <div className="flex flex-col items-center gap-4 md:gap-[55px] w-full px-4">
+          <button
+            onClick={() => {
+              onNavigate('/profile');
+              onClose?.();
+            }}
+            className="burger-menu-item"
+            title="Профіль"
+          >
+            <User className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
+            <span className="font-medium text-base md:hidden">Профіль</span>
+          </button>
+
+          <button
+            onClick={() => {
+              onNavigate('/contacts');
+              onClose?.();
+            }}
+            className="burger-menu-item"
+            title="Контакти"
+          >
+            <Phone className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
+            <span className="font-medium text-base md:hidden">Контакти</span>
+          </button>
+
+          <button
+            onClick={() => {
+              onNavigate('/createGroup');
+              onClose?.();
+            }}
+            className="burger-menu-item"
+            title="Створити групу"
+          >
+            <PlusCircle className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
+            <span className="font-medium text-base md:hidden">Створити групу</span>
+          </button>
+          
+              <button
+                onClick={() => {
+                  onNavigate('/privateFolder');
+                  onClose?.();
+                }}
+                className="burger-menu-item"
+                title="Приватна папка"
+              >
+                <Folders className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
+                <span className="font-medium text-base md:hidden">
+                  Приватна папка
+                </span>
+              </button>
+          <button
+            onClick={() => {
+              onNavigate('/archive');
+              onClose?.();
+            }}
+            className="burger-menu-item"
+            title="Архів"
+          >
+            <Archive className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
+            <span className="font-medium text-base md:hidden">Архів</span>
+          </button>
+
+          <button
+            onClick={() => {
+              onNavigate('/settings');
+              onClose?.();
+            }}
+            className="burger-menu-item"
+            title="Налаштування"
+          >
+            <Settings className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
+            <span className="font-medium text-base md:hidden">Налаштування</span>
+          </button>
+
+            <button
+            onClick={() => {
+              onNavigate('/theme');
+              onClose?.();
+            }}
+            className="burger-menu-item"
+            title="Світла/Темна тема"
+          >
+            <Sun className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
+            <span className="font-medium text-base md:hidden">Світла/Темна тема</span>
+          </button>
+
+          <button
+            onClick={() => {
+              onNavigate('/logout');
+              onClose?.();
+            }}
+            className="burger-menu-item !text-red-500"
+            title="Вийти з акаунту"
+          >
+            <LogOut className="w-6 h-6 md:w-10 md:h-10 shrink-0" />
+            <span className="font-medium text-base md:hidden">
+              Вийти з акаунту
+            </span>
+          </button>
+        </div>
+
+        
       </aside>
     </>
   );
