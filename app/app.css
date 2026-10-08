@@ -19,6 +19,7 @@
   /* Brand Theme Colors */
   --color-brand-50: #ecf1de;
   --color-brand-100: #e8ede0;
+  --color-brand-200: #d0dcbe;
   --color-brand-500: #8baa70;
   --color-brand-600: #477628;
   --color-brand-700: #5c7843;
@@ -78,6 +79,10 @@ body {
 
 .settings-item {
   @apply border-t border-b border-black w-full pl-10 flex justify-between items-center max-h-[80px] h-full transition-all duration-300;
+}
+
+.burger-menu-item {
+  @apply w-full md:w-10 h-12 md:h-10 text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer;
 }
 
 /* Keyframes & Animation Utilities */
