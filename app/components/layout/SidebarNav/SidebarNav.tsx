@@ -1,4 +1,4 @@
-import React, { type Dispatch, type SetStateAction } from 'react';
+import React, { useRef, type Dispatch, type RefObject, type SetStateAction } from 'react';
 import {
   MessageSquareText as ChatIcon,
   User,
@@ -17,6 +17,7 @@ import { MY_PROFILE } from '~/components/chat/mockData';
 import UserProfileModal from './UserProfileModal';
 import { useNavigate } from 'react-router';
 import { SidebarNavItem } from './SidebarNavItem';
+import useClickOutside from '~/hooks/useClickOutside';
 
 interface SidebarNavProps {
   isOpen?: boolean;
@@ -27,6 +28,7 @@ interface SidebarNavProps {
 }
 
 type SidebarNavButton = {
+  ref?: RefObject<HTMLButtonElement | null>;
   icon: React.ComponentType<{ className: string; }>;
   title: string;
   path: string;
@@ -41,6 +43,14 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
   setMyProfilePop,
 }) => {
   const navigate = useNavigate();
+
+    const modalRef = useRef<HTMLDivElement>(null);
+    const profileRef = useRef<HTMLButtonElement>(null);
+    useClickOutside(
+        modalRef, 
+        () => {setMyProfilePop(false)},
+        [profileRef],
+    );
 
   const navButtons: SidebarNavButton[] = [
   {
@@ -128,6 +138,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
 
         <div className="flex flex-col items-center my-3 gap-4 md:gap-[35px] relative w-full px-4 md:px-0">
           <button
+            ref={profileRef}
             onClick={() => setMyProfilePop(!myProfilePop)}
             className="burger-menu-item"
             title="Мій профіль"
@@ -137,6 +148,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
           </button>
 
           <UserProfileModal 
+          ref={modalRef}
           isProfileModalVisible={myProfilePop} 
           setIsProfileModalVisible={setMyProfilePop}
           profile={MY_PROFILE}

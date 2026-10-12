@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type RefObject } from 'react';
 
 type SidebarNavItemProps = {
   icon: React.ComponentType<{ className: string; }>;
