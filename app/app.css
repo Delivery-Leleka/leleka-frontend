@@ -82,7 +82,7 @@ body {
 }
 
 .burger-menu-item {
-  @apply w-full md:w-10 h-12 md:h-10 text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer;
+  @apply w-full text-brand-800 hover:bg-brand-200/50 md:hover:bg-transparent rounded-xl md:rounded-none transition flex items-center justify-start md:justify-center px-4 md:px-0 gap-4 cursor-pointer;
 }
 
 /* Keyframes & Animation Utilities */

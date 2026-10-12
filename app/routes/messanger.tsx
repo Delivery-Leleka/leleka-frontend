@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { useMessenger } from '~/hooks/useMessenger';
 
-import { SidebarNav } from '~/components/layout/SidebarNav';
+import { SidebarNav } from '~/components/layout/SidebarNav/SidebarNav';
 import { ChatHeader } from '~/components/chat/ChatHeader';
 import { ChatList } from '~/components/chat/ChatList';
 import { MessageBubble } from '~/components/chat/MessageBubble';
@@ -26,7 +26,6 @@ export default function MessangerPage() {
         }}
         myProfilePop={chat.myProfilePop}
         setMyProfilePop={chat.setMyProfilePop}
-        onNavigate={navigate}
       />
 
       <div className="flex-1 flex flex-col h-full overflow-hidden w-full">
