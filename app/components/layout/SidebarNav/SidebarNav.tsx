@@ -114,7 +114,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
         className={`
           fixed md:relative top-0 left-0 h-full w-[280px] md:w-[100px] bg-brand-100 
           flex flex-col justify-between items-center pt-6 md:pt-[34px] pb-8 shrink-0 z-50 
-          transition-transform duration-300 ease-in-out
+          transition-transform duration-300 ease-in-out overflow-auto
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}
       >
@@ -136,7 +136,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
           </button>
         </div>
 
-        <div className="flex flex-col items-center my-3 gap-4 md:gap-[35px] relative w-full px-4 md:px-0">
+        <div className="flex flex-col items-center grow justify-between my-3 md:h-2/3 h-full gap-4 lg:gap-8 relative w-full px-4 md:px-0">
           <button
             ref={profileRef}
             onClick={() => setMyProfilePop(!myProfilePop)}
@@ -155,18 +155,15 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
           onClose={onClose}
            />
 
-          <div className="flex flex-col items-center gap-4 md:gap-[55px] w-full px-4 md:px-0">
             {navButtons.map((button, index) => (
               <SidebarNavItem
                 key={index}
                 icon={button.icon}
                 title={button.title}
                 onClick={() => handleButtonClick(button.path)}
-                className="burger-menu-item"
               />
             ))}
           </div>
-        </div>
       </aside>
     </>
   );
