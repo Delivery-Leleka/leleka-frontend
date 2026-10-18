@@ -1,33 +1,63 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, type InputEvent, type ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout } from './layouts/layout';
 import Waves from '../../public/icons/waves.png';
 import Background from '../../public/bg.png';
 import { CaseSensitive, CircleAlert, MoveHorizontal } from 'lucide-react';
+import ErrorNotification from '~/components/misc/ErrorNotification';
 
 export default function ProfilePage() {
-  const [about, setAbout] = useState('');
-  const [photo, setPhoto] = useState('/icons/add-image.png');
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [nickname, setNickname] = useState('');
-  const [error, setError] = useState('');
-  const [logoutModal, setLogoutModal] = useState(false);
-  const [email, setEmail] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    username: '',
+    email: '',
+    about: '',
+    avatar: '/icons/add-image.png',
+  });
+  const [formErrors, setFormErrors] = useState({
+    username: '',
+    email: '',
+    other: '',
+  });
 
   const fileInput = useRef<HTMLInputElement | null>(null);
+
   const navigate = useNavigate();
+
+  const setInputValue = (name: string, value: string) => {
+    setFormData((data) => ({
+      ...data,
+      [name]: value,
+    }));
+  };
+
+  const setFieldError = (field: keyof typeof formErrors, message: string) => {
+    setFormErrors((errors) => ({
+      ...errors,
+      [field]: message,
+    }));
+  };
+
+  const clearFieldError = (field: keyof typeof formErrors) => {
+    setFieldError(field, '');
+  };
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+    setInputValue(target.name, target.value);
+  };
 
   const handlePhotoPick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const imageUrl = URL.createObjectURL(file);
-    setPhoto(imageUrl);
-  };
-
-  const goTo = (path: string) => {
-    navigate(path);
-    setMenuOpen(false);
+    setFormData((data) => ({
+      ...data,
+      avatar: imageUrl,
+    }));
   };
 
   const allowedDomains = [
@@ -59,12 +89,12 @@ export default function ProfilePage() {
   };
 
   const handleEmailChange = (v: string) => {
-    setEmail(v);
+    setInputValue('email', v);
 
     if (!validateEmail(v)) {
-      setError('Некоректна або непідтримувана пошта');
+      setFieldError('email', 'Некоректна або непідтримувана пошта');
     } else {
-      setError('');
+      clearFieldError('email');
     }
   };
 
@@ -88,67 +118,65 @@ export default function ProfilePage() {
   };
 
   const handleNickname = async (v: string) => {
-    setNickname(v);
+    setInputValue('username', v);
 
     const local = validateNickname(v);
     if (local) {
-      setError(local);
+      setFieldError('username', local);
       return;
     }
 
     const taken = await checkTaken(v);
 
     if (taken) {
-      setError('Цей нік вже використовується');
+      setFieldError('username', 'Цей нік вже використовується');
     } else {
-      setError('');
+      clearFieldError('username');
     }
   };
 
   const getErrorIcon = (msg: string) => {
     switch (msg) {
       case 'Можна використовувати лише латинські літери, цифри та _':
-        return <CaseSensitive className='sm:w-6 sm:h-6'/>
+        return <CaseSensitive className="sm:w-6 sm:h-6" />;
 
       case 'Нікнейм занадто короткий':
-        return <MoveHorizontal className='sm:w-6 sm:h-6'/>;
+        return <MoveHorizontal className="sm:w-6 sm:h-6" />;
 
       default:
-        return <CircleAlert className='sm:w-6 sm:h-6'/>;
+        return <CircleAlert className="sm:w-6 sm:h-6" />;
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const nickError = validateNickname(nickname);
+
+    const nickError = validateNickname(formData.username);
     if (nickError) {
-      setError(nickError);
+      setFieldError('username', nickError);
       return;
     }
 
-    const taken = await checkTaken(nickname);
+    const taken = await checkTaken(formData.username);
     if (taken) {
-      setError('Цей нік вже використовується');
+      setFieldError('username', 'Цей нік вже використовується');
       return;
     }
 
-    if (!validateEmail(email)) {
-      setError('Некоректна або непідтримувана пошта');
+    const isEmailValid = validateEmail(formData.email);
+    if (!isEmailValid) {
+      setFieldError('email', 'Некоректна або непідтримувана пошта');
       return;
     }
 
-    setError('');
+    setFormErrors({ username: '', email: '', other: '' });
 
     try {
-      console.log('SAVE PROFILE', {
-        nickname,
-        email,
-        about,
-      });
+      console.log('SAVE PROFILE', formData);
 
       // МИРОСЛАВ запит на бек :)
     } catch (err) {
-      setError('Помилка збереження');
+      setFieldError('other', 'Виникла помилка під час збереження');
     }
   };
 
@@ -160,17 +188,20 @@ export default function ProfilePage() {
     backgroundImage: `url(${Background})`,
   };
 
-  return <Layout
-          title="Профіль"
-          onNavigateContacts={() => navigate('/contacts')}
-          style={bgStyle}
-        >
-          {error && (
-        <div className="fixed top-24 left-1/2 -translate-x-1/2 bg-[#C23424] text-white px-6 py-3 rounded-lg shadow-md flex items-center
-         justify-between w-[90%] sm:w-2/5 z-50 animate-slideDown">
-          <span className="font-medium">{error}</span>
-          {getErrorIcon(error)}
-        </div>
+  const visibleError =
+    formErrors.username || formErrors.email || formErrors.other;
+
+  return (
+    <Layout
+      title="Профіль"
+      onNavigateContacts={() => navigate('/contacts')}
+      style={bgStyle}
+    >
+      {visibleError && (
+        <ErrorNotification>
+          <span className="font-medium">{visibleError}</span>
+          {getErrorIcon(visibleError)}
+        </ErrorNotification>
       )}
 
       <main className="flex justify-center items-start py-12 sm:py-16 px-4 w-full">
@@ -185,19 +216,21 @@ export default function ProfilePage() {
 
           <div className="flex flex-col md:flex-row gap-6 md:gap-10 relative z-10">
             <div className="flex relative sm:-top-20 items-center gap-4 justify-center md:justify-start">
-              <div className='flex gap-4 justify-between items-center w-full'>
+              <div className="flex gap-4 justify-between items-center w-full">
                 <div
                   className="w-32 h-32 sm:w-60 sm:h-60 rounded-full bg-[#E5E5E5] flex items-center justify-center cursor-pointer relative group overflow-hidden"
                   onClick={() => fileInput.current?.click()}
                 >
                   <img
-                    src={photo}
+                    src={formData.avatar}
                     className="w-full h-full object-cover rounded-full transition-all duration-200 sm:group-hover:brightness-60"
                     alt="avatar"
                   />
                   <div className="absolute inset-0 bg-transparent text-black text-sm sm:text-base font-semibold hidden md:group-hover:block transition-opacity duration-200">
-                    <div className='-bottom-3/5 relative text-center'>
-                      <button className='bg-[#f2efe6] py-0.5 rounded w-1/2'>Змінити</button>
+                    <div className="-bottom-3/5 relative text-center">
+                      <button className="bg-[#f2efe6] py-0.5 rounded w-1/2">
+                        Змінити
+                      </button>
                       <p className="text-xs text-[#F2EFE6] mt-1 font-normal">
                         (Не більше 1 МБ)
                       </p>
@@ -205,11 +238,11 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
-                <div className='md:hidden -bottom-3/5 text-black relative text-center'>
-                  <button className='bg-white shadow-md py-0.5 rounded px-4'>Змінити</button>
-                  <p className="text-xs font-normal">
-                    (Не більше 1 МБ)
-                  </p>
+                <div className="md:hidden -bottom-3/5 text-black relative text-center">
+                  <button className="bg-white shadow-md py-0.5 rounded px-4">
+                    Змінити
+                  </button>
+                  <p className="text-xs font-normal">(Не більше 1 МБ)</p>
                 </div>
               </div>
 
@@ -224,27 +257,31 @@ export default function ProfilePage() {
 
             <div className="flex flex-col flex-1 gap-4 sm:gap-5">
               <div>
-                <label className="font-semibold text-[#16321F]">Імʼя</label>
-                <input className="w-full h-9 border-gray-500 rounded-md px-2 sm:px-3 mt-1 transition-all duration-300
-                 bg-white text-black focus:scale-[1.02]" />
+                <label htmlFor="name" className="font-semibold text-[#16321F]">
+                  Імʼя
+                </label>
+                <input
+                  className="w-full h-9 border-gray-500 rounded-md px-2 sm:px-3 mt-1 transition-all duration-300
+                 bg-white text-black focus:scale-[1.02]"
+                  name="name"
+                  onChange={handleChange}
+                  value={formData.name}
+                />
               </div>
 
               <div className="space-y-2">
-                <label className="font-semibold text-[#16321F]">Ім'я користувача</label>
+                <label className="font-semibold text-[#16321F]">
+                  Ім'я користувача
+                </label>
 
                 <input
-                  value={nickname}
+                  name="username"
+                  value={formData.username}
                   onChange={(e) => handleNickname(e.target.value)}
                   className={`
                      rounded-md w-full h-9 px-3 transition-all duration-300 bg-white focus:scale-[1.02] text-black
                     ${
-                      error &&
-                      [
-                        'Можна використовувати лише латинські літери, цифри та _',
-                        'Цей нік вже використовується',
-                        'Нікнейм занадто короткий',
-                        'Поле не може бути порожнім',
-                      ].includes(error)
+                      formErrors.username
                         ? 'bg-red-200 border-red-500 animate-shake'
                         : 'bg-white border-[--input-border-color] text-primary '
                     }
@@ -253,14 +290,17 @@ export default function ProfilePage() {
               </div>
 
               <div>
-                <label className="font-semibold text-[#16321F]">Пошта</label>
+                <label htmlFor="email" className="font-semibold text-[#16321F]">
+                  Пошта
+                </label>
                 <input
-                  value={email}
+                  name="email"
+                  value={formData.email}
                   onChange={(e) => handleEmailChange(e.target.value)}
                   className={`
                     rounded-md w-full h-9 px-3 transition-all duration-300 bg-white text-black
                     ${
-                      error === 'Некоректна або непідтримувана пошта'
+                      formErrors.email
                         ? 'bg-red-200 border-red-500 animate-shake'
                         : 'border-gray-500 focus:scale-[1.02]'
                     }
@@ -269,15 +309,18 @@ export default function ProfilePage() {
               </div>
 
               <div className="relative flex flex-col h-full">
-                <label className="font-semibold text-[#16321F]">Про себе</label>
+                <label htmlFor="about" className="font-semibold text-[#16321F]">
+                  Про себе
+                </label>
                 <textarea
+                  name="about"
                   maxLength={70}
-                  value={about}
-                  onChange={(e) => setAbout(e.target.value)}
+                  value={formData.about}
+                  onChange={handleChange}
                   className="w-full h-24 focus:scale-[1.02] transition-all border-gray-500 rounded-md px-2 sm:px-3 py-2 mt-1 resize-none bg-white text-black"
                 />
                 <span className="absolute bottom-2 right-3 text-[10px] text-gray-600 pointer-events-none">
-                  {70 - about.length} символів
+                  {70 - formData.about.length} символів
                 </span>
               </div>
               <button
@@ -290,6 +333,6 @@ export default function ProfilePage() {
           </div>
         </form>
       </main>
-        </Layout>
-    
+    </Layout>
+  );
 }
