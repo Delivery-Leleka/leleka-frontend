@@ -238,7 +238,9 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
-                <div className="md:hidden -bottom-3/5 text-black relative text-center">
+                <div 
+                onClick={() => fileInput.current?.click()} 
+                className="md:hidden -bottom-3/5 text-black relative text-center">
                   <button className="bg-white shadow-md py-0.5 rounded px-4">
                     Змінити
                   </button>
