@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense, useEffect } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { ProfileData } from '../types/onboarding';
 import { useDetectedOS } from '../hooks/useDetectedOS';
@@ -7,7 +7,7 @@ import { DownloadStep } from '../components/onboarding/DownloadStep';
 
 import { ClientOnly } from '~/components/shared/ClientOnly';
 
-const FilerobotImageEditor = lazy(() => import('react-filerobot-image-editor'))
+const FilerobotImageEditor = lazy(() => import('react-filerobot-image-editor'));
 
 const OnboardingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -22,14 +22,6 @@ const OnboardingPage: React.FC = () => {
     avatar: null,
   });
   const [editingSrc, setEditingSrc] = useState<string | null>(null);
-
-  const [toolsEnums, setToolsEnums] = useState<{ TABS: any, TOOLS: any, FINETUNE: any, FILTERS: any, ADJUST: any, ANNOTATE: any, RESIZE: any  } | null>(null);
-
-  useEffect(() => {
-    import('react-filerobot-image-editor').then((mod) => {
-      setToolsEnums({ TABS: mod.TABS, TOOLS: mod.TOOLS });
-    })
-  }, [])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -72,18 +64,17 @@ const OnboardingPage: React.FC = () => {
   };
 
   const handleDownload = (platform: string, format: string) => {
-    alert(`Завантаження (${platform} - ${format}) незабаром буде доступне!`);
+    alert(`Завантаження (${platform} ${format}) незабаром буде доступне!`);
   };
 
   const handleContinue = () => {
-    // API запит збереження профілю
     navigate('/');
   };
 
   return (
     <>
-      {editingSrc && toolsEnums && (
-        <div className="fixed inset-0 z-1000 flex items-center justify-center bg-black/50 p-4">
+      {editingSrc && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
           <div className="h-[95vh] max-h-[900px] w-full max-w-6xl overflow-hidden rounded-xl bg-white shadow-2xl">
             <ClientOnly>
               {() => (
@@ -92,14 +83,14 @@ const OnboardingPage: React.FC = () => {
                     source={editingSrc}
                     onSave={handleEditorSave}
                     onClose={handleEditorClose}
-                    defaultTabId={toolsEnums.TABS.ADJUST}
-                    defaultToolId={toolsEnums.TOOLS.CROP}
-                    tabsIds={[toolsEnums.TABS.ADJUST,toolsEnums.TABS.FILTERS, toolsEnums.TABS.FINETUNE, toolsEnums.TABS.ANNOTATE]}
+                    defaultTabId="Adjust"
+                    defaultToolId="Crop"
+                    tabsIds={['Adjust', 'Filters', 'Finetune', 'Annotate']}
                     savingPixelRatio={1}
                     previewPixelRatio={1}
                     Crop={{ ratio: 1 }}
-                    defaultSavedImageName='do not change this settings'
-                    defaultSavedImageType='png'
+                    defaultSavedImageName="avatar"
+                    defaultSavedImageType="png"
                     defaultSavedImageQuality={1}
                   />
                 </Suspense>
