@@ -137,7 +137,7 @@ export function RegisterForm() {
           </h2>
 
           <div className="space-y-1">
-            <label className="font-raleway font-bold text-brand-deep text-lg">Введіть ім'я</label>
+            <label className="font-raleway font-bold text-brand-deep text-lg">Введіть нікнейм</label>
             <input
               type="text"
               value={username}
