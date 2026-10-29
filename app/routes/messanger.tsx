@@ -10,6 +10,7 @@ import { MessageInput } from '~/components/chat/MessageInput';
 import { UserProfileDrawer } from '~/components/chat/UserProfileDrawer';
 import { ChatOptionsMenu } from '~/components/chat/ChatOptionsMenu';
 import { DeleteModal } from '~/components/chat/DeleteModal';
+import { BlockUserModal } from '~/components/chat/BlockUserModal';
 
 export default function MessangerPage() {
   const navigate = useNavigate();
@@ -85,9 +86,15 @@ export default function MessangerPage() {
         </div>
       </div>
 
+      {/* Выпадаюче меню опцій */}
       {chat.selected && (
         <ChatOptionsMenu
           isOpen={chat.dotsOpen}
+          isBlocked={chat.selected.isBlocked}
+          onBlockClick={() => {
+            chat.setDotsOpen(false);
+            chat.setBlockModal(true);
+          }}
           onDeleteClick={() => {
             chat.setDotsOpen(false);
             chat.setDeleteModal(true);
@@ -95,12 +102,20 @@ export default function MessangerPage() {
         />
       )}
 
-      {chat.deleteModal && (
-        <DeleteModal
-          onClose={() => chat.setDeleteModal(false)}
-          onDelete={chat.handleDeleteChat}
-        />
-      )}
+      {/* Модалка підтвердження видалення */}
+      <DeleteModal
+        isOpen={chat.deleteModal}
+        onClose={() => chat.setDeleteModal(false)}
+        onConfirm={chat.handleDeleteChat}
+      />
+
+      {/* Модалка підтвердження блокування */}
+      <BlockUserModal
+        isOpen={chat.blockModal}
+        userName={chat.selected?.name}
+        onClose={() => chat.setBlockModal(false)}
+        onConfirm={chat.handleBlockUser}
+      />
     </div>
   );
 }

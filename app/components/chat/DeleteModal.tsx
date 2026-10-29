@@ -1,35 +1,39 @@
 import React from 'react';
 
 interface DeleteModalProps {
+  isOpen: boolean;
   onClose: () => void;
-  onDelete: () => void;
+  onConfirm: () => void;
 }
 
 export const DeleteModal: React.FC<DeleteModalProps> = ({
+  isOpen,
   onClose,
-  onDelete,
+  onConfirm,
 }) => {
+  if (!isOpen) return null;
+
   return (
-    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center z-[999]">
-      <div className="bg-white w-[340px] rounded-2xl p-6 shadow-2xl flex flex-col items-center text-center">
-        <h3 className="font-bold text-brand-950 text-lg mb-2">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-[999]">
+      <div className="bg-white w-[360px] rounded-2xl p-6 shadow-2xl flex flex-col items-center text-center animate-in fade-in zoom-in-95 duration-150">
+        <h3 className="font-bold text-[#111111] text-base mb-6 px-2 leading-snug">
           Дійсно хочете видалити цей чат?
         </h3>
-        <p className="text-sm text-brand-700 mb-6">
-          Цю дію не можна буде скасувати.
-        </p>
-        <div className="flex gap-4 w-full">
+
+        <div className="flex gap-4 w-full justify-center px-2">
           <button
+            type="button"
             onClick={onClose}
-            className="flex-1 py-2 border border-brand-500 text-brand-700 rounded-lg font-medium hover:bg-brand-50 transition cursor-pointer"
+            className="flex-1 py-2 border border-[#7A9A60] text-[#7A9A60] rounded-lg font-medium hover:bg-[#7A9A60]/10 transition cursor-pointer"
           >
-            Назад
+            Ні
           </button>
           <button
-            onClick={onDelete}
-            className="flex-1 py-2 bg-danger-primary text-white rounded-lg font-medium hover:bg-danger-hover transition cursor-pointer"
+            type="button"
+            onClick={onConfirm}
+            className="flex-1 py-2 border border-[#D96B64] text-[#D96B64] rounded-lg font-medium hover:bg-[#D96B64]/10 transition cursor-pointer"
           >
-            Видалити
+            Так
           </button>
         </div>
       </div>
