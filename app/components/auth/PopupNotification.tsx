@@ -14,15 +14,13 @@ export function PopupNotification({ message, onClose }: PopupNotificationProps) 
   useEffect(() => {
     if (message) {
       setActiveMessage(message);
-      // Невеликий шарнір для спрацювання CSS-анімації
-      const timer = setTimeout(() => setAnimate(true), 20);
-      return () => clearTimeout(timer);
-    } else {
-      setAnimate(false);
-      // Після завершення анімації приховування повністю прибираємо з DOM
-      const timer = setTimeout(() => setActiveMessage(null), 200);
-      return () => clearTimeout(timer);
+      const animationTimer = setTimeout(() => setAnimate(true), 20);
+      return () => clearTimeout(animationTimer);
     }
+
+    setAnimate(false);
+    const cleanupTimer = setTimeout(() => setActiveMessage(null), 200);
+    return () => clearTimeout(cleanupTimer);
   }, [message]);
 
   const handleClose = () => {
