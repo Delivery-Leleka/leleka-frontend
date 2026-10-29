@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router';
 import axiosBackend from '~/api/axios';
 import { setUser } from '~/api/userFuncs';
 import type { ValidationError } from '~/constants/auth';
-import { GreenWaves } from './GreenWaves';
+import { GreenWaves } from '../general/GreenWaves';
 import { PasswordInput } from './PasswordInput';
 import { PopupNotification } from './PopupNotification';
 

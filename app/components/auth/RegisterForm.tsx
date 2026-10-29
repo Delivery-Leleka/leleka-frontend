@@ -7,7 +7,7 @@ import {
   validatePasswordDetailed,
   type ValidationError,
 } from '~/constants/auth';
-import { GreenWaves } from './GreenWaves';
+import { GreenWaves } from '../general/GreenWaves';
 import { PasswordInput } from './PasswordInput';
 import { PopupNotification } from './PopupNotification';
 

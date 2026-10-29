@@ -10,8 +10,9 @@ export const GreenWaves: React.FC<GreenWavesProps> = ({ className = '' }) => {
       viewBox="0 0 900 280"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`absolute bottom-0 left-0 w-full h-[240px] pointer-events-none rounded-b-xl object-cover ${className}`}
-      preserveAspectRatio="none"
+      /* Змінено preserveAspectRatio для збереження пропорцій кола */
+      className={`absolute bottom-0 left-0 w-full h-[220px] pointer-events-none rounded-b-xl ${className}`}
+      preserveAspectRatio="xMidYMax slice"
     >
       <defs>
         <linearGradient id="grad-layer-dark" x1="0%" y1="0%" x2="0%" y2="100%">

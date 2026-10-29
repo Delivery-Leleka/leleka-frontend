@@ -1,6 +1,7 @@
 import React from "react";
 import { Camera, ArrowRight } from "lucide-react";
 import type { ProfileData } from "../../types/onboarding";
+import { GreenWaves } from "../general/GreenWaves";
 
 interface ProfileStepProps {
   profile: ProfileData;
@@ -26,7 +27,7 @@ export const ProfileStep: React.FC<ProfileStepProps> = ({
         </p>
       </div>
 
-      <div className="flex items-center gap-4 pt-2">
+      <div className="relative z-10 flex items-center gap-4 pt-2">
         <label className="relative group cursor-pointer flex-shrink-0">
           <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-brand-50 border-2 border-dashed border-brand-800/30 flex items-center justify-center overflow-hidden transition-all group-hover:border-brand-800">
             {profile.avatar ? (
@@ -67,13 +68,13 @@ export const ProfileStep: React.FC<ProfileStepProps> = ({
             placeholder="Розкажіть дещо про себе..."
             className="w-full px-3 py-2 rounded-xl border border-brand-200 bg-brand-50/30 text-brand-950 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800 focus:border-transparent transition-all resize-none"
           />
-          <span className="absolute bottom-0 right-1 text-[10px] text-brand-700 font-medium">
+          <span className="absolute bottom-0 right-1 text-[10px] text-brand-950 font-bold bg-white/80 px-1.5 py-0.5 rounded-md shadow-xs">
             {(profile.bio || "").length}/70 символів
           </span>
         </div>
       </div>
 
-      <div className="pt-2">
+      <div className="relative z-10 pt-2">
         <button
           type="button"
           onClick={onNext}
@@ -83,6 +84,8 @@ export const ProfileStep: React.FC<ProfileStepProps> = ({
           <ArrowRight className="w-5 h-5" />
         </button>
       </div>
+
+      <GreenWaves />
     </div>
   );
 };
