@@ -204,7 +204,7 @@ export default function ProfilePage() {
         </ErrorNotification>
       )}
 
-      <main className="flex justify-center items-start py-12 sm:py-16 px-4 w-full">
+      <main className="flex flex-1 min-h-0 w-full justify-center items-start overflow-y-auto px-4 py-12 sm:py-16">
         <form
           onSubmit={handleSubmit}
           style={formStyle}
@@ -215,7 +215,7 @@ export default function ProfilePage() {
           </h2>
 
           <div className="flex flex-col md:flex-row gap-6 md:gap-10 relative z-10">
-            <div className="flex relative sm:-top-20 items-center gap-4 justify-center md:justify-start">
+            <div className="flex relative items-center gap-4 justify-center md:justify-start">
               <div className="flex gap-4 justify-between items-center w-full">
                 <div
                   className="w-32 h-32 sm:w-60 sm:h-60 rounded-full bg-[#E5E5E5] flex items-center justify-center cursor-pointer relative group overflow-hidden"
