@@ -16,40 +16,7 @@ import { useNavigate } from 'react-router';
 import { SidebarNavItem } from './SidebarNavItem';
 import useClickOutside from '~/hooks/useClickOutside';
 
-interface SidebarNavProps {
-  isOpen?: boolean;
-  onClose?: () => void;
-  onSelectHome: () => void;
-  myProfilePop: boolean;
-  setMyProfilePop: Dispatch<SetStateAction<boolean>>;
-}
-
-type SidebarNavButton = {
-  ref?: RefObject<HTMLButtonElement | null>;
-  icon: React.ComponentType<{ className: string; }>;
-  title: string;
-  path: string;
-  className?: string;
-};
-
-export const SidebarNav: React.FC<SidebarNavProps> = ({
-  isOpen = false,
-  onClose,
-  onSelectHome,
-  myProfilePop,
-  setMyProfilePop,
-}) => {
-  const navigate = useNavigate();
-
-    const modalRef = useRef<HTMLDivElement>(null);
-    const profileRef = useRef<HTMLButtonElement>(null);
-    useClickOutside(
-        modalRef, 
-        () => {setMyProfilePop(false)},
-        [profileRef],
-    );
-
-  const navButtons: SidebarNavButton[] = [
+const navButtons: SidebarNavButton[] = [
   {
     icon: User,
     title: 'Профіль',
@@ -92,6 +59,38 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
   },
 ];
 
+interface SidebarNavProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+  onSelectHome: () => void;
+  myProfilePop: boolean;
+  setMyProfilePop: Dispatch<SetStateAction<boolean>>;
+}
+
+type SidebarNavButton = {
+  ref?: RefObject<HTMLButtonElement | null>;
+  icon: React.ComponentType<{ className: string; }>;
+  title: string;
+  path: string;
+  className?: string;
+};
+
+export const SidebarNav: React.FC<SidebarNavProps> = ({
+  isOpen = false,
+  onClose,
+  onSelectHome,
+  myProfilePop,
+  setMyProfilePop,
+}) => {
+  const navigate = useNavigate();
+
+    const modalRef = useRef<HTMLDivElement>(null);
+    const profileRef = useRef<HTMLButtonElement>(null);
+    useClickOutside(
+        modalRef, 
+        () => {setMyProfilePop(false)},
+        [profileRef],
+    );
 
   const handleButtonClick = (path: string) => {
     navigate(path);
