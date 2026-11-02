@@ -1,10 +1,7 @@
 import React, { useRef, type Dispatch, type RefObject, type SetStateAction } from 'react';
 import {
-  MessageSquareText as ChatIcon,
   User,
   Folders,
-  SettingsIcon,
-  Edit3,
   X,
   Phone,
   PlusCircle,
