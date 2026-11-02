@@ -157,7 +157,7 @@ export function LoginForm() {
             <div className="flex flex-wrap justify-between items-center gap-4">
               <button
                 type="button"
-                className="flex items-center justify-center border-2 border-brand-deep bg-brand-500 hover:bg-brand-600 text-brand-deep hover:text-white px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all duration-200 active:scale-95 gap-3"
+                className="flex items-center justify-center border-2 border-brand-deep bg-brand-500 hover:bg-brand-600 text-brand-deep hover:text-white px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all duration-200 active:scale-95 gap-3 cursor-pointer"
               >
                 <span>Увійти через Google</span>
                 <img src="/icons/google.png" className="w-5 h-5" alt="Google" />
