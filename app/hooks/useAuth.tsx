@@ -13,7 +13,11 @@ export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false); // щоб зробити юзера авторизованим, треба зробити значення true
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>({
+    id: "1",
+    email: "user@leleka.com",
+    name: "Тестовий Користувач",
+  });
   /*
   {
     id: "1",
