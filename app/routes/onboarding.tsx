@@ -7,7 +7,7 @@ import { DownloadStep } from '../components/onboarding/DownloadStep';
 
 import { ClientOnly } from '~/components/shared/ClientOnly';
 
-const FilerobotImageEditor = lazy(() => import('react-filerobot-image-editor'))
+const FilerobotImageEditor = lazy(() => import('react-filerobot-image-editor'));
 
 const OnboardingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -23,13 +23,16 @@ const OnboardingPage: React.FC = () => {
   });
   const [editingSrc, setEditingSrc] = useState<string | null>(null);
 
-  const [toolsEnums, setToolsEnums] = useState<{ TABS: any, TOOLS: any, FINETUNE: any, FILTERS: any, ADJUST: any, ANNOTATE: any, RESIZE: any  } | null>(null);
+  const [toolsEnums, setToolsEnums] = useState<Pick<
+    typeof import('react-filerobot-image-editor'),
+    'TABS' | 'TOOLS'
+  > | null>(null);
 
   useEffect(() => {
     import('react-filerobot-image-editor').then((mod) => {
       setToolsEnums({ TABS: mod.TABS, TOOLS: mod.TOOLS });
-    })
-  }, [])
+    });
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -94,12 +97,17 @@ const OnboardingPage: React.FC = () => {
                     onClose={handleEditorClose}
                     defaultTabId={toolsEnums.TABS.ADJUST}
                     defaultToolId={toolsEnums.TOOLS.CROP}
-                    tabsIds={[toolsEnums.TABS.ADJUST,toolsEnums.TABS.FILTERS, toolsEnums.TABS.FINETUNE, toolsEnums.TABS.ANNOTATE]}
+                    tabsIds={[
+                      toolsEnums.TABS.ADJUST,
+                      toolsEnums.TABS.FILTERS,
+                      toolsEnums.TABS.FINETUNE,
+                      toolsEnums.TABS.ANNOTATE,
+                    ]}
                     savingPixelRatio={1}
                     previewPixelRatio={1}
                     Crop={{ ratio: 1 }}
-                    defaultSavedImageName='do not change this settings'
-                    defaultSavedImageType='png'
+                    defaultSavedImageName="do not change this settings"
+                    defaultSavedImageType="png"
                     defaultSavedImageQuality={1}
                   />
                 </Suspense>

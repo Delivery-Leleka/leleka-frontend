@@ -1,7 +1,16 @@
-import React, { type CSSProperties, type StyleHTMLAttributes } from 'react';
+import React, {
+  type CSSProperties,
+  type StyleHTMLAttributes,
+  createContext,
+  useContext,
+  useState,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+} from 'react';
 import { useNavigate } from 'react-router';
 import { useLayout } from '~/contexts/layout';
-import { SidebarNav } from '~/components/layout/SidebarNav';
+import { SidebarNav } from '~/components/layout/SidebarNav/SidebarNav';
 import { AppHeader } from '~/components/chat/ChatHeader';
 
 export interface LayoutProps {
@@ -25,7 +34,7 @@ export function Layout({
   onToggleMenu,
   children,
   className,
-  style
+  style,
 }: LayoutProps) {
   const {
     isSidebarOpen,
@@ -40,7 +49,10 @@ export function Layout({
   const navigate = useNavigate();
 
   return (
-    <div style={style} className={`flex h-screen w-full bg-app-bg-alt overflow-hidden relative ${className}`}>
+    <div
+      style={style}
+      className={`flex h-screen w-full bg-app-bg-alt overflow-hidden relative ${className}`}
+    >
       <SidebarNav
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
@@ -51,7 +63,6 @@ export function Layout({
         }}
         myProfilePop={myProfilePop}
         setMyProfilePop={setMyProfilePop}
-        onNavigate={navigate}
       />
 
       <div className="flex-1 flex flex-col h-full overflow-hidden w-full">
