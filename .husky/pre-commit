@@ -1,1 +1,3 @@
+exit 1
+# echo Husky pre-commit is running...
 npm run typecheck && npx lint-staged
