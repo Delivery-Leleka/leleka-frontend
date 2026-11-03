@@ -1,4 +1,11 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+} from 'react';
 
 export interface LayoutContextType {
   isSidebarOpen: boolean;
@@ -8,7 +15,7 @@ export interface LayoutContextType {
   query: string;
   setQuery: (val: string) => void;
   myProfilePop: boolean;
-  setMyProfilePop: (val: boolean) => void;
+  setMyProfilePop: Dispatch<SetStateAction<boolean>>;
 }
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
