@@ -18,7 +18,7 @@ export function PasswordInput({ label, hasError, className = '', ...props }: Pas
           {...props}
           type={showPassword ? 'text' : 'password'}
           className={`w-full h-11 px-4 pr-12 rounded-xl transition duration-200 focus:outline-none border-2 appearance-none ${
-            hasError ? 'bg-white border-red-500' : 'bg-white border-brand-deep text-primary'
+            hasError ? 'bg-white border-red-500 text-black' : 'bg-white border-brand-deep text-primary'
           } ${className}`}
         />
         <button
