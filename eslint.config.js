@@ -1,15 +1,16 @@
 import js from '@eslint/js';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import betterTW from 'eslint-plugin-better-tailwindcss';
 
-export default tseslint.config(
-  { ignores: ['build', 'node_modules', '.react-router'] },
+export default defineConfig([
+  globalIgnores(['build', 'node_modules', '.react-router']),
   {
     extends: [
       js.configs.recommended,
-      ...tseslint.configs.recommended,
+      tseslint.configs.recommended,
       prettierRecommended,
       betterTW.configs.recommended,
     ],
@@ -33,5 +34,5 @@ export default tseslint.config(
       'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
       'better-tailwindcss/enforce-consistent-variant-order': 'warn',
     },
-  }
-);
+  },
+]);
