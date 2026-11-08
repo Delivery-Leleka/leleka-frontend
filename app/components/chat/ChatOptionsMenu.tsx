@@ -7,6 +7,7 @@ import {
   Share2,
   Ban,
   Trash2,
+  EyeClosed,
 } from 'lucide-react';
 
 interface ChatOptionsMenuProps {
@@ -69,7 +70,7 @@ export const ChatOptionsMenu: React.FC<ChatOptionsMenuProps> = ({
           onClick={onSecretChat}
           className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors"
         >
-          <EyeOff className="w-4 h-4 text-gray-600" />
+          <EyeClosed className="w-4 h-4 text-gray-600" />
           <span>Засекретити</span>
         </li>
 
