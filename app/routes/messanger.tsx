@@ -72,6 +72,11 @@ export default function MessangerPage() {
       {chat.selected && (
         <ChatOptionsMenu
           isOpen={chat.dotsOpen}
+          isBlocked={chat.selected.isBlocked}
+          onBlockClick={() => {
+            chat.setDotsOpen(false);
+            chat.setBlockModal(true);
+          }}
           onDeleteClick={() => {
             chat.setDotsOpen(false);
             chat.setDeleteModal(true);
@@ -79,12 +84,18 @@ export default function MessangerPage() {
         />
       )}
 
-      {chat.deleteModal && (
-        <DeleteModal
-          onClose={() => chat.setDeleteModal(false)}
-          onDelete={chat.handleDeleteChat}
-        />
-      )}
+      <DeleteModal
+        isOpen={chat.deleteModal}
+        onClose={() => chat.setDeleteModal(false)}
+        onConfirm={chat.handleDeleteChat}
+      />
+
+      <BlockUserModal
+        isOpen={chat.blockModal}
+        userName={chat.selected?.name}
+        onClose={() => chat.setBlockModal(false)}
+        onConfirm={chat.handleBlockUser}
+      />
     </Layout>
   );
-}
+} 
