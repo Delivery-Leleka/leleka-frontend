@@ -14,9 +14,9 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [user, setUser] = useState<User | null>({
-    id: '1',
-    email: 'user@leleka.com',
-    name: 'Тестовий Користувач',
+    id: "1",
+    email: "user@leleka.com",
+    name: "Тестовий Користувач",
   });
   /*
   {
