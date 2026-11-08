@@ -10,10 +10,9 @@ export function useMessenger() {
   const [query, setQuery] = useState('');
   const [inputText, setInputText] = useState('');
 
-  // Меню та модальні вікна
   const [dotsOpen, setDotsOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [blockModal, setBlockModal] = useState(false); // 👈 Додано стан для модалки блокування
+  const [blockModal, setBlockModal] = useState(false);
   const [myProfilePop, setMyProfilePop] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -44,7 +43,6 @@ export function useMessenger() {
     setInputText('');
   };
 
-  // Видалення чату
   const handleDeleteChat = () => {
     if (!selected) return;
     setItems((prev) => prev.filter((item) => item.id !== selected.id));
@@ -52,10 +50,8 @@ export function useMessenger() {
     setDeleteModal(false);
   };
 
-  // Блокування користувача
   const handleBlockUser = () => {
     if (!selected) return;
-    // Тимчасово оновлюємо статус або робимо потрібну логіку блокування
     setItems((prev) =>
       prev.map((item) =>
         item.id === selected.id ? { ...item, isBlocked: true } : item
