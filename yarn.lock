@@ -4035,6 +4035,7 @@ __metadata:
     prettier: "npm:^3.6.2"
     react: "npm:^19.1.1"
     react-dom: "npm:^19.1.1"
+    react-easy-crop: "npm:^6.2.4"
     react-icons: "npm:^5.5.0"
     react-konva: "npm:^19.2.7"
     react-router: "npm:^7"
@@ -6355,10 +6356,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"konva@npm:9.3.18":
-  version: 9.3.18
-  resolution: "konva@npm:9.3.18"
-  checksum: 10c0/1f320edce346ff9d406fa2486ee9bd1219e43a5d919d2e29afcca281c944ad74d27230a49ad44bfa70aacb4169e02b9a4af39a1b097096d940a23a6ca05cf78c
+"konva@npm:^10.5.0":
+  version: 10.9.1
+  resolution: "konva@npm:10.9.1"
+  peerDependencies:
+    canvas: ^3.0.0
+    skia-canvas: ^3.0.0
+  peerDependenciesMeta:
+    canvas:
+      optional: true
+    skia-canvas:
+      optional: true
+  checksum: 10c0/497e89546a59c92abab6b485f72fa8582dcf72eae3d485ff6e39d9bcce76af47997f9ecf9dee2c38e0b7de9ca61f9969718640b0e1251e28a36cf84819881d50
   languageName: node
   linkType: hard
 
@@ -7140,6 +7149,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"normalize-wheel@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "normalize-wheel@npm:1.0.1"
+  checksum: 10c0/5daf4c97e39f36658a5263a6499bbc148676ae2bd85f12c8d03c46ffe7bc3c68d44564c00413d88d0457ac0d94450559bb1c24c2ce7ae0c107031f82d093ac06
+  languageName: node
+  linkType: hard
+
 "npm-run-path@npm:^5.1.0":
   version: 5.3.0
   resolution: "npm-run-path@npm:5.3.0"
@@ -7728,6 +7744,18 @@ __metadata:
   peerDependencies:
     react: ^19.3.0
   checksum: 10c0/c513044b724dd6bfe9500a9682d60973e7f8a48cffba00b6b16d3e910e27dcc459bf71bf0a5c33d7d62a3843ca30de1bd1e2098058aa4ed71f618a24b6061da5
+  languageName: node
+  linkType: hard
+
+"react-easy-crop@npm:^6.2.4":
+  version: 6.2.4
+  resolution: "react-easy-crop@npm:6.2.4"
+  dependencies:
+    normalize-wheel: "npm:^1.0.1"
+  peerDependencies:
+    react: ">=16.4.0"
+    react-dom: ">=16.4.0"
+  checksum: 10c0/13e600c9285520399a7efbc4de18fad050d2f2b448ca626bce9e3d61580d38b3cef5caa334e26a323fb34396b8a3a5d2545f5325ad92438f3d3a036e361f669c
   languageName: node
   linkType: hard
 
