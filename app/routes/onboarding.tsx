@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { ProfileData } from '../types/onboarding';
 import { useDetectedOS } from '../hooks/useDetectedOS';
 import { ProfileStep } from '../components/onboarding/ProfileStep';
 import { DownloadStep } from '../components/onboarding/DownloadStep';
-import Cropper from 'react-easy-crop';
+import AvatarEditor from '~/components/onboarding/AvatarEditor';
 
 const OnboardingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -18,16 +18,17 @@ const OnboardingPage: React.FC = () => {
     bio: '',
     avatar: null,
   });
-  const [editingSrc, setEditingSrc] = useState<string | null>(null);
 
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+  const [editingSrc, setEditingSrc] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setProfile((prev) => ({ ...prev, [name]: value }));
+    if (editingSrc !== null) {
+      URL.revokeObjectURL(editingSrc);
+    }
   };
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,28 +49,9 @@ const OnboardingPage: React.FC = () => {
     navigate('/');
   };
 
-  const onCropComplete = (croppedArea: any, croppedAreaPixels: any) => {
-    console.log(croppedArea, croppedAreaPixels);
-  };
-
   return (
     <>
-      {editingSrc && (
-        <div className="fixed inset-0 z-1000 flex items-center justify-center bg-black/50 p-4">
-          <div className="relative h-90 w-full max-w-6xl overflow-hidden rounded-xl bg-white shadow-2xl">
-            <Cropper
-              image={editingSrc}
-              crop={crop}
-              zoom={zoom}
-              aspect={1 / 1}
-              onCropChange={setCrop}
-              onCropComplete={onCropComplete}
-              onZoomChange={setZoom}
-              cropShape="round"
-            />
-          </div>
-        </div>
-      )}
+      {editingSrc && <AvatarEditor src={editingSrc} />}
       <div className="flex min-h-screen items-center justify-center bg-app-bg-alt bg-[url('/bg-mobile.png')] bg-cover bg-center bg-no-repeat p-4 font-sans text-brand-950 selection:bg-brand-800 selection:text-white md:bg-[url('/bg.png')] md:p-8">
         <div className="relative flex w-full max-w-2xl flex-col items-center space-y-6 overflow-hidden rounded-3xl border border-brand-50 bg-white p-6 text-center shadow-xl transition-all md:p-10">
           <div className="flex items-center justify-center">
