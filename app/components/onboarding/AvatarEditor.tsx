@@ -15,9 +15,13 @@ function AvatarEditor({ src }: Props) {
   return (
     <div className="fixed inset-0 z-1000 flex items-center justify-center bg-black/50 p-4">
       <div className="flex h-[90vh] max-h-128 w-full max-w-sm flex-col overflow-hidden rounded-xl bg-white shadow-2xl">
-        <div className="flex shrink-0 justify-between p-4">
-          <button>Скасувати</button>
-          <button>Зберегти</button>
+        <div className="ml-5 flex shrink-0 flex-row p-5">
+          <button className="flex cursor-pointer items-center justify-center gap-3 rounded-xl border-2 bg-[#C23424] px-5 py-2.5 font-bold text-white shadow-sm transition-all duration-200 active:scale-95">
+            Скасувати
+          </button>
+          <button className="flex cursor-pointer items-center justify-center gap-3 rounded-xl border-2 border-brand-deep bg-brand-500 px-5 py-2.5 font-bold text-brand-deep shadow-sm transition-all duration-200 hover:bg-brand-600 hover:text-white active:scale-95">
+            Зберегти
+          </button>
         </div>
 
         <div className="relative min-h-0 flex-1">
