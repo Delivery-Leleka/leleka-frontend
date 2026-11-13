@@ -22,11 +22,10 @@ const OnboardingPage: React.FC = () => {
     avatar: null,
   });
   const [editingSrc, setEditingSrc] = useState<string | null>(null);
-
-  const [toolsEnums, setToolsEnums] = useState<{
-    TABS: any;
-    TOOLS: any;
-  } | null>(null);
+  const [toolsEnums, setToolsEnums] = useState<Pick<
+    typeof import('react-filerobot-image-editor'),
+    'TABS' | 'TOOLS'
+  > | null>(null);
 
   useEffect(() => {
     import('react-filerobot-image-editor').then((mod) => {
@@ -94,6 +93,13 @@ const OnboardingPage: React.FC = () => {
                     source={editingSrc}
                     onSave={handleEditorSave}
                     onClose={handleEditorClose}
+                    defaultTabId="Adjust"
+                    defaultToolId="Crop"
+                    tabsIds={['Adjust', 'Filters', 'Finetune', 'Annotate']}
+                    savingPixelRatio={1}
+                    previewPixelRatio={1}
+                    Crop={{ ratio: 1 }}
+                    defaultSavedImageName="avatar"
                     defaultTabId={toolsEnums.TABS.ADJUST}
                     defaultToolId={toolsEnums.TOOLS.CROP}
                     tabsIds={[
