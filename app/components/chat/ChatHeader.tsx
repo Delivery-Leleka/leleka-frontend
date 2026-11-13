@@ -12,6 +12,7 @@ import type { ChatItem } from '~/types';
 interface ChatHeaderProps {
   selected: ChatItem | null;
   query: string;
+  title: string;
   onQueryChange: (val: string) => void;
   onBack: () => void;
   onOpenProfile: () => void;
@@ -19,9 +20,10 @@ interface ChatHeaderProps {
   onToggleMenu: () => void;
 }
 
-export const ChatHeader: React.FC<ChatHeaderProps> = ({
+export const AppHeader: React.FC<ChatHeaderProps> = ({
   selected,
   query,
+  title,
   onQueryChange,
   onBack,
   onOpenProfile,
@@ -91,7 +93,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
               </>
             ) : (
               <h1 className="text-xl md:text-[32px] font-semibold text-black tracking-tight font-title">
-                Чати
+                {title}
               </h1>
             )}
           </div>
