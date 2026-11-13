@@ -40,6 +40,21 @@ const OnboardingPage: React.FC = () => {
     e.target.value = '';
   };
 
+  const handleAvatarSave = (avatar: string) => {
+    setProfile((prev) => ({ ...prev, avatar }));
+    if (editingSrc !== null) {
+      URL.revokeObjectURL(editingSrc);
+    }
+    setEditingSrc(null);
+  };
+
+  const cancelAvatarEditor = () => {
+    if (editingSrc !== null) {
+      URL.revokeObjectURL(editingSrc);
+    }
+    setEditingSrc(null);
+  };
+
   const handleDownload = (platform: string, format: string) => {
     alert(`Завантаження (${platform} - ${format}) незабаром буде доступне!`);
   };
@@ -51,7 +66,13 @@ const OnboardingPage: React.FC = () => {
 
   return (
     <>
-      {editingSrc && <AvatarEditor src={editingSrc} />}
+      {editingSrc && (
+        <AvatarEditor
+          src={editingSrc}
+          onSave={() => console.log('not implemented... yet')}
+          onCancel={cancelAvatarEditor}
+        />
+      )}
       <div className="flex min-h-screen items-center justify-center bg-app-bg-alt bg-[url('/bg-mobile.png')] bg-cover bg-center bg-no-repeat p-4 font-sans text-brand-950 selection:bg-brand-800 selection:text-white md:bg-[url('/bg.png')] md:p-8">
         <div className="relative flex w-full max-w-2xl flex-col items-center space-y-6 overflow-hidden rounded-3xl border border-brand-50 bg-white p-6 text-center shadow-xl transition-all md:p-10">
           <div className="flex items-center justify-center">
