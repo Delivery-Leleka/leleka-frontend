@@ -22,7 +22,7 @@ const OnboardingPage: React.FC = () => {
     avatar: null,
   });
   const [editingSrc, setEditingSrc] = useState<string | null>(null);
-
+  
   const [toolsEnums, setToolsEnums] = useState<Pick<
     typeof import('react-filerobot-image-editor'),
     'TABS' | 'TOOLS'
@@ -75,11 +75,10 @@ const OnboardingPage: React.FC = () => {
   };
 
   const handleDownload = (platform: string, format: string) => {
-    alert(`Завантаження (${platform} - ${format}) незабаром буде доступне!`);
+    alert(`Завантаження (${platform} ${format}) незабаром буде доступне!`);
   };
 
   const handleContinue = () => {
-    // API запит збереження профілю
     navigate('/');
   };
 
@@ -95,6 +94,14 @@ const OnboardingPage: React.FC = () => {
                     source={editingSrc}
                     onSave={handleEditorSave}
                     onClose={handleEditorClose}
+<<<<<<< HEAD
+                    defaultTabId="Adjust"
+                    defaultToolId="Crop"
+                    tabsIds={['Adjust', 'Filters', 'Finetune', 'Annotate']}
+                    savingPixelRatio={1}
+                    previewPixelRatio={1}
+                    Crop={{ ratio: 1 }}
+                    defaultSavedImageName="avatar"
                     defaultTabId={toolsEnums.TABS.ADJUST}
                     defaultToolId={toolsEnums.TOOLS.CROP}
                     tabsIds={[
