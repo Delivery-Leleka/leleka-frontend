@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { MoreVertical } from 'lucide-react';
 import { useMessenger } from '~/hooks/useMessenger';
 
 import { Layout } from '~/routes/layouts/layout';
@@ -19,11 +20,6 @@ export default function MessangerPage() {
     <Layout
       title="Лелека"
       onNavigateContacts={() => navigate('/contacts')}
-      onToggleMenu={() => {
-        if (chat.selected) {
-          chat.setDotsOpen(!chat.dotsOpen);
-        }
-      }}
     >
       <div className="flex-1 flex overflow-hidden relative">
         <div
@@ -66,6 +62,30 @@ export default function MessangerPage() {
                   </p>
                 </div>
               </div>
+
+              <div className="relative">
+                <button
+                  onClick={() => chat.setDotsOpen(!chat.dotsOpen)}
+                  className="p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  aria-label="Опції чату"
+                >
+                  <MoreVertical className="w-5 h-5" />
+                </button>
+
+                <ChatOptionsMenu
+                  isOpen={chat.dotsOpen}
+                  onClose={() => chat.setDotsOpen(false)}
+                  isBlocked={chat.selected.isBlocked}
+                  onBlockClick={() => {
+                    chat.setDotsOpen(false);
+                    chat.setBlockModal(true);
+                  }}
+                  onDeleteClick={() => {
+                    chat.setDotsOpen(false);
+                    chat.setDeleteModal(true);
+                  }}
+                />
+              </div>
             </div>
 
             <div className="flex-1 p-4 md:p-6 overflow-y-auto flex flex-col gap-3 max-w-4xl w-full mx-auto">
@@ -89,21 +109,6 @@ export default function MessangerPage() {
           onClose={() => chat.setProfileOpen(false)}
         />
       </div>
-
-      {chat.selected && (
-        <ChatOptionsMenu
-          isOpen={chat.dotsOpen}
-          isBlocked={chat.selected.isBlocked}
-          onBlockClick={() => {
-            chat.setDotsOpen(false);
-            chat.setBlockModal(true);
-          }}
-          onDeleteClick={() => {
-            chat.setDotsOpen(false);
-            chat.setDeleteModal(true);
-          }}
-        />
-      )}
 
       <DeleteModal
         isOpen={chat.deleteModal}
