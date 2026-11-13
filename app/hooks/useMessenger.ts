@@ -12,6 +12,7 @@ export function useMessenger() {
 
   const [dotsOpen, setDotsOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [blockModal, setBlockModal] = useState(false);
   const [myProfilePop, setMyProfilePop] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -49,6 +50,16 @@ export function useMessenger() {
     setDeleteModal(false);
   };
 
+  const handleBlockUser = () => {
+    if (!selected) return;
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === selected.id ? { ...item, isBlocked: true } : item
+      )
+    );
+    setBlockModal(false);
+  };
+
   useEffect(() => {
     chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, selected]);
@@ -66,6 +77,8 @@ export function useMessenger() {
     setDotsOpen,
     deleteModal,
     setDeleteModal,
+    blockModal,
+    setBlockModal,
     myProfilePop,
     setMyProfilePop,
     profileOpen,
@@ -75,5 +88,6 @@ export function useMessenger() {
     chatBottomRef,
     handleSendMessage,
     handleDeleteChat,
+    handleBlockUser,
   };
 }

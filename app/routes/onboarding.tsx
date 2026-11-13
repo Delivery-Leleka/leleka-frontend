@@ -22,7 +22,6 @@ const OnboardingPage: React.FC = () => {
     avatar: null,
   });
   const [editingSrc, setEditingSrc] = useState<string | null>(null);
-  
   const [toolsEnums, setToolsEnums] = useState<Pick<
     typeof import('react-filerobot-image-editor'),
     'TABS' | 'TOOLS'
@@ -94,7 +93,6 @@ const OnboardingPage: React.FC = () => {
                     source={editingSrc}
                     onSave={handleEditorSave}
                     onClose={handleEditorClose}
-<<<<<<< HEAD
                     defaultTabId="Adjust"
                     defaultToolId="Crop"
                     tabsIds={['Adjust', 'Filters', 'Finetune', 'Annotate']}
@@ -136,14 +134,12 @@ const OnboardingPage: React.FC = () => {
 
           <div className="my-1 flex w-full max-w-xs items-center justify-center gap-2">
             <div
-              className={`h-2 flex-1 rounded-full transition-all duration-300 ${
-                step >= 1 ? 'bg-brand-800' : 'bg-brand-50'
-              }`}
+              className={`h-2 flex-1 rounded-full transition-all duration-300 ${step >= 1 ? 'bg-brand-800' : 'bg-brand-50'
+                }`}
             />
             <div
-              className={`h-2 flex-1 rounded-full transition-all duration-300 ${
-                step >= 2 ? 'bg-brand-800' : 'bg-brand-50'
-              }`}
+              className={`h-2 flex-1 rounded-full transition-all duration-300 ${step >= 2 ? 'bg-brand-800' : 'bg-brand-50'
+                }`}
             />
           </div>
 

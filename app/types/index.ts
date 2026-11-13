@@ -18,10 +18,12 @@ export interface Stage2 {
 export interface ChatItem {
   id: string;
   name: string;
-  sub?: string;
+  username?: string;
+  bio?: string;
   date?: string;
   avatar?: string;
   status?: string;
+  isBlocked?: boolean;
 }
 
 export interface Message {
